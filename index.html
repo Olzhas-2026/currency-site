@@ -24,14 +24,17 @@ const firebaseConfig = {
   appId: "1:1086647236449:web:df6eee1cdec5280ee1b720"
 };
 
+// INIT
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
 const ref = doc(db, "rates", "Vt6Ibuny1gDsyRJfCKLx");
 
-// LIVE DATA
+// 🔥 LIVE UPDATE
 onSnapshot(ref, (snap) => {
+  if (!snap.exists()) return;
+
   const data = snap.data();
 
   document.getElementById("usd").innerText = "USD → " + data.usd + " ₸";
@@ -39,7 +42,7 @@ onSnapshot(ref, (snap) => {
   document.getElementById("rub").innerText = "RUB → " + data.rub + " ₸";
 });
 
-// 🔐 LOGIN FUNCTION (FIREBASE AUTH)
+// 🔐 LOGIN
 window.login = async function () {
   const email = document.getElementById("email").value;
   const pass = document.getElementById("pass").value;
@@ -53,14 +56,14 @@ window.login = async function () {
   }
 };
 
-// AUTO CHECK LOGIN
+// AUTO LOGIN CHECK
 onAuthStateChanged(auth, (user) => {
   if (user) {
     document.getElementById("adminPanel").style.display = "block";
   }
 });
 
-// UPDATE FIREBASE
+// 🔄 UPDATE DATA
 window.updateRates = async function () {
   await updateDoc(ref, {
     usd: Number(document.getElementById("usdInput").value),
