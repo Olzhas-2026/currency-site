@@ -1,36 +1,49 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Валюта бағамдары</title>
+  <title>Валюта LIVE</title>
   <style>
-    body {
-      font-family: Arial;
-      background: #f4f6f9;
-      text-align: center;
-      padding: 50px;
-    }
-    .box {
-      background: white;
-      padding: 20px;
-      margin: 10px auto;
-      width: 300px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      font-size: 20px;
-    }
-    h1 {
-      color: #2c3e50;
-    }
+    body { font-family: Arial; text-align:center; padding:50px; }
+    .box { margin:10px auto; padding:20px; width:250px; background:#f2f2f2; border-radius:10px; }
   </style>
 </head>
 <body>
 
-<h1>💱 Валюта бағамдары</h1>
+<h1>💱 LIVE Валюта</h1>
 
-<div class="box">USD → 520 ₸</div>
-<div class="box">EUR → 490 ₸</div>
-<div class="box">RUB → 5.2 ₸</div>
+<div class="box" id="usd">USD жүктелуде...</div>
+<div class="box" id="eur">EUR жүктелуде...</div>
+<div class="box" id="rub">RUB жүктелуде...</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+// 🔥 МЫНА ЖЕРДІ ӨЗ FIREBASE-ПЕН АУЫСТЫРАМЫЗ
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  projectId: "currency-live",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+async function loadRates() {
+  const docRef = doc(db, "rates", "YOUR_DOC_ID");
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+
+    document.getElementById("usd").innerText = "USD → " + data.usd + " ₸";
+    document.getElementById("eur").innerText = "EUR → " + data.eur + " ₸";
+    document.getElementById("rub").innerText = "RUB → " + data.rub + " ₸";
+  }
+}
+
+loadRates();
+</script>
 
 </body>
 </html>
