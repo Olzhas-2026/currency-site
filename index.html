@@ -1,4 +1,24 @@
-font-size: 20px;
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LIVE Валюта</title>
+
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  padding: 20px;
+}
+
+.box {
+  margin: 10px auto;
+  padding: 20px;
+  background: #f2f2f2;
+  border-radius: 10px;
+  max-width: 300px;
 }
 
 /* Admin */
@@ -28,97 +48,45 @@ button {
 
 /* TV */
 @media (min-width: 1600px) {
-  h1 { font-size: 48px; }
-  .box { font-size: 26px; max-width: 400px; }
+  h1 {
+    font-size: 48px;
+  }
+  .box {
+    font-size: 26px;
+    max-width: 400px;
+  }
 }
 
 /* Phone */
 @media (max-width: 768px) {
-  h1 { font-size: 24px; }
-  .box { font-size: 16px; }
+  h1 {
+    font-size: 24px;
+  }
+  .box {
+    font-size: 16px;
+  }
 }
 </style>
+
 </head>
 
 <body>
 
 <h1>💱 LIVE Валюта</h1>
 
-<div class="box" id="usd">USD жүктелуде...</div>
-<div class="box" id="eur">EUR жүктелуде...</div>
-<div class="box" id="rub">RUB жүктелуде...</div>
+<div class="box">USD → 1000 ₸</div>
+<div class="box">EUR → 1000 ₸</div>
+<div class="box">RUB → 5000 ₸</div>
 
-<!-- 🔐 ADMIN PANEL -->
 <div class="admin">
   <h3>Admin Panel</h3>
 
-  <input type="password" id="pass" placeholder="Password">
+  <input placeholder="USD">
+  <input placeholder="EUR">
+  <input placeholder="RUB">
 
-  <input type="number" id="usdInput" placeholder="USD">
-  <input type="number" id="eurInput" placeholder="EUR">
-  <input type="number" id="rubInput" placeholder="RUB">
-
-  <button onclick="updateRates()">Save</button>
-
-  <p id="status"></p>
+  <button>Save</button>
 </div>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import {
-  getFirestore,
-  doc,
-  onSnapshot,
-  updateDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-// Firebase config
-const firebaseConfig = {
-  apiKey: "AIzaSyCxY06NTpnfifUOzPNUsQWMx2pG_PKSagI",
-  authDomain: "currency-live-d633e.firebaseapp.com",
-  projectId: "currency-live-d633e",
-  storageBucket: "currency-live-d633e.firebasestorage.app",
-  messagingSenderId: "1086647236449",
-  appId: "1:1086647236449:web:df6eee1cdec5280ee1b720"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const ref = doc(db, "rates", "Vt6Ibuny1gDsyRJfCKLx");
-
-// LIVE DATA
-onSnapshot(ref, (snap) => {
-  const data = snap.data();
-
-  document.getElementById("usd").innerText = "USD → " + data.usd + " ₸";
-  document.getElementById("eur").innerText = "EUR → " + data.eur + " ₸";
-  document.getElementById("rub").innerText = "RUB → " + data.rub + " ₸";
-});
-
-// 🔐 ADMIN PASSWORD
-const PASSWORD = "qazpostmof1";
-
-// UPDATE FUNCTION
-window.updateRates = async function () {
-  const pass = document.getElementById("pass").value;
-
-  if (pass !== PASSWORD) {
-    document.getElementById("status").innerText = "❌ Wrong password";
-    return;
-  }
-
-  await updateDoc(ref, {
-    usd: Number(document.getElementById("usdInput").value),
-    eur: Number(document.getElementById("eurInput").value),
-    rub: Number(document.getElementById("rubInput").value)
-  });
-
-  document.getElementById("status").innerText = "✅ Updated!";
-};
-
-</script>
 
 </body>
 </html>
