@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      padding: 30px;
+    }
+
+    input {
+      display: block;
+      margin: 10px auto;
+      padding: 10px;
+      width: 200px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2>💱 Admin Panel</h2>
+
+<input id="usd" placeholder="USD">
+<input id="eur" placeholder="EUR">
+<input id="rub" placeholder="RUB">
+
+<button onclick="save()">Сақтау</button>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "currency-live-d633e"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+async function save() {
+  await setDoc(doc(db, "rates", "Vt6Ibuny1gDsyRJfCKLx"), {
+    usd: document.getElementById("usd").value,
+    eur: document.getElementById("eur").value,
+    rub: document.getElementById("rub").value
+  });
+
+  alert("✅ Сақталды!");
+}
+</script>
+
+</body>
+</html>
