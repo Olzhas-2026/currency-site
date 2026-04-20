@@ -3,40 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kazpost LIVE Valyuta</title>
+<title>LIVE Valyuta</title>
 
 <style>
 body {
   font-family: Arial;
-  background: #f4f6f9;
+  background: linear-gradient(135deg,#f4f6f9,#e9eef5);
   text-align: center;
   padding: 20px;
 }
 
 h1 {
   color: #0057b8;
+  font-size: 28px;
 }
 
-/* Kazpost card */
+/* Card design */
 .card {
   background: white;
   margin: 12px auto;
   padding: 18px;
-  max-width: 320px;
-  border-radius: 10px;
-  border-left: 5px solid #0057b8;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  max-width: 340px;
+  border-radius: 14px;
+  border-left: 6px solid #0057b8;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.02);
 }
 
 .title {
   font-size: 22px;
   font-weight: bold;
   color: #0057b8;
+  margin-bottom: 8px;
 }
 
 .row {
-  margin: 5px 0;
   font-size: 16px;
+  margin: 5px 0;
+}
+
+.buy {
+  color: green;
+  font-weight: bold;
 }
 
 .sell {
@@ -51,40 +63,57 @@ h1 {
   padding:15px;
   background:#111;
   color:white;
-  max-width:320px;
+  max-width:340px;
   margin:auto;
-  border-radius:10px;
+  border-radius:12px;
 }
 
 input, button {
   width:90%;
-  padding:8px;
-  margin:5px;
+  padding:10px;
+  margin:6px;
+  border-radius:8px;
+  border:none;
+}
+
+button {
+  background:#0057b8;
+  color:white;
+  cursor:pointer;
+}
+
+button:hover {
+  background:#004494;
 }
 </style>
 </head>
 
 <body>
 
-<h1>💱 Kazpost LIVE Валюта</h1>
+<h1>🏛 LIVE Валюта</h1>
 
-<!-- VIEW -->
+<!-- USD -->
 <div class="card">
   <div class="title">USD</div>
-  <div class="row">Buy: <span id="usdBuy">...</span> ₸</div>
-  <div class="row sell">Sell: <span id="usdSell">...</span> ₸</div>
+
+  <div class="row buy">Покупка / Сатып алу: <span id="usdBuy">...</span></div>
+  <div class="row sell">Продажа / Сату: <span id="usdSell">...</span></div>
 </div>
 
+<!-- EUR -->
 <div class="card">
   <div class="title">EUR</div>
-  <div class="row">Buy: <span id="eurBuy">...</span> ₸</div>
-  <div class="row sell">Sell: <span id="eurSell">...</span> ₸</div>
+
+  <div class="row buy">Покупка / Сатып алу: <span id="eurBuy">...</span></div>
+  <div class="row sell">Продажа / Сату: <span id="eurSell">...</span></div>
 </div>
 
+<!-- RUB -->
 <div class="card">
   <div class="title">RUB</div>
-  <div class="row">Buy: <span id="rubBuy">...</span> ₸</div>
-  <div class="row sell">Sell: <span id="rubSell">...</span> ₸</div>
+
+  <div class="row buy">Покупка / Сатып алу: <span id="rubBuy">...</span></div>
+  <div class="row sell">Продажа / Сату: <span id="rubSell">...</span></div>
 </div>
 
 <hr>
@@ -121,7 +150,6 @@ import {
   updateDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-/* FIREBASE */
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "currency-live-d633e.firebaseapp.com",
