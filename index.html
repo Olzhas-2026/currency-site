@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LIVE Valyuta</title>
+<title>Kazpost LIVE</title>
 
 <style>
 body {
@@ -13,12 +13,29 @@ body {
   padding: 20px;
 }
 
-h1 {
-  color: #0057b8;
-  font-size: 28px;
+/* HEADER (bank style) */
+.header {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:20px;
 }
 
-/* Card design */
+.logo {
+  width:40px;
+  height:40px;
+  background:#0057b8;
+  border-radius:10px;
+}
+
+h1 {
+  color:#0057b8;
+  font-size:24px;
+  margin:0;
+}
+
+/* cards */
 .card {
   background: white;
   margin: 12px auto;
@@ -27,34 +44,20 @@ h1 {
   border-radius: 14px;
   border-left: 6px solid #0057b8;
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  transition: 0.3s;
-}
-
-.card:hover {
-  transform: scale(1.02);
 }
 
 .title {
   font-size: 22px;
   font-weight: bold;
   color: #0057b8;
-  margin-bottom: 8px;
 }
 
 .row {
-  font-size: 16px;
   margin: 5px 0;
 }
 
-.buy {
-  color: green;
-  font-weight: bold;
-}
-
-.sell {
-  color: red;
-  font-weight: bold;
-}
+.buy { color: green; font-weight:bold; }
+.sell { color: red; font-weight:bold; }
 
 /* admin */
 #admin {
@@ -66,6 +69,7 @@ h1 {
   max-width:340px;
   margin:auto;
   border-radius:12px;
+  transition:0.3s;
 }
 
 input, button {
@@ -85,35 +89,39 @@ button {
 button:hover {
   background:#004494;
 }
+
+/* success animation */
+.success {
+  color: #00ff88;
+  font-weight: bold;
+}
 </style>
 </head>
 
 <body>
 
-<h1>🏛 LIVE Валюта</h1>
+<div class="header">
+  <div class="logo"></div>
+  <h1>Kazpost LIVE Валюта</h1>
+</div>
 
-<!-- USD -->
+<!-- VIEW -->
 <div class="card">
   <div class="title">USD</div>
-
-  <div class="row buy">Покупка / Сатып алу: <span id="usdBuy">...</span></div>
-  <div class="row sell">Продажа / Сату: <span id="usdSell">...</span></div>
+  <div class="buy">Сатып алу: <span id="usdBuy">...</span></div>
+  <div class="sell">Сату: <span id="usdSell">...</span></div>
 </div>
 
-<!-- EUR -->
 <div class="card">
   <div class="title">EUR</div>
-
-  <div class="row buy">Покупка / Сатып алу: <span id="eurBuy">...</span></div>
-  <div class="row sell">Продажа / Сату: <span id="eurSell">...</span></div>
+  <div class="buy">Сатып алу: <span id="eurBuy">...</span></div>
+  <div class="sell">Сату: <span id="eurSell">...</span></div>
 </div>
 
-<!-- RUB -->
 <div class="card">
   <div class="title">RUB</div>
-
-  <div class="row buy">Покупка / Сатып алу: <span id="rubBuy">...</span></div>
-  <div class="row sell">Продажа / Сату: <span id="rubSell">...</span></div>
+  <div class="buy">Сатып алу: <span id="rubBuy">...</span></div>
+  <div class="sell">Сату: <span id="rubSell">...</span></div>
 </div>
 
 <hr>
@@ -137,6 +145,8 @@ button:hover {
   <input id="rubSellInput" placeholder="RUB SELL">
 
   <button onclick="save()">Save</button>
+
+  <p id="status"></p>
 
 </div>
 
@@ -187,7 +197,7 @@ window.login = function () {
   }
 };
 
-/* SAVE */
+/* SAVE + CLEAR INPUTS */
 window.save = async function () {
   await updateDoc(ref, {
     usdBuy: Number(document.getElementById("usdBuyInput").value),
@@ -200,7 +210,15 @@ window.save = async function () {
     rubSell: Number(document.getElementById("rubSellInput").value),
   });
 
-  alert("Saved!");
+  document.getElementById("status").innerHTML = "✅ Saved successfully!";
+
+  // CLEAR INPUTS (сен сұраған)
+  document.getElementById("usdBuyInput").value = "";
+  document.getElementById("usdSellInput").value = "";
+  document.getElementById("eurBuyInput").value = "";
+  document.getElementById("eurSellInput").value = "";
+  document.getElementById("rubBuyInput").value = "";
+  document.getElementById("rubSellInput").value = "";
 };
 
 </script>
