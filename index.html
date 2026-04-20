@@ -21,8 +21,9 @@ body {
   max-width: 300px;
 }
 
-/* Admin */
+/* ADMIN (hidden by default) */
 .admin {
+  display: none;
   margin-top: 30px;
   padding: 20px;
   background: #111;
@@ -45,48 +46,94 @@ button {
   margin-top: 10px;
   cursor: pointer;
 }
-
-/* TV */
-@media (min-width: 1600px) {
-  h1 {
-    font-size: 48px;
-  }
-  .box {
-    font-size: 26px;
-    max-width: 400px;
-  }
-}
-
-/* Phone */
-@media (max-width: 768px) {
-  h1 {
-    font-size: 24px;
-  }
-  .box {
-    font-size: 16px;
-  }
-}
 </style>
-
 </head>
 
 <body>
 
 <h1>💱 LIVE Валюта</h1>
 
-<div class="box">USD → 1000 ₸</div>
-<div class="box">EUR → 1000 ₸</div>
-<div class="box">RUB → 5000 ₸</div>
+<div class="box" id="usd">USD → ...</div>
+<div class="box" id="eur">EUR → ...</div>
+<div class="box" id="rub">RUB → ...</div>
 
-<div class="admin">
+<!-- LOGIN -->
+<div class="admin" id="adminPanel">
+
   <h3>Admin Panel</h3>
 
-  <input placeholder="USD">
-  <input placeholder="EUR">
-  <input placeholder="RUB">
+  <input type="password" id="pass" placeholder="Password">
 
-  <button>Save</button>
+  <input id="usdInput" placeholder="USD">
+  <input id="eurInput" placeholder="EUR">
+  <input id="rubInput" placeholder="RUB">
+
+  <button onclick="checkAdmin()">Login</button>
+  <button onclick="updateRates()">Save</button>
+
+  <p id="status"></p>
 </div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {
+  getFirestore,
+  doc,
+  onSnapshot,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+// Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyCxY06NTpnfifUOzPNUsQWMx2pG_PKSagI",
+  authDomain: "currency-live-d633e.firebaseapp.com",
+  projectId: "currency-live-d633e",
+  storageBucket: "currency-live-d633e.firebasestorage.app",
+  messagingSenderId: "1086647236449",
+  appId: "1:1086647236449:web:df6eee1cdec5280ee1b720"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const ref = doc(db, "rates", "Vt6Ibuny1gDsyRJfCKLx");
+
+// LIVE UPDATE
+onSnapshot(ref, (snap) => {
+  const data = snap.data();
+
+  document.getElementById("usd").innerText = "USD → " + data.usd + " ₸";
+  document.getElementById("eur").innerText = "EUR → " + data.eur + " ₸";
+  document.getElementById("rub").innerText = "RUB → " + data.rub + " ₸";
+});
+
+// PASSWORD
+const PASSWORD = "qazpostmof1";
+
+// SHOW ADMIN
+window.checkAdmin = function () {
+  const pass = document.getElementById("pass").value;
+
+  if (pass === PASSWORD) {
+    document.getElementById("adminPanel").style.display = "block";
+  } else {
+    alert("❌ Wrong password");
+  }
+};
+
+// UPDATE FIREBASE
+window.updateRates = async function () {
+  await updateDoc(ref, {
+    usd: Number(document.getElementById("usdInput").value),
+    eur: Number(document.getElementById("eurInput").value),
+    rub: Number(document.getElementById("rubInput").value)
+  });
+
+  document.getElementById("status").innerText = "✅ Updated!";
+};
+
+</script>
 
 </body>
 </html>
