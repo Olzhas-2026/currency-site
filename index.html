@@ -21,7 +21,7 @@ body {
   max-width: 300px;
 }
 
-/* ADMIN (hidden by default) */
+/* ADMIN hidden */
 .admin {
   display: none;
   margin-top: 30px;
@@ -53,11 +53,11 @@ button {
 
 <h1>💱 LIVE Валюта</h1>
 
-<div class="box" id="usd">USD → ...</div>
-<div class="box" id="eur">EUR → ...</div>
-<div class="box" id="rub">RUB → ...</div>
+<div class="box" id="usd">USD → loading...</div>
+<div class="box" id="eur">EUR → loading...</div>
+<div class="box" id="rub">RUB → loading...</div>
 
-<!-- LOGIN -->
+<!-- ADMIN -->
 <div class="admin" id="adminPanel">
 
   <h3>Admin Panel</h3>
@@ -84,9 +84,9 @@ import {
   updateDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// Firebase
+// Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyCxY06NTpnfifUOzPNUsQWMx2pG_PKSagI",
+  apiKey: "AIzaSyCxY06NTpnfifUOzPNUsQWMx2P_GKSagI",
   authDomain: "currency-live-d633e.firebaseapp.com",
   projectId: "currency-live-d633e",
   storageBucket: "currency-live-d633e.firebasestorage.app",
@@ -99,7 +99,7 @@ const db = getFirestore(app);
 
 const ref = doc(db, "rates", "Vt6Ibuny1gDsyRJfCKLx");
 
-// LIVE UPDATE
+// LIVE DATA
 onSnapshot(ref, (snap) => {
   const data = snap.data();
 
@@ -111,7 +111,7 @@ onSnapshot(ref, (snap) => {
 // PASSWORD
 const PASSWORD = "qazpostmof1";
 
-// SHOW ADMIN
+// LOGIN
 window.checkAdmin = function () {
   const pass = document.getElementById("pass").value;
 
