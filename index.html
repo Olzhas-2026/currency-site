@@ -24,7 +24,7 @@ body {
 /* ADMIN hidden */
 .admin {
   display: none;
-  margin-top: 30px;
+  margin-top: 20px;
   padding: 20px;
   background: #111;
   color: white;
@@ -56,6 +56,9 @@ button {
 <div class="box" id="usd">USD → loading...</div>
 <div class="box" id="eur">EUR → loading...</div>
 <div class="box" id="rub">RUB → loading...</div>
+
+<!-- 🔐 LOGIN BUTTON -->
+<button onclick="showLogin()">🔐 Admin Login</button>
 
 <!-- ADMIN -->
 <div class="admin" id="adminPanel">
@@ -111,12 +114,17 @@ onSnapshot(ref, (snap) => {
 // PASSWORD
 const PASSWORD = "qazpostmof1";
 
-// LOGIN
+// 🔓 SHOW LOGIN PANEL
+window.showLogin = function () {
+  document.getElementById("adminPanel").style.display = "block";
+};
+
+// LOGIN CHECK
 window.checkAdmin = function () {
   const pass = document.getElementById("pass").value;
 
   if (pass === PASSWORD) {
-    document.getElementById("adminPanel").style.display = "block";
+    alert("✅ Access granted");
   } else {
     alert("❌ Wrong password");
   }
