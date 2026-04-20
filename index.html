@@ -3,41 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>LIVE Валюта</title>
 
 <style>
-body {
-  font-family: Arial;
-  text-align: center;
-  padding: 20px;
-}
+body { font-family: Arial; text-align:center; padding:20px; }
 
 .box {
-  margin: 10px auto;
-  padding: 20px;
-  background: #f2f2f2;
-  border-radius: 10px;
-  max-width: 300px;
-  font-size: 20px;
+  margin:10px auto;
+  padding:20px;
+  background:#f2f2f2;
+  border-radius:10px;
+  max-width:300px;
+  font-size:20px;
 }
 
-/* TV */
-@media (min-width: 1600px) {
-  .box {
-    font-size: 26px;
-    max-width: 400px;
-  }
+#adminPanel {
+  display:none;
+  margin-top:20px;
+  padding:20px;
+  background:#111;
+  color:white;
+  border-radius:10px;
+  max-width:300px;
+  margin:auto;
 }
 
-/* Phone */
-@media (max-width: 768px) {
-  .box {
-    font-size: 16px;
-  }
+input, button {
+  width:90%;
+  padding:8px;
+  margin:5px;
 }
 </style>
-
 </head>
 
 <body>
@@ -48,14 +44,41 @@ body {
 <div class="box" id="eur">EUR...</div>
 <div class="box" id="rub">RUB...</div>
 
+<hr>
+
+<h3>🔐 Admin Login</h3>
+<input type="password" id="pass" placeholder="Password">
+<button onclick="login()">Login</button>
+
+<div id="adminPanel">
+
+  <h3>Admin Panel</h3>
+
+  <input id="usdInput" placeholder="USD">
+  <input id="eurInput" placeholder="EUR">
+  <input id="rubInput" placeholder="RUB">
+
+  <button onclick="save()">Save</button>
+
+</div>
+
 <script type="module">
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import {
+  getFirestore,
+  doc,
+  onSnapshot,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "currency-live-d633e.firebaseapp.com",
-  projectId: "currency-live-d633e"
+  projectId: "currency-live-d633e",
+  storageBucket: "currency-live-d633e.firebasestorage.app",
+  messagingSenderId: "1086647236449",
+  appId: "1:1086647236449:web:df6eee1cdec5280ee1b720"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -63,15 +86,37 @@ const db = getFirestore(app);
 
 const ref = doc(db, "rates", "Vt6Ibuny1gDsyRJfCKLx");
 
+// LIVE UPDATE
 onSnapshot(ref, (snap) => {
-  if (snap.exists()) {
-    const data = snap.data();
+  const data = snap.data();
 
-    document.getElementById("usd").innerText = "USD → " + data.usd + " ₸";
-    document.getElementById("eur").innerText = "EUR → " + data.eur + " ₸";
-    document.getElementById("rub").innerText = "RUB → " + data.rub + " ₸";
-  }
+  document.getElementById("usd").innerText = "USD → " + data.usd + " ₸";
+  document.getElementById("eur").innerText = "EUR → " + data.eur + " ₸";
+  document.getElementById("rub").innerText = "RUB → " + data.rub + " ₸";
 });
+
+// 🔐 PASSWORD LOGIN
+window.login = function () {
+  const pass = document.getElementById("pass").value;
+
+  if (pass === "1234") {
+    document.getElementById("adminPanel").style.display = "block";
+  } else {
+    alert("❌ Wrong password");
+  }
+};
+
+// 💾 SAVE TO FIREBASE
+window.save = async function () {
+  await updateDoc(ref, {
+    usd: Number(document.getElementById("usdInput").value),
+    eur: Number(document.getElementById("eurInput").value),
+    rub: Number(document.getElementById("rubInput").value)
+  });
+
+  alert("✅ Saved!");
+};
+
 </script>
 
 </body>
