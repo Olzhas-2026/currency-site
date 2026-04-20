@@ -3,29 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LIVE Валюта</title>
+<title>Kazpost LIVE Valyuta</title>
 
 <style>
-body { font-family: Arial; text-align:center; padding:20px; }
-
-.box {
-  margin:10px auto;
-  padding:20px;
-  background:#f2f2f2;
-  border-radius:10px;
-  max-width:300px;
-  font-size:20px;
+body {
+  font-family: Arial;
+  background: #f4f6f9;
+  text-align: center;
+  padding: 20px;
 }
 
-#adminPanel {
+h1 {
+  color: #0057b8;
+}
+
+/* Kazpost card */
+.card {
+  background: white;
+  margin: 12px auto;
+  padding: 18px;
+  max-width: 320px;
+  border-radius: 10px;
+  border-left: 5px solid #0057b8;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #0057b8;
+}
+
+.row {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.sell {
+  color: red;
+  font-weight: bold;
+}
+
+/* admin */
+#admin {
   display:none;
   margin-top:20px;
-  padding:20px;
+  padding:15px;
   background:#111;
   color:white;
-  border-radius:10px;
-  max-width:300px;
+  max-width:320px;
   margin:auto;
+  border-radius:10px;
 }
 
 input, button {
@@ -38,25 +66,46 @@ input, button {
 
 <body>
 
-<h1>💱 LIVE Валюта</h1>
+<h1>💱 Kazpost LIVE Валюта</h1>
 
-<div class="box" id="usd">USD...</div>
-<div class="box" id="eur">EUR...</div>
-<div class="box" id="rub">RUB...</div>
+<!-- VIEW -->
+<div class="card">
+  <div class="title">USD</div>
+  <div class="row">Buy: <span id="usdBuy">...</span> ₸</div>
+  <div class="row sell">Sell: <span id="usdSell">...</span> ₸</div>
+</div>
+
+<div class="card">
+  <div class="title">EUR</div>
+  <div class="row">Buy: <span id="eurBuy">...</span> ₸</div>
+  <div class="row sell">Sell: <span id="eurSell">...</span> ₸</div>
+</div>
+
+<div class="card">
+  <div class="title">RUB</div>
+  <div class="row">Buy: <span id="rubBuy">...</span> ₸</div>
+  <div class="row sell">Sell: <span id="rubSell">...</span> ₸</div>
+</div>
 
 <hr>
 
-<h3>🔐 Admin Login</h3>
-<input type="password" id="pass" placeholder="Password">
+<!-- LOGIN -->
+<input type="password" id="pass" placeholder="Admin password">
 <button onclick="login()">Login</button>
 
-<div id="adminPanel">
+<!-- ADMIN -->
+<div id="admin">
 
   <h3>Admin Panel</h3>
 
-  <input id="usdInput" placeholder="USD">
-  <input id="eurInput" placeholder="EUR">
-  <input id="rubInput" placeholder="RUB">
+  <input id="usdBuyInput" placeholder="USD BUY">
+  <input id="usdSellInput" placeholder="USD SELL">
+
+  <input id="eurBuyInput" placeholder="EUR BUY">
+  <input id="eurSellInput" placeholder="EUR SELL">
+
+  <input id="rubBuyInput" placeholder="RUB BUY">
+  <input id="rubSellInput" placeholder="RUB SELL">
 
   <button onclick="save()">Save</button>
 
@@ -72,6 +121,7 @@ import {
   updateDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+/* FIREBASE */
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "currency-live-d633e.firebaseapp.com",
@@ -86,35 +136,43 @@ const db = getFirestore(app);
 
 const ref = doc(db, "rates", "Vt6Ibuny1gDsyRJfCKLx");
 
-// LIVE UPDATE
+/* LIVE */
 onSnapshot(ref, (snap) => {
-  const data = snap.data();
+  const d = snap.data();
 
-  document.getElementById("usd").innerText = "USD → " + data.usd + " ₸";
-  document.getElementById("eur").innerText = "EUR → " + data.eur + " ₸";
-  document.getElementById("rub").innerText = "RUB → " + data.rub + " ₸";
+  document.getElementById("usdBuy").innerText = d.usdBuy;
+  document.getElementById("usdSell").innerText = d.usdSell;
+
+  document.getElementById("eurBuy").innerText = d.eurBuy;
+  document.getElementById("eurSell").innerText = d.eurSell;
+
+  document.getElementById("rubBuy").innerText = d.rubBuy;
+  document.getElementById("rubSell").innerText = d.rubSell;
 });
 
-// 🔐 PASSWORD LOGIN
+/* LOGIN */
 window.login = function () {
-  const pass = document.getElementById("pass").value;
-
-  if (pass === "1234") {
-    document.getElementById("adminPanel").style.display = "block";
+  if (document.getElementById("pass").value === "1234") {
+    document.getElementById("admin").style.display = "block";
   } else {
-    alert("❌ Wrong password");
+    alert("Wrong password");
   }
 };
 
-// 💾 SAVE TO FIREBASE
+/* SAVE */
 window.save = async function () {
   await updateDoc(ref, {
-    usd: Number(document.getElementById("usdInput").value),
-    eur: Number(document.getElementById("eurInput").value),
-    rub: Number(document.getElementById("rubInput").value)
+    usdBuy: Number(document.getElementById("usdBuyInput").value),
+    usdSell: Number(document.getElementById("usdSellInput").value),
+
+    eurBuy: Number(document.getElementById("eurBuyInput").value),
+    eurSell: Number(document.getElementById("eurSellInput").value),
+
+    rubBuy: Number(document.getElementById("rubBuyInput").value),
+    rubSell: Number(document.getElementById("rubSellInput").value),
   });
 
-  alert("✅ Saved!");
+  alert("Saved!");
 };
 
 </script>
