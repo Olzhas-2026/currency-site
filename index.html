@@ -3,87 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LIVE BANK VALYUTA</title>
+<title>LIVE VALYUTA</title>
 
 <style>
 body{
   font-family: Arial;
-  background: linear-gradient(135deg,#eef2f7,#dfe7f3);
+  background:#f3f6fb;
   text-align:center;
   padding:20px;
 }
 
-.header{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-}
-
-.logo{
-  width:40px;height:40px;
-  background:#0057b8;
-  border-radius:10px;
-}
-
-h1{color:#0057b8;font-size:22px;}
-
 .card{
   background:white;
-  margin:12px auto;
-  padding:18px;
   max-width:340px;
-  border-radius:14px;
+  margin:10px auto;
+  padding:15px;
+  border-radius:12px;
   border-left:6px solid #0057b8;
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
 }
+
+.title{color:#0057b8;font-weight:bold;font-size:18px;}
 
 .buy{color:green;font-weight:bold;}
 .sell{color:red;font-weight:bold;}
 
 #admin{
   display:none;
-  margin-top:20px;
-  padding:15px;
   background:#111;
   color:white;
   max-width:340px;
-  margin:auto;
+  margin:20px auto;
+  padding:15px;
   border-radius:12px;
 }
 
 input,button{
   width:90%;
   padding:10px;
-  margin:6px;
+  margin:5px;
   border-radius:8px;
   border:none;
 }
 
-button{background:#0057b8;color:white;}
+button{
+  background:#0057b8;
+  color:white;
+  cursor:pointer;
+}
+
 .logout{background:red;}
+#status{font-size:14px;}
 </style>
 </head>
 
 <body>
 
-<div class="header">
-  <div class="logo"></div>
-  <h1>LIVE VALYUTA</h1>
+<h2>💱 LIVE VALYUTA</h2>
+
+<div class="card">
+<div class="title">USD</div>
+<div class="buy">BUY: <span id="usdBuy">...</span></div>
+<div class="sell">SELL: <span id="usdSell">...</span></div>
 </div>
 
 <div class="card">
-USD BUY: <span id="usdBuy">...</span><br>
-USD SELL: <span id="usdSell">...</span>
+<div class="title">EUR</div>
+<div class="buy">BUY: <span id="eurBuy">...</span></div>
+<div class="sell">SELL: <span id="eurSell">...</span></div>
 </div>
 
 <div class="card">
-EUR BUY: <span id="eurBuy">...</span><br>
-EUR SELL: <span id="eurSell">...</span>
-</div>
-
-<div class="card">
-RUB BUY: <span id="rubBuy">...</span><br>
-RUB SELL: <span id="rubSell">...</span>
+<div class="title">RUB</div>
+<div class="buy">BUY: <span id="rubBuy">...</span></div>
+<div class="sell">SELL: <span id="rubSell">...</span></div>
 </div>
 
 <hr>
@@ -118,12 +111,10 @@ import {
   getFirestore,
   doc,
   onSnapshot,
-  updateDoc,
-  setDoc,
-  getDoc
+  setDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-/* FIREBASE */
+/* FIREBASE (өзінікін қой) */
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "currency-live-d633e.firebaseapp.com",
@@ -136,7 +127,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const ref = doc(db, "rates", "Vt6Ibuny1gDsyRJfCKLx");
+const ref = doc(db,"rates","Vt6Ibuny1gDsyRJfCKLx");
 
 /* LIVE */
 onSnapshot(ref,(snap)=>{
@@ -144,14 +135,14 @@ onSnapshot(ref,(snap)=>{
 
   const d = snap.data();
 
-  usdBuy.innerText=d.usdBuy;
-  usdSell.innerText=d.usdSell;
+  usdBuy.innerText = d.usdBuy || 0;
+  usdSell.innerText = d.usdSell || 0;
 
-  eurBuy.innerText=d.eurBuy;
-  eurSell.innerText=d.eurSell;
+  eurBuy.innerText = d.eurBuy || 0;
+  eurSell.innerText = d.eurSell || 0;
 
-  rubBuy.innerText=d.rubBuy;
-  rubSell.innerText=d.rubSell;
+  rubBuy.innerText = d.rubBuy || 0;
+  rubSell.innerText = d.rubSell || 0;
 });
 
 /* LOGIN */
@@ -163,35 +154,28 @@ window.login=function(){
   }
 };
 
-/* SAVE (🔥 FIXED 100%) */
+/* SAVE (🔥 100% WORK) */
 window.save = async function(){
 
   const data = {
     usdBuy: Number(usdBuyInput.value)||0,
     usdSell: Number(usdSellInput.value)||0,
-
     eurBuy: Number(eurBuyInput.value)||0,
     eurSell: Number(eurSellInput.value)||0,
-
     rubBuy: Number(rubBuyInput.value)||0,
     rubSell: Number(rubSellInput.value)||0,
   };
 
-  try {
+  try{
 
-    const docSnap = await getDoc(ref);
-
-    if (docSnap.exists()) {
-      await updateDoc(ref, data);
-    } else {
-      await setDoc(ref, data); // 🔥 CREATE if not exists
-    }
+    // 🔥 setDoc = 100% save (error болмайды)
+    await setDoc(ref, data);
 
     status.innerText="✅ Saved successfully";
 
     document.querySelectorAll("#admin input").forEach(i=>i.value="");
 
-  } catch(e){
+  }catch(e){
     console.log(e);
     status.innerText="❌ Firebase error (rules check)";
   }
