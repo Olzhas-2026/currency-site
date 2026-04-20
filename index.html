@@ -34,7 +34,6 @@ h1{
   margin:0;
 }
 
-/* CARD */
 .card{
   background:white;
   margin:12px auto;
@@ -54,7 +53,6 @@ h1{
 .buy{color:green;font-weight:bold;}
 .sell{color:red;font-weight:bold;}
 
-/* ADMIN */
 #admin{
   display:none;
   margin-top:20px;
@@ -87,6 +85,10 @@ button:hover{
 .logout{
   background:red;
 }
+
+#status{
+  font-size:14px;
+}
 </style>
 </head>
 
@@ -100,29 +102,27 @@ button:hover{
 <!-- VIEW -->
 <div class="card">
   <div class="title">USD</div>
-  <div class="buy">Сатып алу: <span id="usdBuy">...</span></div>
-  <div class="sell">Сату: <span id="usdSell">...</span></div>
+  <div class="buy">Buy: <span id="usdBuy">...</span></div>
+  <div class="sell">Sell: <span id="usdSell">...</span></div>
 </div>
 
 <div class="card">
   <div class="title">EUR</div>
-  <div class="buy">Сатып алу: <span id="eurBuy">...</span></div>
-  <div class="sell">Сату: <span id="eurSell">...</span></div>
+  <div class="buy">Buy: <span id="eurBuy">...</span></div>
+  <div class="sell">Sell: <span id="eurSell">...</span></div>
 </div>
 
 <div class="card">
   <div class="title">RUB</div>
-  <div class="buy">Сатып алу: <span id="rubBuy">...</span></div>
-  <div class="sell">Сату: <span id="rubSell">...</span></div>
+  <div class="buy">Buy: <span id="rubBuy">...</span></div>
+  <div class="sell">Sell: <span id="rubSell">...</span></div>
 </div>
 
 <hr>
 
-<!-- LOGIN -->
 <input type="password" id="pass" placeholder="Admin password">
 <button onclick="login()">Login</button>
 
-<!-- ADMIN -->
 <div id="admin">
 
 <h3>Admin Panel</h3>
@@ -153,7 +153,7 @@ import {
   updateDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-/* FIREBASE */
+/* FIREBASE (өз config қой) */
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "currency-live-d633e.firebaseapp.com",
@@ -170,16 +170,21 @@ const ref = doc(db, "rates", "Vt6Ibuny1gDsyRJfCKLx");
 
 /* LIVE */
 onSnapshot(ref, (snap)=>{
+  if(!snap.exists()){
+    console.log("No data");
+    return;
+  }
+
   const d = snap.data();
 
-  document.getElementById("usdBuy").innerText = d.usdBuy;
-  document.getElementById("usdSell").innerText = d.usdSell;
+  document.getElementById("usdBuy").innerText = d.usdBuy ?? "-";
+  document.getElementById("usdSell").innerText = d.usdSell ?? "-";
 
-  document.getElementById("eurBuy").innerText = d.eurBuy;
-  document.getElementById("eurSell").innerText = d.eurSell;
+  document.getElementById("eurBuy").innerText = d.eurBuy ?? "-";
+  document.getElementById("eurSell").innerText = d.eurSell ?? "-";
 
-  document.getElementById("rubBuy").innerText = d.rubBuy;
-  document.getElementById("rubSell").innerText = d.rubSell;
+  document.getElementById("rubBuy").innerText = d.rubBuy ?? "-";
+  document.getElementById("rubSell").innerText = d.rubSell ?? "-";
 });
 
 /* LOGIN */
@@ -192,7 +197,7 @@ window.login = function(){
   }
 };
 
-/* SAVE */
+/* SAVE (FIXED ERROR HANDLING) */
 window.save = async function(){
 
   const data = {
@@ -209,13 +214,15 @@ window.save = async function(){
   try{
     await updateDoc(ref,data);
 
-    document.getElementById("status").innerText="✅ Saved!";
+    document.getElementById("status").innerText="✅ Saved successfully";
 
     // clear inputs
     document.querySelectorAll("#admin input").forEach(i=>i.value="");
 
   }catch(e){
-    document.getElementById("status").innerText="❌ Error";
+    console.log(e);
+    document.getElementById("status").innerText=
+      "❌ Error: check Firebase rules / document";
   }
 };
 
