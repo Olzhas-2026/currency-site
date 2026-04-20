@@ -1,60 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Admin Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial;
-      background: #f5f5f5;
-      text-align: center;
-      padding: 50px;
-    }
+<title>Admin Login</title>
 
-    .box {
-      background: white;
-      width: 300px;
-      margin: auto;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #ccc;
-    }
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  padding: 50px;
+}
 
-    input {
-      width: 90%;
-      padding: 10px;
-      margin-top: 10px;
-    }
+.box {
+  width: 300px;
+  margin: auto;
+  padding: 20px;
+  box-shadow: 0 0 10px #ccc;
+  border-radius: 10px;
+}
 
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      cursor: pointer;
-    }
-  </style>
+input {
+  width: 90%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+}
+</style>
 </head>
 
 <body>
 
 <div class="box">
-  <h2>🔐 Admin Login</h2>
+  <h2>🔐 Login</h2>
 
   <input type="password" id="pass" placeholder="Пароль">
-
   <button onclick="login()">Кіру</button>
 </div>
 
 <script>
 function login() {
-  const pass = document.getElementById("pass").value;
-
-  if (pass === "1234") {
-    localStorage.setItem("admin", "true");
+  if (document.getElementById("pass").value === "1234") {
+    localStorage.setItem("admin","true");
     window.location.href = "admin.html";
   } else {
-    alert("❌ Қате пароль");
+    alert("Қате пароль");
   }
 }
 </script>
