@@ -1,43 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Admin Panel</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial;
-      text-align: center;
-      padding: 30px;
-      background: #f0f0f0;
-    }
+<title>Admin Panel</title>
 
-    .box {
-      background: white;
-      width: 300px;
-      margin: auto;
-      padding: 20px;
-      border-radius: 10px;
-    }
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  padding: 30px;
+}
 
-    input {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-    }
+.box {
+  width: 300px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  background: #111;
+  color: white;
+}
 
-    button {
-      padding: 10px 20px;
-      margin-top: 10px;
-      cursor: pointer;
-    }
+input {
+  width: 90%;
+  padding: 10px;
+  margin: 5px;
+}
 
-    .logout {
-      background: red;
-      color: white;
-    }
-  </style>
+button {
+  padding: 10px;
+  margin-top: 10px;
+  width: 95%;
+}
+
+.logout {
+  background: red;
+  color: white;
+}
+</style>
 </head>
 
 <body>
@@ -60,26 +61,26 @@ import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10
 
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
+  authDomain: "currency-live-d633e.firebaseapp.com",
   projectId: "currency-live-d633e"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// 🔐 LOGIN CHECK
+// login check
 if (localStorage.getItem("admin") !== "true") {
   window.location.href = "login.html";
 }
 
 window.save = async function () {
-  await setDoc(doc(db, "rates", "Vt6Ibuny1gDsyRJfCKLx"), {
+  await setDoc(doc(db,"rates","Vt6Ibuny1gDsyRJfCKLx"), {
     usd: document.getElementById("usd").value,
     eur: document.getElementById("eur").value,
     rub: document.getElementById("rub").value
   });
 
-  alert("✅ Сақталды!");
+  alert("Сақталды!");
 }
 
 window.logout = function () {
