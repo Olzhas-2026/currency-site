@@ -1,82 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>LIVE Валюта</title>
-
-<style>
-body {
-  font-family: Arial;
-  text-align: center;
-  padding: 20px;
-}
-
-.box {
-  margin: 10px auto;
-  padding: 20px;
-  background: #f2f2f2;
-  border-radius: 10px;
-  max-width: 300px;
-}
-
-/* ADMIN hidden */
-.admin {
-  display: none;
-  margin-top: 20px;
-  padding: 20px;
-  background: #111;
-  color: white;
-  border-radius: 10px;
-  max-width: 300px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-input {
-  width: 90%;
-  padding: 8px;
-  margin: 5px;
-}
-
-button {
-  padding: 10px;
-  width: 95%;
-  margin-top: 10px;
-  cursor: pointer;
-}
-</style>
-</head>
-
-<body>
-
-<h1>💱 LIVE Валюта</h1>
-
-<div class="box" id="usd">USD → loading...</div>
-<div class="box" id="eur">EUR → loading...</div>
-<div class="box" id="rub">RUB → loading...</div>
-
-<!-- 🔐 LOGIN BUTTON -->
-<button onclick="showLogin()">🔐 Admin Login</button>
-
-<!-- ADMIN -->
-<div class="admin" id="adminPanel">
-
-  <h3>Admin Panel</h3>
-
-  <input type="password" id="pass" placeholder="Password">
-
-  <input id="usdInput" placeholder="USD">
-  <input id="eurInput" placeholder="EUR">
-  <input id="rubInput" placeholder="RUB">
-
-  <button onclick="checkAdmin()">Login</button>
-  <button onclick="updateRates()">Save</button>
-
-  <p id="status"></p>
-</div>
-
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -86,6 +7,12 @@ import {
   onSnapshot,
   updateDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 // Firebase config
 const firebaseConfig = {
@@ -99,6 +26,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
 const ref = doc(db, "rates", "Vt6Ibuny1gDsyRJfCKLx");
 
@@ -111,24 +39,26 @@ onSnapshot(ref, (snap) => {
   document.getElementById("rub").innerText = "RUB → " + data.rub + " ₸";
 });
 
-// PASSWORD
-const PASSWORD = "qazpostmof1";
-
-// 🔓 SHOW LOGIN PANEL
-window.showLogin = function () {
-  document.getElementById("adminPanel").style.display = "block";
-};
-
-// LOGIN CHECK
-window.checkAdmin = function () {
+// 🔐 LOGIN FUNCTION (FIREBASE AUTH)
+window.login = async function () {
+  const email = document.getElementById("email").value;
   const pass = document.getElementById("pass").value;
 
-  if (pass === PASSWORD) {
-    alert("✅ Access granted");
-  } else {
-    alert("❌ Wrong password");
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+    document.getElementById("adminPanel").style.display = "block";
+    alert("✅ Login successful");
+  } catch (e) {
+    alert("❌ Wrong email or password");
   }
 };
+
+// AUTO CHECK LOGIN
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById("adminPanel").style.display = "block";
+  }
+});
 
 // UPDATE FIREBASE
 window.updateRates = async function () {
@@ -142,6 +72,3 @@ window.updateRates = async function () {
 };
 
 </script>
-
-</body>
-</html>
