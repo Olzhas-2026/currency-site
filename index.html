@@ -18,21 +18,15 @@ body{
   justify-content:center;
   align-items:center;
   gap:10px;
-  margin-bottom:20px;
 }
 
 .logo{
-  width:40px;
-  height:40px;
+  width:40px;height:40px;
   background:#0057b8;
   border-radius:10px;
 }
 
-h1{
-  color:#0057b8;
-  font-size:22px;
-  margin:0;
-}
+h1{color:#0057b8;font-size:22px;}
 
 .card{
   background:white;
@@ -41,13 +35,6 @@ h1{
   max-width:340px;
   border-radius:14px;
   border-left:6px solid #0057b8;
-  box-shadow:0 6px 18px rgba(0,0,0,0.08);
-}
-
-.title{
-  font-size:20px;
-  font-weight:bold;
-  color:#0057b8;
 }
 
 .buy{color:green;font-weight:bold;}
@@ -72,23 +59,8 @@ input,button{
   border:none;
 }
 
-button{
-  background:#0057b8;
-  color:white;
-  cursor:pointer;
-}
-
-button:hover{
-  background:#004494;
-}
-
-.logout{
-  background:red;
-}
-
-#status{
-  font-size:14px;
-}
+button{background:#0057b8;color:white;}
+.logout{background:red;}
 </style>
 </head>
 
@@ -96,26 +68,22 @@ button:hover{
 
 <div class="header">
   <div class="logo"></div>
-  <h1>LIVE BANK VALYUTA</h1>
-</div>
-
-<!-- VIEW -->
-<div class="card">
-  <div class="title">USD</div>
-  <div class="buy">Buy: <span id="usdBuy">...</span></div>
-  <div class="sell">Sell: <span id="usdSell">...</span></div>
+  <h1>LIVE VALYUTA</h1>
 </div>
 
 <div class="card">
-  <div class="title">EUR</div>
-  <div class="buy">Buy: <span id="eurBuy">...</span></div>
-  <div class="sell">Sell: <span id="eurSell">...</span></div>
+USD BUY: <span id="usdBuy">...</span><br>
+USD SELL: <span id="usdSell">...</span>
 </div>
 
 <div class="card">
-  <div class="title">RUB</div>
-  <div class="buy">Buy: <span id="rubBuy">...</span></div>
-  <div class="sell">Sell: <span id="rubSell">...</span></div>
+EUR BUY: <span id="eurBuy">...</span><br>
+EUR SELL: <span id="eurSell">...</span>
+</div>
+
+<div class="card">
+RUB BUY: <span id="rubBuy">...</span><br>
+RUB SELL: <span id="rubSell">...</span>
 </div>
 
 <hr>
@@ -150,10 +118,12 @@ import {
   getFirestore,
   doc,
   onSnapshot,
-  updateDoc
+  updateDoc,
+  setDoc,
+  getDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-/* FIREBASE (өз config қой) */
+/* FIREBASE */
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "currency-live-d633e.firebaseapp.com",
@@ -169,35 +139,31 @@ const db = getFirestore(app);
 const ref = doc(db, "rates", "Vt6Ibuny1gDsyRJfCKLx");
 
 /* LIVE */
-onSnapshot(ref, (snap)=>{
-  if(!snap.exists()){
-    console.log("No data");
-    return;
-  }
+onSnapshot(ref,(snap)=>{
+  if(!snap.exists()) return;
 
   const d = snap.data();
 
-  document.getElementById("usdBuy").innerText = d.usdBuy ?? "-";
-  document.getElementById("usdSell").innerText = d.usdSell ?? "-";
+  usdBuy.innerText=d.usdBuy;
+  usdSell.innerText=d.usdSell;
 
-  document.getElementById("eurBuy").innerText = d.eurBuy ?? "-";
-  document.getElementById("eurSell").innerText = d.eurSell ?? "-";
+  eurBuy.innerText=d.eurBuy;
+  eurSell.innerText=d.eurSell;
 
-  document.getElementById("rubBuy").innerText = d.rubBuy ?? "-";
-  document.getElementById("rubSell").innerText = d.rubSell ?? "-";
+  rubBuy.innerText=d.rubBuy;
+  rubSell.innerText=d.rubSell;
 });
 
 /* LOGIN */
-window.login = function(){
-  if(document.getElementById("pass").value === "1234"){
-    document.getElementById("admin").style.display="block";
-    document.getElementById("status").innerText="";
-  }else{
+window.login=function(){
+  if(pass.value==="1234"){
+    admin.style.display="block";
+  } else {
     alert("Wrong password");
   }
 };
 
-/* SAVE (FIXED ERROR HANDLING) */
+/* SAVE (🔥 FIXED 100%) */
 window.save = async function(){
 
   const data = {
@@ -211,25 +177,30 @@ window.save = async function(){
     rubSell: Number(rubSellInput.value)||0,
   };
 
-  try{
-    await updateDoc(ref,data);
+  try {
 
-    document.getElementById("status").innerText="✅ Saved successfully";
+    const docSnap = await getDoc(ref);
 
-    // clear inputs
+    if (docSnap.exists()) {
+      await updateDoc(ref, data);
+    } else {
+      await setDoc(ref, data); // 🔥 CREATE if not exists
+    }
+
+    status.innerText="✅ Saved successfully";
+
     document.querySelectorAll("#admin input").forEach(i=>i.value="");
 
-  }catch(e){
+  } catch(e){
     console.log(e);
-    document.getElementById("status").innerText=
-      "❌ Error: check Firebase rules / document";
+    status.innerText="❌ Firebase error (rules check)";
   }
 };
 
 /* LOGOUT */
-window.logout = function(){
-  document.getElementById("admin").style.display="none";
-  document.getElementById("pass").value="";
+window.logout=function(){
+  admin.style.display="none";
+  pass.value="";
 };
 
 </script>
