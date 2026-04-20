@@ -2,12 +2,62 @@
 <html>
 <head>
   <meta charset="UTF-8">
+
+  <!-- 🔥 МІНДЕТТІ: барлық экранға бейімдеу -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Валюта LIVE</title>
+
   <style>
-    body { font-family: Arial; text-align:center; padding:50px; }
-    .box { margin:10px auto; padding:20px; width:250px; background:#f2f2f2; border-radius:10px; }
+    body {
+      font-family: Arial;
+      text-align: center;
+      padding: 30px;
+      margin: 0;
+      background: #ffffff;
+    }
+
+    h1 {
+      font-size: 32px;
+    }
+
+    .box {
+      margin: 10px auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 300px;
+      background: #f2f2f2;
+      border-radius: 10px;
+      font-size: 20px;
+    }
+
+    /* 📺 TV / үлкен экран */
+    @media (min-width: 1600px) {
+      h1 {
+        font-size: 48px;
+      }
+
+      .box {
+        max-width: 400px;
+        font-size: 26px;
+        padding: 30px;
+      }
+    }
+
+    /* 📱 телефон */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 24px;
+      }
+
+      .box {
+        font-size: 16px;
+        padding: 15px;
+      }
+    }
   </style>
 </head>
+
 <body>
 
 <h1>💱 LIVE Валюта</h1>
@@ -23,7 +73,7 @@ import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasej
 
 // Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyCxY06NTpnfifUOzPNUsQWMx2pG_PKSagI",
+  apiKey: "AIzaSyCxY06NTpnfifUOzPNUsQWMx2P_GKSagI",
   authDomain: "currency-live-d633e.firebaseapp.com",
   projectId: "currency-live-d633e",
   storageBucket: "currency-live-d633e.firebasestorage.app",
