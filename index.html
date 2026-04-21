@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QAZPOST Exchange System</title>
+<title>QAZPOST Exchange</title>
 
-<!-- 🔥 BEST KAZAKH SUPPORT FONT -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<!-- 🔥 BEST FONT FOR UNIFORM NUMBERS + KAZAKH -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Noto+Sans+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 
 html, body{
   height:100%;
   margin:0;
-  /* 🔥 IMPORTANT: full kazakh support */
-  font-family: 'Noto Sans Display','Inter', sans-serif;
   background:#0b1633;
+  font-family:'Noto Sans Display', sans-serif;
 }
 
+/* LAYOUT */
 body{
   display:flex;
 }
@@ -40,10 +40,9 @@ body{
 
 .brand{
   margin-top:15px;
-  font-size:24px;
+  font-size:22px;
   font-weight:900;
   color:#00d4ff;
-  letter-spacing:2px;
 }
 
 .subtitle{
@@ -52,53 +51,23 @@ body{
   text-align:center;
 }
 
-.qr{
-  margin-top:50px;
-  width:140px;
-  background:white;
-  padding:10px;
-  border-radius:10px;
-}
-
-.side-footer{
-  margin-top:auto;
-  font-size:10px;
-  opacity:0.5;
-}
-
 /* MAIN */
 .main{
   flex:1;
   background:#f4f6fb;
   padding:25px 35px;
-  display:flex;
-  flex-direction:column;
-}
-
-/* TIME */
-.topbar{
-  display:flex;
-  justify-content:flex-end;
-  margin-bottom:10px;
-}
-
-.time{
-  font-size:14px;
-  color:#555;
-  font-weight:600;
 }
 
 /* HEADER */
 .banner{
   background:linear-gradient(90deg,#0f2a66,#1e4ed8);
   color:white;
-  padding:28px 20px;
+  padding:26px;
   border-radius:14px;
   text-align:center;
-  font-size:32px;
+  font-size:30px;
   font-weight:900;
-  margin-bottom:12px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+  margin-bottom:10px;
 }
 
 /* INFO */
@@ -116,11 +85,11 @@ body{
   border-radius:14px;
   overflow:hidden;
   box-shadow:0 20px 45px rgba(0,0,0,0.12);
-  width:100%;
   max-width:900px;
   margin:auto;
 }
 
+/* HEADER ROW */
 .row.header{
   background:#0f2a66;
   color:white;
@@ -131,32 +100,38 @@ body{
   font-weight:800;
 }
 
+/* ROW */
 .row{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
-  padding:34px 25px;
+  padding:30px 25px;
   border-bottom:1px solid #eee;
   align-items:center;
 }
 
-/* TEXT (CLEAN + SHARP) */
+/* 🔥 UNIFORM TEXT FIX */
 .name{
-  font-size:44px;
+  font-size:40px;
   font-weight:900;
-  color:#111;
+  letter-spacing:1px;
 }
 
+/* 🔥 FIXED NUMBERS ALIGNMENT */
+.buy, .sell{
+  font-family:'Roboto Mono', monospace; /* 🔥 IMPORTANT FIX */
+  font-size:52px;
+  font-weight:700;
+  letter-spacing:0px;
+}
+
+/* COLORS */
 .buy{
   text-align:center;
-  font-size:60px;
-  font-weight:900;
   color:#16a34a;
 }
 
 .sell{
   text-align:right;
-  font-size:60px;
-  font-weight:900;
   color:#dc2626;
 }
 
@@ -164,14 +139,12 @@ body{
 .slogan-box{
   margin-top:25px;
   text-align:center;
-  padding:20px;
 }
 
 .slogan{
-  font-size:22px;
+  font-size:20px;
   font-weight:900;
   color:#0f2a66;
-  letter-spacing:0.3px;
   line-height:1.6;
 }
 
@@ -194,20 +167,11 @@ body{
        src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Kazpost_logo.svg">
 
   <div class="brand">QAZPOST</div>
-  <div class="subtitle">FINTECH EXCHANGE SYSTEM</div>
-
-  <img class="qr"
-       src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
-
-  <div class="side-footer">LIVE SYSTEM</div>
+  <div class="subtitle">FINTECH SYSTEM</div>
 
 </div>
 
 <div class="main">
-
-<div class="topbar">
-  <div class="time" id="time">--:--</div>
-</div>
 
 <div class="banner">
   QAZPOST – сенімді қаржы серіктесі / надёжный финансовый партнёр
@@ -253,12 +217,6 @@ body{
 </div>
 
 </div>
-
-<script>
-setInterval(()=>{
-  document.getElementById("time").innerText = new Date().toLocaleTimeString();
-},1000);
-</script>
 
 </body>
 </html>
