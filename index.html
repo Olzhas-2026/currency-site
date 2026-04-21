@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PRO TRADING TERMINAL</title>
+<title>Kazpost Terminal</title>
 
 <style>
 
+/* 🌑 TERMINAL BACKGROUND */
 body{
   margin:0;
   background:#050b1a;
@@ -16,7 +17,7 @@ body{
   height:100vh;
 }
 
-/* LEFT PANEL */
+/* LEFT PANEL (SYSTEM INFO) */
 .left{
   width:300px;
   background:#07142e;
@@ -29,13 +30,28 @@ body{
   filter:drop-shadow(0 0 10px #0ff);
 }
 
-.status{
+.title{
   margin-top:20px;
-  font-size:12px;
+  font-size:14px;
+  letter-spacing:2px;
   color:#0ff;
 }
 
-/* MAIN */
+.status{
+  margin-top:20px;
+  font-size:12px;
+  opacity:0.8;
+}
+
+.box{
+  margin-top:30px;
+  padding:10px;
+  border:1px solid #0ff;
+  border-radius:6px;
+  font-size:12px;
+}
+
+/* RIGHT MAIN */
 .main{
   flex:1;
   padding:25px;
@@ -53,7 +69,7 @@ body{
 .header h1{
   font-size:22px;
   color:#0ff;
-  text-shadow:0 0 10px #0ff;
+  letter-spacing:2px;
 }
 
 .time{
@@ -85,56 +101,60 @@ body{
 
 /* TEXT */
 .name{
-  font-size:22px;
+  font-size:20px;
   color:#0ff;
 }
 
 .buy{
   text-align:center;
-  font-size:28px;
+  font-size:24px;
   color:#00ff66;
-  transition:0.2s;
 }
 
 .sell{
   text-align:right;
-  font-size:28px;
+  font-size:24px;
   color:#ff3355;
-  transition:0.2s;
 }
 
-/* ANIMATION */
-.flash{
-  animation:flash 0.3s ease;
+/* GLOW EFFECT */
+.glow{
+  text-shadow:0 0 8px #0ff;
 }
-
-@keyframes flash{
-  0%{transform:scale(1.2); opacity:0.4;}
-  100%{transform:scale(1); opacity:1;}
-}
-
-.up{color:#00ff66;}
-.down{color:#ff3355;}
 
 </style>
 </head>
 
 <body>
 
+<!-- LEFT SYSTEM PANEL -->
 <div class="left">
 
   <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Kazpost_logo.svg">
 
-  <div class="status">SYSTEM: ONLINE 🟢</div>
-  <div class="status">MODE: TRADING LIVE</div>
-  <div class="status">SYNC: FIREBASE REALTIME</div>
+  <div class="title">KAZPOST TERMINAL SYSTEM</div>
+
+  <div class="status">STATUS: ONLINE 🟢</div>
+
+  <div class="box">
+    SYSTEM: FINTECH v3.0<br>
+    MODE: LIVE TRADING<br>
+    SECURITY: ACTIVE
+  </div>
+
+  <div class="box">
+    CONNECTION: FIREBASE<br>
+    LATENCY: 12ms<br>
+    SYNC: REAL-TIME
+  </div>
 
 </div>
 
+<!-- MAIN -->
 <div class="main">
 
   <div class="header">
-    <h1>TRADING TERMINAL</h1>
+    <h1 class="glow">LIVE CURRENCY TERMINAL</h1>
     <div class="time" id="time">--:--</div>
   </div>
 
@@ -148,20 +168,20 @@ body{
 
     <div class="row">
       <div class="name">USD</div>
-      <div class="buy" id="usdBuy">464</div>
-      <div class="sell" id="usdSell">471</div>
+      <div class="buy">464</div>
+      <div class="sell">471</div>
     </div>
 
     <div class="row">
       <div class="name">EUR</div>
-      <div class="buy" id="eurBuy">546</div>
-      <div class="sell" id="eurSell">556</div>
+      <div class="buy">546</div>
+      <div class="sell">556</div>
     </div>
 
     <div class="row">
       <div class="name">RUB</div>
-      <div class="buy" id="rubBuy">6.0</div>
-      <div class="sell" id="rubSell">6.3</div>
+      <div class="buy">6.0</div>
+      <div class="sell">6.3</div>
     </div>
 
   </div>
@@ -172,69 +192,6 @@ body{
 setInterval(()=>{
   document.getElementById("time").innerText = new Date().toLocaleTimeString();
 },1000);
-</script>
-
-<!-- FIREBASE -->
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "currency-live-d633e.firebaseapp.com",
-  projectId: "currency-live-d633e"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const ref = doc(db,"rates","Vt6Ibuny1gDsyRJfCKLx");
-
-let prev = {};
-
-function update(id,val){
-  const el = document.getElementById(id);
-
-  if(prev[id] !== undefined){
-
-    if(val > prev[id]){
-      el.className = "buy up";
-      el.innerHTML = val + " ↑";
-    } 
-    else if(val < prev[id]){
-      el.className = "buy down";
-      el.innerHTML = val + " ↓";
-    } 
-    else{
-      el.className = "buy";
-      el.innerHTML = val;
-    }
-  } 
-  else{
-    el.innerHTML = val;
-  }
-
-  el.classList.add("flash");
-  setTimeout(()=>el.classList.remove("flash"),300);
-
-  prev[id] = val;
-}
-
-/* LIVE */
-onSnapshot(ref,(snap)=>{
-  const d = snap.data();
-
-  update("usdBuy",d.usdBuy);
-  update("usdSell",d.usdSell);
-
-  update("eurBuy",d.eurBuy);
-  update("eurSell",d.eurSell);
-
-  update("rubBuy",d.rubBuy);
-  update("rubSell",d.rubSell);
-});
-
 </script>
 
 </body>
