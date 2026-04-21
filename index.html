@@ -7,6 +7,7 @@
 
 <style>
 
+/* BODY */
 body{
   margin:0;
   font-family: Arial, sans-serif;
@@ -14,23 +15,47 @@ body{
   display:flex;
 }
 
-/* LEFT PANEL */
+/* SIDEBAR (Kazpost style) */
 .sidebar{
-  width:220px;
-  background:#08122b;
+  width:240px;
+  background:linear-gradient(180deg,#07142e,#0b1f4a);
   color:white;
   text-align:center;
-  padding:20px;
+  padding:25px;
 }
 
 .logo{
-  width:80px;
-  margin:20px auto;
+  width:110px;
+  margin-top:20px;
+  filter:drop-shadow(0 5px 10px rgba(0,0,0,0.4));
+}
+
+.brand{
+  margin-top:15px;
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:3px;
+}
+
+.sub{
+  font-size:12px;
+  opacity:0.7;
+  margin-top:5px;
 }
 
 .qr{
-  margin-top:40px;
-  width:120px;
+  margin-top:35px;
+  width:130px;
+  border-radius:10px;
+  background:white;
+  padding:8px;
+}
+
+.footer{
+  margin-top:25px;
+  font-size:11px;
+  opacity:0.6;
+  letter-spacing:2px;
 }
 
 /* MAIN */
@@ -101,6 +126,7 @@ body{
   color:#dc2626;
 }
 
+/* ANIMATION */
 .flash{
   animation:flashAnim 0.3s ease;
 }
@@ -115,11 +141,21 @@ body{
 
 <body>
 
+<!-- SIDEBAR -->
 <div class="sidebar">
+
   <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Kazpost_logo.svg">
-  <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://your-site.com">
+
+  <div class="brand">KAZPOST</div>
+  <div class="sub">EXCHANGE RATE</div>
+
+  <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
+
+  <div class="footer">LIVE SYSTEM</div>
+
 </div>
 
+<!-- MAIN -->
 <div class="main">
 
 <div class="header">
@@ -127,7 +163,6 @@ body{
   <div class="time" id="time">--:--</div>
 </div>
 
-<!-- TABLE -->
 <div class="table">
 
   <div class="row header">
@@ -159,7 +194,7 @@ body{
 </div>
 
 <script>
-/* TIME */
+/* CLOCK */
 setInterval(()=>{
   const now = new Date();
   time.innerText = now.toLocaleTimeString();
@@ -183,14 +218,14 @@ const db = getFirestore(app);
 
 const ref = doc(db,"rates","Vt6Ibuny1gDsyRJfCKLx");
 
-/* ANIMATION */
+/* animation */
 function animate(el,val){
   el.classList.add("flash");
   el.innerText = val;
   setTimeout(()=>el.classList.remove("flash"),300);
 }
 
-/* LIVE */
+/* LIVE DATA */
 onSnapshot(ref,(snap)=>{
   const d = snap.data();
 
