@@ -3,67 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kazpost Live Rate</title>
+<title>Kazpost Live</title>
 
 <style>
 
-/* RESET */
+/* GLOBAL */
 body{
   margin:0;
   font-family: Arial, sans-serif;
-  background:#0a1a3a;
   display:flex;
+  background:#0b1633;
 }
 
-/* LEFT SIDE */
+/* LEFT PANEL */
 .sidebar{
-  width:260px;
-  background:#0b1633;
+  width:270px;
+  background:#08122b;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:30px 20px;
   color:white;
-  text-align:center;
-  padding:25px;
 }
 
 .sidebar img.logo{
-  width:120px;
-  margin-top:30px;
+  width:130px;
+  margin-top:40px;
+}
+
+.sidebar .title{
+  margin-top:20px;
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:2px;
+  opacity:0.85;
 }
 
 .sidebar .qr{
-  margin-top:40px;
-  width:140px;
+  margin-top:50px;
+  width:150px;
   background:white;
   padding:10px;
   border-radius:12px;
 }
 
-.sidebar .text{
-  margin-top:20px;
-  font-weight:bold;
+.sidebar .bottom{
+  margin-top:auto;
+  font-size:12px;
+  opacity:0.5;
   letter-spacing:2px;
-  font-size:14px;
-  opacity:0.8;
 }
 
 /* MAIN */
 .main{
   flex:1;
   background:#f4f6fb;
-  padding:20px 30px;
+  padding:25px 35px;
 }
 
-/* HEADER */
-.header{
+/* TOP HEADER */
+.topbar{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:15px;
+  margin-bottom:20px;
 }
 
-.header h1{
-  font-size:28px;
-  color:#1e4ed8;
+.topbar h1{
   margin:0;
+  font-size:30px;
+  font-weight:800;
+  color:#1e4ed8;
 }
 
 .time{
@@ -71,33 +81,37 @@ body{
   color:#666;
 }
 
-/* TABLE WRAPPER */
+/* CARD */
 .card{
   background:white;
   border-radius:10px;
   overflow:hidden;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
-}
-
-/* ROW */
-.row{
-  display:grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  padding:22px 25px;
-  border-bottom:1px solid #eee;
-  align-items:center;
+  box-shadow:0 12px 30px rgba(0,0,0,0.08);
 }
 
 /* HEADER ROW */
 .row.header{
   background:#0f2a66;
   color:white;
-  font-weight:bold;
+  font-weight:700;
+  font-size:14px;
+  padding:18px 25px;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
 }
 
-/* CURRENCY NAME */
+/* ROW */
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  padding:28px 25px;
+  border-bottom:1px solid #eee;
+  align-items:center;
+}
+
+/* CURRENCY */
 .name{
-  font-size:26px;
+  font-size:30px;
   font-weight:800;
   color:#111;
 }
@@ -105,7 +119,7 @@ body{
 /* BUY */
 .buy{
   text-align:center;
-  font-size:34px;
+  font-size:40px;
   font-weight:800;
   color:#16a34a;
 }
@@ -113,18 +127,18 @@ body{
 /* SELL */
 .sell{
   text-align:right;
-  font-size:34px;
+  font-size:40px;
   font-weight:800;
   color:#dc2626;
 }
 
 /* ANIMATION */
 .flash{
-  animation:flash 0.3s ease;
+  animation:flash 0.25s ease;
 }
 
 @keyframes flash{
-  0%{transform:scale(1.1); opacity:0.4;}
+  0%{transform:scale(1.08); opacity:0.4;}
   100%{transform:scale(1); opacity:1;}
 }
 
@@ -138,18 +152,18 @@ body{
 
   <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Kazpost_logo.svg">
 
-  <div class="text">EXCHANGE RATE SYSTEM</div>
+  <div class="title">EXCHANGE SYSTEM</div>
 
   <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://your-site.com">
 
-  <div class="text">LIVE DATA</div>
+  <div class="bottom">LIVE DATA</div>
 
 </div>
 
 <!-- MAIN -->
 <div class="main">
 
-<div class="header">
+<div class="topbar">
   <h1>LIVE VALYUTA</h1>
   <div class="time" id="time">--:--</div>
 </div>
@@ -186,8 +200,7 @@ body{
 
 <script>
 setInterval(()=>{
-  const now = new Date();
-  document.getElementById("time").innerText = now.toLocaleTimeString();
+  document.getElementById("time").innerText = new Date().toLocaleTimeString();
 },1000);
 </script>
 
