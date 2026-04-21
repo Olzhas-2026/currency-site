@@ -14,7 +14,7 @@ body{
   display:flex;
 }
 
-/* LEFT */
+/* LEFT PANEL */
 .sidebar{
   width:220px;
   background:#08122b;
@@ -61,38 +61,53 @@ body{
 /* TABLE */
 .table{
   background:white;
-  border-radius:10px;
+  border-radius:12px;
   overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 
 .row{
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;
-  padding:20px;
+  padding:25px;
   border-bottom:1px solid #eee;
   align-items:center;
 }
 
 .row.header{
-  background:#f0f3fa;
+  background:#1e3a8a;
+  color:white;
   font-weight:bold;
+  font-size:16px;
 }
 
 .name{
-  font-size:28px;
-  font-weight:bold;
+  font-size:32px;
+  font-weight:800;
+  color:#111;
 }
 
 .buy{
   text-align:center;
-  font-size:40px;
-  font-weight:bold;
+  font-size:38px;
+  font-weight:800;
+  color:#16a34a;
 }
 
 .sell{
   text-align:right;
-  font-size:40px;
-  font-weight:bold;
+  font-size:38px;
+  font-weight:800;
+  color:#dc2626;
+}
+
+.flash{
+  animation:flashAnim 0.3s ease;
+}
+
+@keyframes flashAnim{
+  0%{opacity:0.3; transform:scale(1.1);}
+  100%{opacity:1; transform:scale(1);}
 }
 
 </style>
@@ -112,30 +127,31 @@ body{
   <div class="time" id="time">--:--</div>
 </div>
 
+<!-- TABLE -->
 <div class="table">
 
   <div class="row header">
-    <div></div>
+    <div>ВАЛЮТА</div>
     <div style="text-align:center">САТЫП АЛУ</div>
     <div style="text-align:right">САТУ</div>
   </div>
 
   <div class="row">
     <div class="name">USD</div>
-    <div class="buy" id="usdBuy">...</div>
-    <div class="sell" id="usdSell">...</div>
+    <div class="buy" id="usdBuy">-</div>
+    <div class="sell" id="usdSell">-</div>
   </div>
 
   <div class="row">
     <div class="name">EUR</div>
-    <div class="buy" id="eurBuy">...</div>
-    <div class="sell" id="eurSell">...</div>
+    <div class="buy" id="eurBuy">-</div>
+    <div class="sell" id="eurSell">-</div>
   </div>
 
   <div class="row">
     <div class="name">RUB</div>
-    <div class="buy" id="rubBuy">...</div>
-    <div class="sell" id="rubSell">...</div>
+    <div class="buy" id="rubBuy">-</div>
+    <div class="sell" id="rubSell">-</div>
   </div>
 
 </div>
@@ -156,7 +172,6 @@ setInterval(()=>{
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-/* YOUR FIREBASE CONFIG */
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "currency-live-d633e.firebaseapp.com",
@@ -166,21 +181,27 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-/* DOC PATH */
 const ref = doc(db,"rates","Vt6Ibuny1gDsyRJfCKLx");
 
-/* LIVE UPDATE */
+/* ANIMATION */
+function animate(el,val){
+  el.classList.add("flash");
+  el.innerText = val;
+  setTimeout(()=>el.classList.remove("flash"),300);
+}
+
+/* LIVE */
 onSnapshot(ref,(snap)=>{
   const d = snap.data();
 
-  usdBuy.innerText = d.usdBuy;
-  usdSell.innerText = d.usdSell;
+  animate(usdBuy,d.usdBuy);
+  animate(usdSell,d.usdSell);
 
-  eurBuy.innerText = d.eurBuy;
-  eurSell.innerText = d.eurSell;
+  animate(eurBuy,d.eurBuy);
+  animate(eurSell,d.eurSell);
 
-  rubBuy.innerText = d.rubBuy;
-  rubSell.innerText = d.rubSell;
+  animate(rubBuy,d.rubBuy);
+  animate(rubSell,d.rubSell);
 });
 
 </script>
