@@ -1,191 +1,167 @@
 <!DOCTYPE html>
-<html>
+<html lang="kk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LIVE VALYUTA</title>
 
 <style>
+
 body{
-  font-family: Arial;
-  background:#f3f6fb;
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#0a1a3a;
+  display:flex;
+}
+
+/* LEFT PANEL */
+.sidebar{
+  width:220px;
+  background:#08122b;
+  color:white;
   text-align:center;
   padding:20px;
 }
 
-.card{
-  background:white;
-  max-width:340px;
-  margin:10px auto;
-  padding:15px;
-  border-radius:12px;
-  border-left:6px solid #0057b8;
-  box-shadow:0 5px 15px rgba(0,0,0,0.08);
-}
-
-.title{color:#0057b8;font-weight:bold;font-size:18px;}
-
-.buy{color:green;font-weight:bold;}
-.sell{color:red;font-weight:bold;}
-
-#admin{
-  display:none;
-  background:#111;
-  color:white;
-  max-width:340px;
+.logo{
+  width:80px;
   margin:20px auto;
-  padding:15px;
-  border-radius:12px;
 }
 
-input,button{
-  width:90%;
-  padding:10px;
-  margin:5px;
-  border-radius:8px;
-  border:none;
+.qr{
+  margin-top:40px;
+  width:120px;
 }
 
-button{
-  background:#0057b8;
-  color:white;
-  cursor:pointer;
+/* MAIN */
+.main{
+  flex:1;
+  background:#f3f5f8;
+  padding:20px 30px;
 }
 
-.logout{background:red;}
-#status{font-size:14px;}
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.title{
+  font-size:32px;
+  font-weight:bold;
+  color:#2d5bd1;
+}
+
+.time{
+  font-size:14px;
+  color:gray;
+}
+
+/* TABLE */
+.table{
+  background:white;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.row{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding:20px;
+  border-bottom:1px solid #eee;
+  align-items:center;
+}
+
+.row.header{
+  background:#f0f3fa;
+  font-weight:bold;
+}
+
+.name{
+  font-size:28px;
+  font-weight:bold;
+}
+
+.buy{
+  text-align:center;
+  font-size:40px;
+  font-weight:bold;
+}
+
+.sell{
+  text-align:right;
+  font-size:40px;
+  font-weight:bold;
+}
+
 </style>
 </head>
 
 <body>
 
-<h2>💱 LIVE VALYUTA</h2>
-
-<div class="card">
-<div class="title">USD</div>
-<div class="buy">BUY: <span id="usdBuy">...</span></div>
-<div class="sell">SELL: <span id="usdSell">...</span></div>
+<div class="sidebar">
+  <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Kazpost_logo.svg">
+  
+  <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://your-site.com">
 </div>
 
-<div class="card">
-<div class="title">EUR</div>
-<div class="buy">BUY: <span id="eurBuy">...</span></div>
-<div class="sell">SELL: <span id="eurSell">...</span></div>
+<div class="main">
+
+<div class="header">
+  <div class="title">LIVE VALYUTA</div>
+  <div class="time" id="time">--:--</div>
 </div>
 
-<div class="card">
-<div class="title">RUB</div>
-<div class="buy">BUY: <span id="rubBuy">...</span></div>
-<div class="sell">SELL: <span id="rubSell">...</span></div>
+<div class="table">
+
+  <div class="row header">
+    <div></div>
+    <div style="text-align:center">САТЫП АЛУ</div>
+    <div style="text-align:right">САТУ</div>
+  </div>
+
+  <div class="row">
+    <div class="name">USD</div>
+    <div class="buy" id="usdBuy">...</div>
+    <div class="sell" id="usdSell">...</div>
+  </div>
+
+  <div class="row">
+    <div class="name">EUR</div>
+    <div class="buy" id="eurBuy">...</div>
+    <div class="sell" id="eurSell">...</div>
+  </div>
+
+  <div class="row">
+    <div class="name">RUB</div>
+    <div class="buy" id="rubBuy">...</div>
+    <div class="sell" id="rubSell">...</div>
+  </div>
+
+  <div class="row">
+    <div class="name">KGS</div>
+    <div class="buy">5.25</div>
+    <div class="sell">5.65</div>
+  </div>
+
+  <div class="row">
+    <div class="name">CNY</div>
+    <div class="buy">67.00</div>
+    <div class="sell">73.00</div>
+  </div>
+
 </div>
 
-<hr>
-
-<input type="password" id="pass" placeholder="Admin password">
-<button onclick="login()">Login</button>
-
-<div id="admin">
-
-<h3>Admin Panel</h3>
-
-<input id="usdBuyInput" placeholder="USD BUY">
-<input id="usdSellInput" placeholder="USD SELL">
-
-<input id="eurBuyInput" placeholder="EUR BUY">
-<input id="eurSellInput" placeholder="EUR SELL">
-
-<input id="rubBuyInput" placeholder="RUB BUY">
-<input id="rubSellInput" placeholder="RUB SELL">
-
-<button onclick="save()">Save</button>
-<button class="logout" onclick="logout()">Logout</button>
-
-<p id="status"></p>
-
 </div>
 
-<script type="module">
+<script>
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import {
-  getFirestore,
-  doc,
-  onSnapshot,
-  setDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-/* FIREBASE (өзінікін қой) */
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "currency-live-d633e.firebaseapp.com",
-  projectId: "currency-live-d633e",
-  storageBucket: "currency-live-d633e.firebasestorage.app",
-  messagingSenderId: "1086647236449",
-  appId: "1:1086647236449:web:df6eee1cdec5280ee1b720"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const ref = doc(db,"rates","Vt6Ibuny1gDsyRJfCKLx");
-
-/* LIVE */
-onSnapshot(ref,(snap)=>{
-  if(!snap.exists()) return;
-
-  const d = snap.data();
-
-  usdBuy.innerText = d.usdBuy || 0;
-  usdSell.innerText = d.usdSell || 0;
-
-  eurBuy.innerText = d.eurBuy || 0;
-  eurSell.innerText = d.eurSell || 0;
-
-  rubBuy.innerText = d.rubBuy || 0;
-  rubSell.innerText = d.rubSell || 0;
-});
-
-/* LOGIN */
-window.login=function(){
-  if(pass.value==="1234"){
-    admin.style.display="block";
-  } else {
-    alert("Wrong password");
-  }
-};
-
-/* SAVE (🔥 100% WORK) */
-window.save = async function(){
-
-  const data = {
-    usdBuy: Number(usdBuyInput.value)||0,
-    usdSell: Number(usdSellInput.value)||0,
-    eurBuy: Number(eurBuyInput.value)||0,
-    eurSell: Number(eurSellInput.value)||0,
-    rubBuy: Number(rubBuyInput.value)||0,
-    rubSell: Number(rubSellInput.value)||0,
-  };
-
-  try{
-
-    // 🔥 setDoc = 100% save (error болмайды)
-    await setDoc(ref, data);
-
-    status.innerText="✅ Saved successfully";
-
-    document.querySelectorAll("#admin input").forEach(i=>i.value="");
-
-  }catch(e){
-    console.log(e);
-    status.innerText="❌ Firebase error (rules check)";
-  }
-};
-
-/* LOGOUT */
-window.logout=function(){
-  admin.style.display="none";
-  pass.value="";
-};
+/* уақыт */
+setInterval(()=>{
+  const now = new Date();
+  time.innerText = now.toLocaleTimeString();
+},1000);
 
 </script>
 
