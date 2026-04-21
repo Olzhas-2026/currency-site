@@ -3,212 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kazpost Exchange</title>
+<title>PRO TRADING TERMINAL</title>
 
 <style>
 
 body{
   margin:0;
-  font-family: Arial, sans-serif;
+  background:#050b1a;
+  font-family: "Courier New", monospace;
+  color:#00ffcc;
   display:flex;
-  background:#0b1633;
+  height:100vh;
 }
 
-/* LEFT SIDEBAR */
-.sidebar{
-  width:280px;
+/* LEFT PANEL */
+.left{
+  width:300px;
   background:#07142e;
-  color:white;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:30px 20px;
+  padding:25px;
+  border-right:2px solid #0ff;
 }
 
 .logo{
-  width:150px;
-  margin-top:30px;
-}
-
-.brand{
-  margin-top:15px;
-  font-size:16px;
-  font-weight:900;
-  letter-spacing:3px;
-}
-
-.subtitle{
-  font-size:11px;
-  opacity:0.6;
-  margin-top:5px;
-  text-align:center;
-}
-
-/* QR */
-.qr{
-  margin-top:50px;
   width:140px;
-  background:white;
-  padding:10px;
-  border-radius:10px;
+  filter:drop-shadow(0 0 10px #0ff);
 }
 
-/* FOOTER */
-.side-footer{
-  margin-top:auto;
-  font-size:10px;
-  opacity:0.5;
-  text-align:center;
+.status{
+  margin-top:20px;
+  font-size:12px;
+  color:#0ff;
 }
 
 /* MAIN */
 .main{
   flex:1;
-  background:#f3f5f9;
-  padding:25px 35px;
+  padding:25px;
 }
 
 /* HEADER */
-.topbar{
+.header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:20px;
+  border-bottom:1px solid #0ff;
+  padding-bottom:10px;
 }
 
-.title{
-  font-size:34px;
-  font-weight:900;
-  color:#1e4ed8;
-  letter-spacing:1px;
+.header h1{
+  font-size:22px;
+  color:#0ff;
+  text-shadow:0 0 10px #0ff;
 }
 
 .time{
+  color:#0ff;
   font-size:14px;
-  color:#666;
 }
 
 /* TABLE */
-.card{
-  background:white;
-  border-radius:12px;
+.table{
+  margin-top:20px;
+  border:1px solid #0ff;
+  border-radius:8px;
   overflow:hidden;
-  box-shadow:0 15px 35px rgba(0,0,0,0.12);
-}
-
-/* HEADER ROW */
-.row.header{
-  background:#0f2a66;
-  color:white;
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  padding:18px 25px;
-  font-size:13px;
-  font-weight:700;
 }
 
 /* ROW */
 .row{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
-  padding:30px 25px;
-  border-bottom:1px solid #eee;
-  align-items:center;
+  padding:18px;
+  border-bottom:1px solid rgba(0,255,204,0.2);
 }
 
-/* CURRENCY NAME */
+/* HEADER ROW */
+.row.head{
+  background:rgba(0,255,204,0.1);
+  font-weight:bold;
+}
+
+/* TEXT */
 .name{
-  font-size:34px;
-  font-weight:900;
-  color:#111;
+  font-size:22px;
+  color:#0ff;
 }
 
-/* BUY */
 .buy{
   text-align:center;
-  font-size:48px;
-  font-weight:900;
-  color:#16a34a;
+  font-size:28px;
+  color:#00ff66;
+  transition:0.2s;
 }
 
-/* SELL */
 .sell{
   text-align:right;
-  font-size:48px;
-  font-weight:900;
-  color:#dc2626;
+  font-size:28px;
+  color:#ff3355;
+  transition:0.2s;
 }
 
-/* LIVE EFFECT */
+/* ANIMATION */
 .flash{
-  animation:flash 0.25s ease;
+  animation:flash 0.3s ease;
 }
 
 @keyframes flash{
-  0%{transform:scale(1.1); opacity:0.3;}
+  0%{transform:scale(1.2); opacity:0.4;}
   100%{transform:scale(1); opacity:1;}
 }
+
+.up{color:#00ff66;}
+.down{color:#ff3355;}
 
 </style>
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
+<div class="left">
 
-  <!-- KAZPOST LOGO -->
   <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Kazpost_logo.svg">
 
-  <div class="brand">KAZPOST</div>
-  <div class="subtitle">EXCHANGE RATE SYSTEM</div>
-
-  <!-- QR -->
-  <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
-
-  <div class="side-footer">© LIVE FINTECH SYSTEM</div>
+  <div class="status">SYSTEM: ONLINE 🟢</div>
+  <div class="status">MODE: TRADING LIVE</div>
+  <div class="status">SYNC: FIREBASE REALTIME</div>
 
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
-<div class="topbar">
-  <div class="title">LIVE VALYUTA</div>
-  <div class="time" id="time">--:--</div>
-</div>
-
-<div class="card">
-
-  <!-- HEADER -->
-  <div class="row header">
-    <div>ВАЛЮТА</div>
-    <div style="text-align:center">САТЫП АЛУ</div>
-    <div style="text-align:right">САТУ</div>
+  <div class="header">
+    <h1>TRADING TERMINAL</h1>
+    <div class="time" id="time">--:--</div>
   </div>
 
-  <!-- USD -->
-  <div class="row">
-    <div class="name">USD</div>
-    <div class="buy" id="usdBuy">464</div>
-    <div class="sell" id="usdSell">471</div>
-  </div>
+  <div class="table">
 
-  <!-- EUR -->
-  <div class="row">
-    <div class="name">EUR</div>
-    <div class="buy" id="eurBuy">546</div>
-    <div class="sell" id="eurSell">556</div>
-  </div>
+    <div class="row head">
+      <div>ASSET</div>
+      <div style="text-align:center">BUY</div>
+      <div style="text-align:right">SELL</div>
+    </div>
 
-  <!-- RUB -->
-  <div class="row">
-    <div class="name">RUB</div>
-    <div class="buy" id="rubBuy">6.0</div>
-    <div class="sell" id="rubSell">6.3</div>
-  </div>
+    <div class="row">
+      <div class="name">USD</div>
+      <div class="buy" id="usdBuy">464</div>
+      <div class="sell" id="usdSell">471</div>
+    </div>
 
-</div>
+    <div class="row">
+      <div class="name">EUR</div>
+      <div class="buy" id="eurBuy">546</div>
+      <div class="sell" id="eurSell">556</div>
+    </div>
+
+    <div class="row">
+      <div class="name">RUB</div>
+      <div class="buy" id="rubBuy">6.0</div>
+      <div class="sell" id="rubSell">6.3</div>
+    </div>
+
+  </div>
 
 </div>
 
@@ -216,6 +172,69 @@ body{
 setInterval(()=>{
   document.getElementById("time").innerText = new Date().toLocaleTimeString();
 },1000);
+</script>
+
+<!-- FIREBASE -->
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "currency-live-d633e.firebaseapp.com",
+  projectId: "currency-live-d633e"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const ref = doc(db,"rates","Vt6Ibuny1gDsyRJfCKLx");
+
+let prev = {};
+
+function update(id,val){
+  const el = document.getElementById(id);
+
+  if(prev[id] !== undefined){
+
+    if(val > prev[id]){
+      el.className = "buy up";
+      el.innerHTML = val + " ↑";
+    } 
+    else if(val < prev[id]){
+      el.className = "buy down";
+      el.innerHTML = val + " ↓";
+    } 
+    else{
+      el.className = "buy";
+      el.innerHTML = val;
+    }
+  } 
+  else{
+    el.innerHTML = val;
+  }
+
+  el.classList.add("flash");
+  setTimeout(()=>el.classList.remove("flash"),300);
+
+  prev[id] = val;
+}
+
+/* LIVE */
+onSnapshot(ref,(snap)=>{
+  const d = snap.data();
+
+  update("usdBuy",d.usdBuy);
+  update("usdSell",d.usdSell);
+
+  update("eurBuy",d.eurBuy);
+  update("eurSell",d.eurSell);
+
+  update("rubBuy",d.rubBuy);
+  update("rubSell",d.rubSell);
+});
+
 </script>
 
 </body>
