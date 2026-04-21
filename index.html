@@ -3,25 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kazpost Full UI</title>
+<title>Bank Exchange System</title>
 
 <style>
 
-/* ⭐ IMPORTANT FIX */
+/* FULL SCREEN FIX */
 html, body{
   height:100%;
   margin:0;
   font-family: Arial;
 }
 
-/* MAIN LAYOUT FIX */
 body{
   display:flex;
-  min-height:100vh;   /* 🔥 FULL SCREEN FIX */
   background:#0b1633;
 }
 
-/* SIDEBAR FULL HEIGHT */
+/* SIDEBAR */
 .sidebar{
   width:280px;
   background:#07142e;
@@ -30,7 +28,6 @@ body{
   flex-direction:column;
   align-items:center;
   padding:30px 20px;
-  min-height:100vh;  /* 🔥 FIX */
 }
 
 /* LOGO */
@@ -39,15 +36,20 @@ body{
   margin-top:30px;
 }
 
+/* BRAND (KAZPOST → BANK) */
 .brand{
   margin-top:15px;
-  font-size:16px;
+  font-size:18px;
   font-weight:900;
+  letter-spacing:2px;
+  color:#00d4ff;
 }
 
+/* SUB TITLE */
 .subtitle{
   font-size:11px;
   opacity:0.6;
+  text-align:center;
 }
 
 /* QR */
@@ -59,9 +61,9 @@ body{
   border-radius:10px;
 }
 
-/* FOOTER STICKS DOWN */
+/* FOOTER */
 .side-footer{
-  margin-top:auto;   /* 🔥 PUSH TO BOTTOM */
+  margin-top:auto;
   font-size:10px;
   opacity:0.5;
 }
@@ -71,7 +73,8 @@ body{
   flex:1;
   background:#f3f5f9;
   padding:25px 35px;
-  min-height:100vh; /* 🔥 FULL HEIGHT */
+  display:flex;
+  flex-direction:column;
 }
 
 /* HEADER */
@@ -93,12 +96,16 @@ body{
   color:#666;
 }
 
-/* TABLE */
+/* TABLE WRAPPER (CENTER FIX) */
 .card{
   background:white;
   border-radius:12px;
   overflow:hidden;
   box-shadow:0 15px 35px rgba(0,0,0,0.12);
+
+  width:100%;
+  max-width:900px;
+  margin:auto; /* 🔥 CENTER FIX */
 }
 
 /* HEADER ROW */
@@ -125,6 +132,7 @@ body{
 .name{
   font-size:34px;
   font-weight:900;
+  color:#111;
 }
 
 .buy{
@@ -141,6 +149,15 @@ body{
   color:#dc2626;
 }
 
+/* BOTTOM BRAND TEXT */
+.bottom-text{
+  text-align:center;
+  margin-top:20px;
+  font-size:12px;
+  color:#666;
+  letter-spacing:2px;
+}
+
 </style>
 </head>
 
@@ -151,8 +168,8 @@ body{
 
   <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Kazpost_logo.svg">
 
-  <div class="brand">KAZPOST</div>
-  <div class="subtitle">EXCHANGE RATE SYSTEM</div>
+  <div class="brand">BANK SYSTEM</div>
+  <div class="subtitle">EXCHANGE RATE MONITOR</div>
 
   <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
 
@@ -168,6 +185,7 @@ body{
   <div class="time" id="time">--:--</div>
 </div>
 
+<!-- TABLE -->
 <div class="card">
 
   <div class="row header">
@@ -194,6 +212,11 @@ body{
     <div class="sell">6.3</div>
   </div>
 
+</div>
+
+<!-- BOTTOM TEXT -->
+<div class="bottom-text">
+  CENTRAL BANK EXCHANGE MONITOR • REAL-TIME FINANCIAL DATA SYSTEM
 </div>
 
 </div>
