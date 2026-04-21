@@ -32,8 +32,7 @@ body{
 /* LOGO */
 .logo{
   width:150px;
-  margin-top:30px;
-  filter:drop-shadow(0 0 10px rgba(0,212,255,0.4));
+  margin-top:25px;
 }
 
 /* BRAND */
@@ -102,7 +101,6 @@ body{
   border-radius:12px;
   overflow:hidden;
   box-shadow:0 15px 35px rgba(0,0,0,0.12);
-
   width:100%;
   max-width:900px;
   margin:auto;
@@ -128,14 +126,13 @@ body{
   align-items:center;
 }
 
-/* CURRENCY */
+/* TEXT */
 .name{
   font-size:34px;
   font-weight:900;
   color:#111;
 }
 
-/* BUY */
 .buy{
   text-align:center;
   font-size:48px;
@@ -143,7 +140,6 @@ body{
   color:#16a34a;
 }
 
-/* SELL */
 .sell{
   text-align:right;
   font-size:48px;
@@ -158,14 +154,17 @@ body{
   font-size:13px;
   color:#666;
   line-height:1.6;
-  padding:10px;
 }
 
 .motto{
   margin-top:10px;
   font-weight:700;
   color:#1e4ed8;
-  font-size:14px;
+}
+
+/* small glow */
+.glow{
+  filter:drop-shadow(0 0 10px rgba(0,212,255,0.4));
 }
 
 </style>
@@ -176,14 +175,16 @@ body{
 <!-- SIDEBAR -->
 <div class="sidebar">
 
-  <!-- Kazpost LOGO -->
-  <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Kazpost_logo.svg">
+  <!-- OFFICIAL KAZPOST LOGO -->
+  <img class="logo glow"
+       src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Kazpost_logo.svg">
 
   <div class="brand">QAZPOST</div>
   <div class="subtitle">EXCHANGE RATE MONITOR</div>
 
   <!-- QR -->
-  <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
+  <img class="qr"
+       src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
 
   <div class="side-footer">LIVE FINTECH SYSTEM</div>
 
@@ -192,7 +193,6 @@ body{
 <!-- MAIN -->
 <div class="main">
 
-<!-- HEADER -->
 <div class="topbar">
   <div class="title">LIVE VALYUTA</div>
   <div class="time" id="time">--:--</div>
@@ -231,7 +231,7 @@ body{
 <div class="bottom-text">
 
   💙 QAZPOST – сенімді қаржы серіктесі / надёжный финансовый партнёр<br>
-  📈 Валюта бағамдары тұрақты жаңарып отырады / Курсы обновляются ежедневно<br>
+  📈 Курстар күн сайын жаңарып отырады / Курсы обновляются ежедневно<br>
 
   <div class="motto">
     “Болашағыңды бүгіннен басқар” / “Управляй будущим уже сегодня”
