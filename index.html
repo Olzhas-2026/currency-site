@@ -29,25 +29,16 @@ body{
   padding:30px 20px;
 }
 
-/* LOGO */
 .logo{
   width:150px;
   margin-top:25px;
   filter: drop-shadow(0 0 12px rgba(0,212,255,0.5));
-  transition:0.3s;
 }
 
-.logo:hover{
-  transform:scale(1.05);
-  filter: drop-shadow(0 0 18px rgba(0,212,255,0.8));
-}
-
-/* BRAND */
 .brand{
   margin-top:15px;
   font-size:20px;
   font-weight:900;
-  letter-spacing:2px;
   color:#00d4ff;
 }
 
@@ -57,7 +48,6 @@ body{
   text-align:center;
 }
 
-/* QR */
 .qr{
   margin-top:50px;
   width:140px;
@@ -66,7 +56,6 @@ body{
   border-radius:10px;
 }
 
-/* FOOTER */
 .side-footer{
   margin-top:auto;
   font-size:10px;
@@ -87,7 +76,7 @@ body{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:20px;
+  margin-bottom:15px;
 }
 
 .title{
@@ -99,6 +88,19 @@ body{
 .time{
   font-size:14px;
   color:#666;
+}
+
+/* 🔥 BIG BANNER */
+.banner{
+  background:linear-gradient(90deg,#0f2a66,#1e4ed8);
+  color:white;
+  padding:18px 20px;
+  border-radius:10px;
+  text-align:center;
+  font-size:20px;
+  font-weight:800;
+  margin-bottom:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
 }
 
 /* TABLE */
@@ -119,7 +121,7 @@ body{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
   padding:18px 25px;
-  font-size:13px;
+  font-size:14px;
   font-weight:700;
 }
 
@@ -127,28 +129,28 @@ body{
 .row{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
-  padding:32px 25px;
+  padding:34px 25px;
   border-bottom:1px solid #eee;
   align-items:center;
 }
 
-/* TEXT */
+/* 🔥 BIGGER TEXT */
 .name{
-  font-size:34px;
+  font-size:38px;
   font-weight:900;
   color:#111;
 }
 
 .buy{
   text-align:center;
-  font-size:48px;
+  font-size:52px;
   font-weight:900;
   color:#16a34a;
 }
 
 .sell{
   text-align:right;
-  font-size:48px;
+  font-size:52px;
   font-weight:900;
   color:#dc2626;
 }
@@ -176,14 +178,12 @@ body{
 <!-- SIDEBAR -->
 <div class="sidebar">
 
-  <!-- KAZPOST LOGO -->
   <img class="logo"
        src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Kazpost_logo.svg">
 
   <div class="brand">QAZPOST</div>
   <div class="subtitle">EXCHANGE RATE MONITOR</div>
 
-  <!-- QR -->
   <img class="qr"
        src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
 
@@ -197,6 +197,11 @@ body{
 <div class="topbar">
   <div class="title">LIVE VALYUTA</div>
   <div class="time" id="time">--:--</div>
+</div>
+
+<!-- 🔥 BIG BANNER (YOUR TEXT) -->
+<div class="banner">
+  QAZPOST – сенімді қаржы серіктесі / надёжный финансовый партнёр
 </div>
 
 <!-- TABLE -->
@@ -231,7 +236,6 @@ body{
 <!-- MOTIVATION -->
 <div class="bottom-text">
 
-  💙 QAZPOST – сенімді қаржы серіктесі / надёжный финансовый партнёр<br>
   📈 Курстар күн сайын жаңарып отырады / Курсы обновляются ежедневно<br>
 
   <div class="motto">
