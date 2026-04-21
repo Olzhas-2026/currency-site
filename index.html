@@ -33,6 +33,13 @@ body{
 .logo{
   width:150px;
   margin-top:25px;
+  filter: drop-shadow(0 0 12px rgba(0,212,255,0.5));
+  transition:0.3s;
+}
+
+.logo:hover{
+  transform:scale(1.05);
+  filter: drop-shadow(0 0 18px rgba(0,212,255,0.8));
 }
 
 /* BRAND */
@@ -44,7 +51,6 @@ body{
   color:#00d4ff;
 }
 
-/* SUBTITLE */
 .subtitle{
   font-size:11px;
   opacity:0.6;
@@ -95,7 +101,7 @@ body{
   color:#666;
 }
 
-/* CARD */
+/* TABLE */
 .card{
   background:white;
   border-radius:12px;
@@ -162,11 +168,6 @@ body{
   color:#1e4ed8;
 }
 
-/* small glow */
-.glow{
-  filter:drop-shadow(0 0 10px rgba(0,212,255,0.4));
-}
-
 </style>
 </head>
 
@@ -175,8 +176,8 @@ body{
 <!-- SIDEBAR -->
 <div class="sidebar">
 
-  <!-- OFFICIAL KAZPOST LOGO -->
-  <img class="logo glow"
+  <!-- KAZPOST LOGO -->
+  <img class="logo"
        src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Kazpost_logo.svg">
 
   <div class="brand">QAZPOST</div>
