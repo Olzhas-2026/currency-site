@@ -3,123 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kazpost Terminal</title>
+<title>Kazpost Full UI</title>
 
 <style>
 
-/* 🌑 TERMINAL BACKGROUND */
-body{
+/* ⭐ IMPORTANT FIX */
+html, body{
+  height:100%;
   margin:0;
-  background:#050b1a;
-  font-family: "Courier New", monospace;
-  color:#00ffcc;
+  font-family: Arial;
+}
+
+/* MAIN LAYOUT FIX */
+body{
   display:flex;
-  height:100vh;
+  min-height:100vh;   /* 🔥 FULL SCREEN FIX */
+  background:#0b1633;
 }
 
-/* LEFT PANEL (SYSTEM INFO) */
-.left{
-  width:300px;
+/* SIDEBAR FULL HEIGHT */
+.sidebar{
+  width:280px;
   background:#07142e;
-  padding:25px;
-  border-right:2px solid #0ff;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:30px 20px;
+  min-height:100vh;  /* 🔥 FIX */
 }
 
+/* LOGO */
 .logo{
-  width:140px;
-  filter:drop-shadow(0 0 10px #0ff);
-}
-
-.title{
-  margin-top:20px;
-  font-size:14px;
-  letter-spacing:2px;
-  color:#0ff;
-}
-
-.status{
-  margin-top:20px;
-  font-size:12px;
-  opacity:0.8;
-}
-
-.box{
+  width:150px;
   margin-top:30px;
-  padding:10px;
-  border:1px solid #0ff;
-  border-radius:6px;
-  font-size:12px;
 }
 
-/* RIGHT MAIN */
+.brand{
+  margin-top:15px;
+  font-size:16px;
+  font-weight:900;
+}
+
+.subtitle{
+  font-size:11px;
+  opacity:0.6;
+}
+
+/* QR */
+.qr{
+  margin-top:50px;
+  width:140px;
+  background:white;
+  padding:10px;
+  border-radius:10px;
+}
+
+/* FOOTER STICKS DOWN */
+.side-footer{
+  margin-top:auto;   /* 🔥 PUSH TO BOTTOM */
+  font-size:10px;
+  opacity:0.5;
+}
+
+/* MAIN */
 .main{
   flex:1;
-  padding:25px;
+  background:#f3f5f9;
+  padding:25px 35px;
+  min-height:100vh; /* 🔥 FULL HEIGHT */
 }
 
 /* HEADER */
-.header{
+.topbar{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  border-bottom:1px solid #0ff;
-  padding-bottom:10px;
+  margin-bottom:20px;
 }
 
-.header h1{
-  font-size:22px;
-  color:#0ff;
-  letter-spacing:2px;
+.title{
+  font-size:34px;
+  font-weight:900;
+  color:#1e4ed8;
 }
 
 .time{
-  color:#0ff;
   font-size:14px;
+  color:#666;
 }
 
 /* TABLE */
-.table{
-  margin-top:20px;
-  border:1px solid #0ff;
-  border-radius:8px;
+.card{
+  background:white;
+  border-radius:12px;
   overflow:hidden;
+  box-shadow:0 15px 35px rgba(0,0,0,0.12);
+}
+
+/* HEADER ROW */
+.row.header{
+  background:#0f2a66;
+  color:white;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  padding:18px 25px;
+  font-size:13px;
+  font-weight:700;
 }
 
 /* ROW */
 .row{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
-  padding:18px;
-  border-bottom:1px solid rgba(0,255,204,0.2);
-}
-
-/* HEADER ROW */
-.row.head{
-  background:rgba(0,255,204,0.1);
-  font-weight:bold;
+  padding:32px 25px;
+  border-bottom:1px solid #eee;
+  align-items:center;
 }
 
 /* TEXT */
 .name{
-  font-size:20px;
-  color:#0ff;
+  font-size:34px;
+  font-weight:900;
 }
 
 .buy{
   text-align:center;
-  font-size:24px;
-  color:#00ff66;
+  font-size:48px;
+  font-weight:900;
+  color:#16a34a;
 }
 
 .sell{
   text-align:right;
-  font-size:24px;
-  color:#ff3355;
-}
-
-/* GLOW EFFECT */
-.glow{
-  text-shadow:0 0 8px #0ff;
+  font-size:48px;
+  font-weight:900;
+  color:#dc2626;
 }
 
 </style>
@@ -127,64 +146,55 @@ body{
 
 <body>
 
-<!-- LEFT SYSTEM PANEL -->
-<div class="left">
+<!-- SIDEBAR -->
+<div class="sidebar">
 
   <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Kazpost_logo.svg">
 
-  <div class="title">KAZPOST TERMINAL SYSTEM</div>
+  <div class="brand">KAZPOST</div>
+  <div class="subtitle">EXCHANGE RATE SYSTEM</div>
 
-  <div class="status">STATUS: ONLINE 🟢</div>
+  <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
 
-  <div class="box">
-    SYSTEM: FINTECH v3.0<br>
-    MODE: LIVE TRADING<br>
-    SECURITY: ACTIVE
-  </div>
-
-  <div class="box">
-    CONNECTION: FIREBASE<br>
-    LATENCY: 12ms<br>
-    SYNC: REAL-TIME
-  </div>
+  <div class="side-footer">LIVE FINTECH SYSTEM</div>
 
 </div>
 
 <!-- MAIN -->
 <div class="main">
 
-  <div class="header">
-    <h1 class="glow">LIVE CURRENCY TERMINAL</h1>
-    <div class="time" id="time">--:--</div>
+<div class="topbar">
+  <div class="title">LIVE VALYUTA</div>
+  <div class="time" id="time">--:--</div>
+</div>
+
+<div class="card">
+
+  <div class="row header">
+    <div>ВАЛЮТА</div>
+    <div style="text-align:center">САТЫП АЛУ</div>
+    <div style="text-align:right">САТУ</div>
   </div>
 
-  <div class="table">
-
-    <div class="row head">
-      <div>ASSET</div>
-      <div style="text-align:center">BUY</div>
-      <div style="text-align:right">SELL</div>
-    </div>
-
-    <div class="row">
-      <div class="name">USD</div>
-      <div class="buy">464</div>
-      <div class="sell">471</div>
-    </div>
-
-    <div class="row">
-      <div class="name">EUR</div>
-      <div class="buy">546</div>
-      <div class="sell">556</div>
-    </div>
-
-    <div class="row">
-      <div class="name">RUB</div>
-      <div class="buy">6.0</div>
-      <div class="sell">6.3</div>
-    </div>
-
+  <div class="row">
+    <div class="name">USD</div>
+    <div class="buy">464</div>
+    <div class="sell">471</div>
   </div>
+
+  <div class="row">
+    <div class="name">EUR</div>
+    <div class="buy">546</div>
+    <div class="sell">556</div>
+  </div>
+
+  <div class="row">
+    <div class="name">RUB</div>
+    <div class="buy">6.0</div>
+    <div class="sell">6.3</div>
+  </div>
+
+</div>
 
 </div>
 
