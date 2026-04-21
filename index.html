@@ -14,7 +14,7 @@ body{
   display:flex;
 }
 
-/* LEFT PANEL */
+/* LEFT */
 .sidebar{
   width:220px;
   background:#08122b;
@@ -102,7 +102,6 @@ body{
 
 <div class="sidebar">
   <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Kazpost_logo.svg">
-  
   <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://your-site.com">
 </div>
 
@@ -139,29 +138,50 @@ body{
     <div class="sell" id="rubSell">...</div>
   </div>
 
-  <div class="row">
-    <div class="name">KGS</div>
-    <div class="buy">5.25</div>
-    <div class="sell">5.65</div>
-  </div>
-
-  <div class="row">
-    <div class="name">CNY</div>
-    <div class="buy">67.00</div>
-    <div class="sell">73.00</div>
-  </div>
-
 </div>
 
 </div>
 
 <script>
-
-/* уақыт */
+/* TIME */
 setInterval(()=>{
   const now = new Date();
   time.innerText = now.toLocaleTimeString();
 },1000);
+</script>
+
+<!-- FIREBASE -->
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+/* YOUR FIREBASE CONFIG */
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "currency-live-d633e.firebaseapp.com",
+  projectId: "currency-live-d633e"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+/* DOC PATH */
+const ref = doc(db,"rates","Vt6Ibuny1gDsyRJfCKLx");
+
+/* LIVE UPDATE */
+onSnapshot(ref,(snap)=>{
+  const d = snap.data();
+
+  usdBuy.innerText = d.usdBuy;
+  usdSell.innerText = d.usdSell;
+
+  eurBuy.innerText = d.eurBuy;
+  eurSell.innerText = d.eurSell;
+
+  rubBuy.innerText = d.rubBuy;
+  rubSell.innerText = d.rubSell;
+});
 
 </script>
 
