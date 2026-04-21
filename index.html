@@ -7,7 +7,6 @@
 
 <style>
 
-/* BODY */
 body{
   margin:0;
   font-family: Arial, sans-serif;
@@ -15,7 +14,7 @@ body{
   display:flex;
 }
 
-/* SIDEBAR (Kazpost style) */
+/* SIDEBAR */
 .sidebar{
   width:240px;
   background:linear-gradient(180deg,#07142e,#0b1f4a);
@@ -27,7 +26,6 @@ body{
 .logo{
   width:110px;
   margin-top:20px;
-  filter:drop-shadow(0 5px 10px rgba(0,0,0,0.4));
 }
 
 .brand{
@@ -46,16 +44,15 @@ body{
 .qr{
   margin-top:35px;
   width:130px;
-  border-radius:10px;
   background:white;
   padding:8px;
+  border-radius:10px;
 }
 
 .footer{
   margin-top:25px;
   font-size:11px;
   opacity:0.6;
-  letter-spacing:2px;
 }
 
 /* MAIN */
@@ -103,13 +100,11 @@ body{
   background:#1e3a8a;
   color:white;
   font-weight:bold;
-  font-size:16px;
 }
 
 .name{
   font-size:32px;
   font-weight:800;
-  color:#111;
 }
 
 .buy{
@@ -126,7 +121,6 @@ body{
   color:#dc2626;
 }
 
-/* ANIMATION */
 .flash{
   animation:flashAnim 0.3s ease;
 }
@@ -194,7 +188,6 @@ body{
 </div>
 
 <script>
-/* CLOCK */
 setInterval(()=>{
   const now = new Date();
   time.innerText = now.toLocaleTimeString();
