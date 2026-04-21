@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LIVE VALYUTA</title>
+<title>Kazpost Live Rate</title>
 
 <style>
 
+/* RESET */
 body{
   margin:0;
   font-family: Arial, sans-serif;
@@ -14,120 +15,117 @@ body{
   display:flex;
 }
 
-/* SIDEBAR */
+/* LEFT SIDE */
 .sidebar{
-  width:240px;
-  background:linear-gradient(180deg,#07142e,#0b1f4a);
+  width:260px;
+  background:#0b1633;
   color:white;
   text-align:center;
   padding:25px;
 }
 
-.logo{
-  width:110px;
-  margin-top:20px;
+.sidebar img.logo{
+  width:120px;
+  margin-top:30px;
 }
 
-.brand{
-  margin-top:15px;
-  font-size:20px;
-  font-weight:900;
-  letter-spacing:3px;
-}
-
-.sub{
-  font-size:12px;
-  opacity:0.7;
-  margin-top:5px;
-}
-
-.qr{
-  margin-top:35px;
-  width:130px;
+.sidebar .qr{
+  margin-top:40px;
+  width:140px;
   background:white;
-  padding:8px;
-  border-radius:10px;
+  padding:10px;
+  border-radius:12px;
 }
 
-.footer{
-  margin-top:25px;
-  font-size:11px;
-  opacity:0.6;
+.sidebar .text{
+  margin-top:20px;
+  font-weight:bold;
+  letter-spacing:2px;
+  font-size:14px;
+  opacity:0.8;
 }
 
 /* MAIN */
 .main{
   flex:1;
-  background:#f3f5f8;
+  background:#f4f6fb;
   padding:20px 30px;
 }
 
+/* HEADER */
 .header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:20px;
+  margin-bottom:15px;
 }
 
-.title{
-  font-size:32px;
-  font-weight:bold;
-  color:#2d5bd1;
+.header h1{
+  font-size:28px;
+  color:#1e4ed8;
+  margin:0;
 }
 
 .time{
   font-size:14px;
-  color:gray;
+  color:#666;
 }
 
-/* TABLE */
-.table{
+/* TABLE WRAPPER */
+.card{
   background:white;
-  border-radius:12px;
+  border-radius:10px;
   overflow:hidden;
-  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
+/* ROW */
 .row{
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;
-  padding:25px;
+  padding:22px 25px;
   border-bottom:1px solid #eee;
   align-items:center;
 }
 
+/* HEADER ROW */
 .row.header{
-  background:#1e3a8a;
+  background:#0f2a66;
   color:white;
   font-weight:bold;
 }
 
+/* CURRENCY NAME */
 .name{
-  font-size:32px;
+  font-size:26px;
   font-weight:800;
+  color:#111;
 }
 
+/* BUY */
 .buy{
   text-align:center;
-  font-size:38px;
+  font-size:34px;
   font-weight:800;
   color:#16a34a;
 }
 
+/* SELL */
 .sell{
   text-align:right;
-  font-size:38px;
+  font-size:34px;
   font-weight:800;
   color:#dc2626;
 }
 
+/* ANIMATION */
 .flash{
-  animation:flashAnim 0.3s ease;
+  animation:flash 0.3s ease;
 }
 
-@keyframes flashAnim{
-  0%{opacity:0.3; transform:scale(1.1);}
-  100%{opacity:1; transform:scale(1);}
+@keyframes flash{
+  0%{transform:scale(1.1); opacity:0.4;}
+  100%{transform:scale(1); opacity:1;}
 }
 
 </style>
@@ -140,12 +138,11 @@ body{
 
   <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Kazpost_logo.svg">
 
-  <div class="brand">KAZPOST</div>
-  <div class="sub">EXCHANGE RATE</div>
+  <div class="text">EXCHANGE RATE SYSTEM</div>
 
-  <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
+  <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://your-site.com">
 
-  <div class="footer">LIVE SYSTEM</div>
+  <div class="text">LIVE DATA</div>
 
 </div>
 
@@ -153,11 +150,11 @@ body{
 <div class="main">
 
 <div class="header">
-  <div class="title">LIVE VALYUTA</div>
+  <h1>LIVE VALYUTA</h1>
   <div class="time" id="time">--:--</div>
 </div>
 
-<div class="table">
+<div class="card">
 
   <div class="row header">
     <div>ВАЛЮТА</div>
@@ -190,48 +187,8 @@ body{
 <script>
 setInterval(()=>{
   const now = new Date();
-  time.innerText = now.toLocaleTimeString();
+  document.getElementById("time").innerText = now.toLocaleTimeString();
 },1000);
-</script>
-
-<!-- FIREBASE -->
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "currency-live-d633e.firebaseapp.com",
-  projectId: "currency-live-d633e"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const ref = doc(db,"rates","Vt6Ibuny1gDsyRJfCKLx");
-
-/* animation */
-function animate(el,val){
-  el.classList.add("flash");
-  el.innerText = val;
-  setTimeout(()=>el.classList.remove("flash"),300);
-}
-
-/* LIVE DATA */
-onSnapshot(ref,(snap)=>{
-  const d = snap.data();
-
-  animate(usdBuy,d.usdBuy);
-  animate(usdSell,d.usdSell);
-
-  animate(eurBuy,d.eurBuy);
-  animate(eurSell,d.eurSell);
-
-  animate(rubBuy,d.rubBuy);
-  animate(rubSell,d.rubSell);
-});
-
 </script>
 
 </body>
