@@ -11,7 +11,6 @@ html, body{
   height:100%;
   margin:0;
 
-  /* 🔥 FINAL GLOBAL FONT FIX */
   font-family:
     system-ui,
     -apple-system,
@@ -20,7 +19,7 @@ html, body{
     Arial,
     sans-serif;
 
-  font-feature-settings: "tnum" 1, "ss01" 1;
+  font-feature-settings: "tnum" 1;
   -webkit-font-smoothing: antialiased;
   text-rendering: geometricPrecision;
 
@@ -84,7 +83,6 @@ body{
   flex-direction:column;
 }
 
-/* TIME */
 .topbar{
   display:flex;
   justify-content:flex-end;
@@ -97,7 +95,6 @@ body{
   font-weight:600;
 }
 
-/* HEADER */
 .banner{
   background:linear-gradient(90deg,#0f2a66,#1e4ed8);
   color:white;
@@ -107,21 +104,14 @@ body{
   font-size:34px;
   font-weight:900;
   margin-bottom:12px;
-
-  letter-spacing:0.3px;
-  line-height:1.4;
 }
 
-/* INFO */
 .info{
   text-align:center;
   font-size:20px;
   font-weight:800;
   color:#1e4ed8;
   margin-bottom:25px;
-
-  letter-spacing:0.3px;
-  line-height:1.4;
 }
 
 /* TABLE */
@@ -153,25 +143,16 @@ body{
   align-items:center;
 }
 
-/* TEXT */
 .name{
   font-size:44px;
   font-weight:900;
   color:#111;
-
-  letter-spacing:0.3px;
-  line-height:1.4;
 }
 
-/* 🔥 NUMBER FIX (IMPORTANT) */
+/* NUMBERS */
 .buy, .sell{
-  font-family:
-    system-ui,
-    "Segoe UI",
-    monospace;
-
+  font-family: system-ui, "Segoe UI", monospace;
   font-variant-numeric: tabular-nums;
-
   font-size:60px;
   font-weight:900;
 }
@@ -186,7 +167,7 @@ body{
   color:#dc2626;
 }
 
-/* SLOGAN */
+/* SLOGAN FIX 🔥 */
 .slogan-box{
   margin-top:25px;
   text-align:center;
@@ -194,20 +175,18 @@ body{
 }
 
 .slogan{
-  font-size:24px;
-  font-weight:800;
+  font-size:26px;
+  font-weight:900;
   color:#0f2a66;
-  line-height:1.5;
 
-  letter-spacing:0.3px;
+  /* 🔥 ONE LINE ONLY */
+  white-space:nowrap;
+
+  letter-spacing:0.2px;
 }
 
 .slogan span{
-  display:block;
-  font-size:19px;
-  font-weight:600;
-  color:#1e4ed8;
-  margin-top:6px;
+  display:none; /* remove second line */
 }
 
 </style>
@@ -274,8 +253,7 @@ body{
 
 <div class="slogan-box">
   <div class="slogan">
-    “Болашағыңды бүгіннен басқар”
-    <span>/ Управляй будущим уже сегодня</span>
+    Болашағыңды бүгіннен басқар / Управляй будущим уже сегодня
   </div>
 </div>
 
