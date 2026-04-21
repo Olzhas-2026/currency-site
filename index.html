@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kazpost Live</title>
+<title>PRO MAX FINTECH</title>
 
 <style>
 
-/* GLOBAL */
 body{
   margin:0;
   font-family: Arial, sans-serif;
@@ -15,31 +14,29 @@ body{
   background:#0b1633;
 }
 
-/* LEFT PANEL */
+/* SIDEBAR */
 .sidebar{
-  width:270px;
+  width:280px;
   background:#08122b;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:30px 20px;
   color:white;
+  text-align:center;
+  padding:30px 20px;
 }
 
-.sidebar img.logo{
-  width:130px;
+.logo{
+  width:140px;
   margin-top:40px;
 }
 
-.sidebar .title{
-  margin-top:20px;
-  font-size:16px;
-  font-weight:700;
+.brand{
+  margin-top:15px;
+  font-size:14px;
   letter-spacing:2px;
-  opacity:0.85;
+  opacity:0.8;
+  font-weight:700;
 }
 
-.sidebar .qr{
+.qr{
   margin-top:50px;
   width:150px;
   background:white;
@@ -47,11 +44,10 @@ body{
   border-radius:12px;
 }
 
-.sidebar .bottom{
+.bottom{
   margin-top:auto;
-  font-size:12px;
+  font-size:11px;
   opacity:0.5;
-  letter-spacing:2px;
 }
 
 /* MAIN */
@@ -61,7 +57,7 @@ body{
   padding:25px 35px;
 }
 
-/* TOP HEADER */
+/* HEADER */
 .topbar{
   display:flex;
   justify-content:space-between;
@@ -69,11 +65,11 @@ body{
   margin-bottom:20px;
 }
 
-.topbar h1{
+h1{
   margin:0;
-  font-size:30px;
-  font-weight:800;
+  font-size:32px;
   color:#1e4ed8;
+  font-weight:900;
 }
 
 .time{
@@ -81,26 +77,14 @@ body{
   color:#666;
 }
 
-/* CARD */
+/* TABLE */
 .card{
   background:white;
-  border-radius:10px;
+  border-radius:12px;
   overflow:hidden;
-  box-shadow:0 12px 30px rgba(0,0,0,0.08);
+  box-shadow:0 15px 35px rgba(0,0,0,0.1);
 }
 
-/* HEADER ROW */
-.row.header{
-  background:#0f2a66;
-  color:white;
-  font-weight:700;
-  font-size:14px;
-  padding:18px 25px;
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-}
-
-/* ROW */
 .row{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
@@ -109,36 +93,45 @@ body{
   align-items:center;
 }
 
+.row.header{
+  background:#0f2a66;
+  color:white;
+  font-size:13px;
+  font-weight:700;
+}
+
 /* CURRENCY */
 .name{
-  font-size:30px;
-  font-weight:800;
-  color:#111;
+  font-size:32px;
+  font-weight:900;
 }
 
 /* BUY */
 .buy{
   text-align:center;
-  font-size:40px;
-  font-weight:800;
-  color:#16a34a;
+  font-size:46px;
+  font-weight:900;
+  transition:0.2s;
 }
 
 /* SELL */
 .sell{
   text-align:right;
-  font-size:40px;
-  font-weight:800;
-  color:#dc2626;
+  font-size:46px;
+  font-weight:900;
 }
 
-/* ANIMATION */
+/* COLORS */
+.up{ color:#16a34a; }
+.down{ color:#dc2626; }
+
+/* FLASH */
 .flash{
   animation:flash 0.25s ease;
 }
 
 @keyframes flash{
-  0%{transform:scale(1.08); opacity:0.4;}
+  0%{transform:scale(1.1); opacity:0.3;}
   100%{transform:scale(1); opacity:1;}
 }
 
@@ -152,11 +145,11 @@ body{
 
   <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Kazpost_logo.svg">
 
-  <div class="title">EXCHANGE SYSTEM</div>
+  <div class="brand">PRO MAX FINTECH SYSTEM</div>
 
   <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://your-site.com">
 
-  <div class="bottom">LIVE DATA</div>
+  <div class="bottom">LIVE • BANK GRADE SYSTEM</div>
 
 </div>
 
@@ -178,20 +171,20 @@ body{
 
   <div class="row">
     <div class="name">USD</div>
-    <div class="buy" id="usdBuy">-</div>
-    <div class="sell" id="usdSell">-</div>
+    <div class="buy" id="usdBuy">464</div>
+    <div class="sell" id="usdSell">471</div>
   </div>
 
   <div class="row">
     <div class="name">EUR</div>
-    <div class="buy" id="eurBuy">-</div>
-    <div class="sell" id="eurSell">-</div>
+    <div class="buy" id="eurBuy">546</div>
+    <div class="sell" id="eurSell">556</div>
   </div>
 
   <div class="row">
     <div class="name">RUB</div>
-    <div class="buy" id="rubBuy">-</div>
-    <div class="sell" id="rubSell">-</div>
+    <div class="buy" id="rubBuy">6.0</div>
+    <div class="sell" id="rubSell">6.3</div>
   </div>
 
 </div>
@@ -202,6 +195,72 @@ body{
 setInterval(()=>{
   document.getElementById("time").innerText = new Date().toLocaleTimeString();
 },1000);
+</script>
+
+<!-- FIREBASE -->
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "currency-live-d633e.firebaseapp.com",
+  projectId: "currency-live-d633e"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const ref = doc(db,"rates","Vt6Ibuny1gDsyRJfCKLx");
+
+let prev = {};
+
+/* UPDATE ENGINE */
+function setVal(id,val){
+  const el = document.getElementById(id);
+
+  if(prev[id] !== undefined){
+
+    if(val > prev[id]){
+      el.className = "buy up";
+      el.innerHTML = val + " ↑";
+    }
+
+    else if(val < prev[id]){
+      el.className = "buy down";
+      el.innerHTML = val + " ↓";
+    }
+
+    else{
+      el.className = "buy";
+      el.innerHTML = val;
+    }
+
+  } else {
+    el.innerHTML = val;
+  }
+
+  el.classList.add("flash");
+  setTimeout(()=>el.classList.remove("flash"),250);
+
+  prev[id] = val;
+}
+
+/* LIVE DATA */
+onSnapshot(ref,(snap)=>{
+  const d = snap.data();
+
+  setVal("usdBuy",d.usdBuy);
+  setVal("usdSell",d.usdSell);
+
+  setVal("eurBuy",d.eurBuy);
+  setVal("eurSell",d.eurSell);
+
+  setVal("rubBuy",d.rubBuy);
+  setVal("rubSell",d.rubSell);
+});
+
 </script>
 
 </body>
