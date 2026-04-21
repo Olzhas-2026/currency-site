@@ -13,7 +13,6 @@ html, body{
   font-family: Arial, sans-serif;
 }
 
-/* BACKGROUND */
 body{
   display:flex;
   background:#0b1633;
@@ -21,49 +20,78 @@ body{
 
 /* SIDEBAR */
 .sidebar{
-  width:260px;
+  width:280px;
   background:#07142e;
   color:white;
   display:flex;
   flex-direction:column;
   align-items:center;
-  padding:25px 15px;
+  padding:30px 20px;
 }
 
-/* SMALL LOGO */
-.side-logo{
-  width:120px;
-  margin-top:20px;
+/* LOGO */
+.logo{
+  width:150px;
+  margin-top:25px;
+  filter: drop-shadow(0 0 12px rgba(0,212,255,0.5));
+  transition:0.3s;
+}
+
+.logo:hover{
+  transform:scale(1.05);
+  filter: drop-shadow(0 0 18px rgba(0,212,255,0.8));
 }
 
 /* BRAND */
 .brand{
-  margin-top:10px;
-  font-size:18px;
+  margin-top:15px;
+  font-size:20px;
   font-weight:900;
+  letter-spacing:2px;
   color:#00d4ff;
 }
 
-/* MAIN AREA */
+.subtitle{
+  font-size:11px;
+  opacity:0.6;
+  text-align:center;
+}
+
+/* QR */
+.qr{
+  margin-top:50px;
+  width:140px;
+  background:white;
+  padding:10px;
+  border-radius:10px;
+}
+
+/* FOOTER */
+.side-footer{
+  margin-top:auto;
+  font-size:10px;
+  opacity:0.5;
+}
+
+/* MAIN */
 .main{
   flex:1;
   background:#f3f5f9;
-  padding:25px;
+  padding:25px 35px;
   display:flex;
   flex-direction:column;
-  align-items:center;
 }
 
 /* HEADER */
 .topbar{
-  width:100%;
   display:flex;
   justify-content:space-between;
-  margin-bottom:10px;
+  align-items:center;
+  margin-bottom:20px;
 }
 
 .title{
-  font-size:30px;
+  font-size:34px;
   font-weight:900;
   color:#1e4ed8;
 }
@@ -71,13 +99,6 @@ body{
 .time{
   font-size:14px;
   color:#666;
-}
-
-/* 🔥 BIG CENTER LOGO */
-.hero-logo{
-  width:250px;
-  margin:25px 0;
-  filter:drop-shadow(0 0 20px rgba(0,212,255,0.6));
 }
 
 /* TABLE */
@@ -88,6 +109,7 @@ body{
   box-shadow:0 15px 35px rgba(0,0,0,0.12);
   width:100%;
   max-width:900px;
+  margin:auto;
 }
 
 /* HEADER ROW */
@@ -96,7 +118,8 @@ body{
   color:white;
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
-  padding:18px;
+  padding:18px 25px;
+  font-size:13px;
   font-weight:700;
 }
 
@@ -104,37 +127,38 @@ body{
 .row{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
-  padding:30px 20px;
+  padding:32px 25px;
   border-bottom:1px solid #eee;
   align-items:center;
 }
 
 /* TEXT */
 .name{
-  font-size:32px;
+  font-size:34px;
   font-weight:900;
+  color:#111;
 }
 
 .buy{
   text-align:center;
-  font-size:42px;
+  font-size:48px;
   font-weight:900;
   color:#16a34a;
 }
 
 .sell{
   text-align:right;
-  font-size:42px;
+  font-size:48px;
   font-weight:900;
   color:#dc2626;
 }
 
 /* MOTIVATION */
 .bottom-text{
-  margin-top:20px;
   text-align:center;
-  color:#666;
+  margin-top:25px;
   font-size:13px;
+  color:#666;
   line-height:1.6;
 }
 
@@ -152,25 +176,28 @@ body{
 <!-- SIDEBAR -->
 <div class="sidebar">
 
-  <img class="side-logo"
+  <!-- KAZPOST LOGO -->
+  <img class="logo"
        src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Kazpost_logo.svg">
 
   <div class="brand">QAZPOST</div>
+  <div class="subtitle">EXCHANGE RATE MONITOR</div>
+
+  <!-- QR -->
+  <img class="qr"
+       src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
+
+  <div class="side-footer">LIVE FINTECH SYSTEM</div>
 
 </div>
 
 <!-- MAIN -->
 <div class="main">
 
-<!-- TOP -->
 <div class="topbar">
   <div class="title">LIVE VALYUTA</div>
   <div class="time" id="time">--:--</div>
 </div>
-
-<!-- 🔥 BIG CENTER LOGO -->
-<img class="hero-logo"
-     src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Kazpost_logo.svg">
 
 <!-- TABLE -->
 <div class="card">
@@ -205,9 +232,10 @@ body{
 <div class="bottom-text">
 
   💙 QAZPOST – сенімді қаржы серіктесі / надёжный финансовый партнёр<br>
+  📈 Курстар күн сайын жаңарып отырады / Курсы обновляются ежедневно<br>
 
   <div class="motto">
-    “Болашағыңды бүгіннен басқар”
+    “Болашағыңды бүгіннен басқар” / “Управляй будущим уже сегодня”
   </div>
 
 </div>
