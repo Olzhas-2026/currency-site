@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QAZPOST Exchange System</title>
 
-<!-- 🔥 MODERN FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
@@ -13,11 +12,10 @@
 html, body{
   height:100%;
   margin:0;
-  font-family: 'Inter', sans-serif; /* 🔥 NEW MODERN FONT */
+  font-family:'Inter', sans-serif;
   background:#0b1633;
 }
 
-/* LAYOUT */
 body{
   display:flex;
 }
@@ -36,22 +34,20 @@ body{
 .logo{
   width:150px;
   margin-top:25px;
-  filter: drop-shadow(0 0 12px rgba(0,212,255,0.35));
 }
 
 .brand{
   margin-top:15px;
   font-size:24px;
   font-weight:900;
-  letter-spacing:2px;
   color:#00d4ff;
+  letter-spacing:2px;
 }
 
 .subtitle{
   font-size:11px;
-  opacity:0.65;
+  opacity:0.6;
   text-align:center;
-  margin-top:5px;
 }
 
 .qr{
@@ -77,7 +73,7 @@ body{
   flex-direction:column;
 }
 
-/* TOP */
+/* TIME */
 .topbar{
   display:flex;
   justify-content:flex-end;
@@ -90,7 +86,7 @@ body{
   font-weight:600;
 }
 
-/* 🔥 PREMIUM HEADER */
+/* HEADER */
 .banner{
   background:linear-gradient(90deg,#0f2a66,#1e4ed8);
   color:white;
@@ -99,7 +95,6 @@ body{
   text-align:center;
   font-size:32px;
   font-weight:900;
-  letter-spacing:0.5px;
   margin-bottom:12px;
   box-shadow:0 10px 25px rgba(0,0,0,0.15);
 }
@@ -107,14 +102,13 @@ body{
 /* INFO */
 .info{
   text-align:center;
-  font-size:19px;
-  font-weight:700;
+  font-size:18px;
+  font-weight:800;
   color:#1e4ed8;
   margin-bottom:25px;
-  letter-spacing:0.3px;
 }
 
-/* TABLE CARD */
+/* TABLE */
 .card{
   background:white;
   border-radius:14px;
@@ -125,7 +119,6 @@ body{
   margin:auto;
 }
 
-/* HEADER ROW */
 .row.header{
   background:#0f2a66;
   color:white;
@@ -134,10 +127,8 @@ body{
   padding:18px 25px;
   font-size:14px;
   font-weight:800;
-  letter-spacing:0.5px;
 }
 
-/* ROW */
 .row{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
@@ -146,12 +137,9 @@ body{
   align-items:center;
 }
 
-/* TEXT */
 .name{
   font-size:44px;
   font-weight:900;
-  color:#111;
-  letter-spacing:1px;
 }
 
 .buy{
@@ -168,20 +156,28 @@ body{
   color:#dc2626;
 }
 
-/* MOTIVATION */
-.bottom-text{
-  text-align:center;
+/* 🔥 FINAL PREMIUM SLOGAN FIX */
+.slogan-box{
   margin-top:25px;
-  font-size:15px;
-  color:#444;
-  line-height:1.7;
+  text-align:center;
+  padding:18px;
 }
 
-.motto{
-  margin-top:10px;
+.slogan{
+  font-size:20px;
   font-weight:900;
-  font-size:19px;
+  color:#0f2a66;
+  letter-spacing:0.5px;
+  line-height:1.5;
+  text-shadow:0 2px 10px rgba(30,78,216,0.15);
+}
+
+.slogan span{
+  display:block;
+  font-size:18px;
+  font-weight:700;
   color:#1e4ed8;
+  margin-top:5px;
 }
 
 </style>
@@ -201,7 +197,7 @@ body{
   <img class="qr"
        src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
 
-  <div class="side-footer">REAL-TIME BANK SYSTEM</div>
+  <div class="side-footer">LIVE SYSTEM</div>
 
 </div>
 
@@ -212,17 +208,14 @@ body{
   <div class="time" id="time">--:--</div>
 </div>
 
-<!-- HEADER -->
 <div class="banner">
   QAZPOST – сенімді қаржы серіктесі / надёжный финансовый партнёр
 </div>
 
-<!-- INFO -->
 <div class="info">
   💡 Баға тиімді • Сенімді айырбас / Выгодный курс • Надёжный обмен
 </div>
 
-<!-- TABLE -->
 <div class="card">
 
   <div class="row header">
@@ -251,13 +244,12 @@ body{
 
 </div>
 
-<!-- MOTIVATION -->
-<div class="bottom-text">
-
-  <div class="motto">
-    “Болашағыңды бүгіннен басқар” / “Управляй будущим уже сегодня”
+<!-- 🔥 FIXED SLOGAN -->
+<div class="slogan-box">
+  <div class="slogan">
+    “Болашағыңды бүгіннен басқар”
+    <span>/ Управляй будущим уже сегодня</span>
   </div>
-
 </div>
 
 </div>
