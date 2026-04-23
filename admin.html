@@ -2,7 +2,7 @@
 <html lang="kk">
 <head>
 <meta charset="UTF-8">
-<title>Admin</title>
+<title>Admin Panel</title>
 <style>
 body{
   background:#0b1633;
@@ -15,8 +15,8 @@ body{
 input{
   padding:8px;
   margin:5px;
-  border-radius:6px;
   border:none;
+  border-radius:6px;
 }
 
 button{
@@ -25,13 +25,14 @@ button{
   border:none;
   color:white;
   border-radius:6px;
+  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<h1>ADMIN PANEL 💰</h1>
+<h1>ADMIN 💰</h1>
 
 <h3>USD</h3>
 <input id="usdBuy" placeholder="Buy">
@@ -49,19 +50,25 @@ button{
 <button onclick="save()">SAVE</button>
 
 <script>
+
 function save(){
 
-  localStorage.setItem("usdBuy",usdBuy.value);
-  localStorage.setItem("usdSell",usdSell.value);
+  // 🔥 EMPTY CHECK FIX
+  localStorage.setItem("usdBuy", usdBuy.value || "464");
+  localStorage.setItem("usdSell", usdSell.value || "471");
 
-  localStorage.setItem("eurBuy",eurBuy.value);
-  localStorage.setItem("eurSell",eurSell.value);
+  localStorage.setItem("eurBuy", eurBuy.value || "546");
+  localStorage.setItem("eurSell", eurSell.value || "556");
 
-  localStorage.setItem("rubBuy",rubBuy.value);
-  localStorage.setItem("rubSell",rubSell.value);
+  localStorage.setItem("rubBuy", rubBuy.value || "6.0");
+  localStorage.setItem("rubSell", rubSell.value || "6.3");
 
   alert("💾 Saved!");
+
+  // 🔥 FORCE UPDATE INDEX
+  window.location.href = "index.html";
 }
+
 </script>
 
 </body>
