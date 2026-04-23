@@ -3,28 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <title>Admin Panel</title>
+
 <style>
 body{
+  margin:0;
+  font-family:Arial;
   background:#0b1633;
   color:white;
-  font-family:Arial;
   text-align:center;
   padding:20px;
 }
 
+.box{
+  max-width:400px;
+  margin:auto;
+  background:#1e2a55;
+  padding:20px;
+  border-radius:12px;
+}
+
 input{
-  padding:8px;
-  margin:5px;
+  width:90%;
+  padding:10px;
+  margin:5px 0;
   border:none;
-  border-radius:6px;
+  border-radius:8px;
 }
 
 button{
-  padding:10px;
+  margin-top:10px;
+  padding:10px 20px;
   background:#1e4ed8;
-  border:none;
   color:white;
-  border-radius:6px;
+  border:none;
+  border-radius:8px;
   cursor:pointer;
 }
 </style>
@@ -32,41 +44,42 @@ button{
 
 <body>
 
-<h1>ADMIN 💰</h1>
+<h1>ADMIN PANEL 💰</h1>
+
+<div class="box">
 
 <h3>USD</h3>
 <input id="usdBuy" placeholder="Buy">
 <input id="usdSell" placeholder="Sell">
 
 <h3>EUR</h3>
-<input id="eurBuy">
-<input id="eurSell">
+<input id="eurBuy" placeholder="Buy">
+<input id="eurSell" placeholder="Sell">
 
 <h3>RUB</h3>
-<input id="rubBuy">
-<input id="rubSell">
+<input id="rubBuy" placeholder="Buy">
+<input id="rubSell" placeholder="Sell">
 
-<br><br>
 <button onclick="save()">SAVE</button>
+
+</div>
 
 <script>
 
 function save(){
 
-  // 🔥 EMPTY CHECK FIX
-  localStorage.setItem("usdBuy", usdBuy.value || "464");
-  localStorage.setItem("usdSell", usdSell.value || "471");
+  localStorage.setItem("usdBuy", document.getElementById("usdBuy").value);
+  localStorage.setItem("usdSell", document.getElementById("usdSell").value);
 
-  localStorage.setItem("eurBuy", eurBuy.value || "546");
-  localStorage.setItem("eurSell", eurSell.value || "556");
+  localStorage.setItem("eurBuy", document.getElementById("eurBuy").value);
+  localStorage.setItem("eurSell", document.getElementById("eurSell").value);
 
-  localStorage.setItem("rubBuy", rubBuy.value || "6.0");
-  localStorage.setItem("rubSell", rubSell.value || "6.3");
+  localStorage.setItem("rubBuy", document.getElementById("rubBuy").value);
+  localStorage.setItem("rubSell", document.getElementById("rubSell").value);
 
   alert("💾 Saved!");
 
-  // 🔥 FORCE UPDATE INDEX
-  window.location.href = "index.html";
+  window.location.href="index.html";
 }
 
 </script>
