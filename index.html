@@ -2,23 +2,120 @@
 <html lang="kk">
 <head>
 <meta charset="UTF-8">
-<title>QAZPOST</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QAZPOST Exchange System</title>
+
 <style>
-body{margin:0;font-family:Arial;display:flex;background:#0b1633;color:white}
 
-.sidebar{width:250px;background:#06122a;padding:20px;text-align:center}
-.logo{width:150px;background:white;padding:10px;border-radius:12px}
+html, body{
+  height:100%;
+  margin:0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background:#0b1633;
+}
 
-.main{flex:1;padding:20px}
+/* LAYOUT */
+body{
+  display:flex;
+}
 
-.card{background:white;color:black;padding:20px;border-radius:10px;margin-top:20px}
+/* SIDEBAR */
+.sidebar{
+  width:280px;
+  background:linear-gradient(180deg,#06122a,#071a3a);
+  color:white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:30px 20px;
+}
 
-.row{display:flex;justify-content:space-between;padding:10px}
+.logo{
+  width:200px;
+  background:white;
+  padding:12px;
+  border-radius:16px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.35);
+  margin-top:10px;
+}
 
-.buy{color:green;font-weight:bold}
-.sell{color:red;font-weight:bold}
+.brand{
+  margin-top:15px;
+  font-size:24px;
+  font-weight:900;
+  color:#00d4ff;
+}
 
-#admin{display:none;position:fixed;top:10px;right:10px;background:#1e4ed8;padding:10px;border-radius:10px}
+.subtitle{
+  font-size:11px;
+  opacity:0.6;
+  text-align:center;
+}
+
+.qr{
+  margin-top:40px;
+  width:140px;
+  background:white;
+  padding:10px;
+  border-radius:10px;
+}
+
+.side-footer{
+  margin-top:auto;
+  font-size:10px;
+  opacity:0.5;
+}
+
+/* MAIN */
+.main{
+  flex:1;
+  background:#f4f6fb;
+  padding:25px;
+}
+
+/* ADMIN PANEL */
+#admin{
+  display:none;
+  position:fixed;
+  top:10px;
+  right:10px;
+  background:#1e4ed8;
+  color:white;
+  padding:10px;
+  border-radius:8px;
+}
+
+/* TOP */
+.banner{
+  background:linear-gradient(90deg,#0f2a66,#1e4ed8);
+  color:white;
+  padding:25px;
+  border-radius:14px;
+  text-align:center;
+  font-size:28px;
+  font-weight:900;
+}
+
+.card{
+  background:white;
+  margin-top:20px;
+  border-radius:14px;
+  padding:10px;
+  box-shadow:0 20px 45px rgba(0,0,0,0.12);
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  padding:20px;
+  border-bottom:1px solid #eee;
+}
+
+.buy{color:green;font-weight:900;font-size:40px}
+.sell{color:red;font-weight:900;font-size:40px}
+
+.name{font-size:30px;font-weight:900}
+
 </style>
 </head>
 
@@ -31,56 +128,78 @@ if(localStorage.getItem("auth")!=="admin"){
 </script>
 
 <div id="admin">
-ADMIN <button onclick="logout()">Exit</button>
+ADMIN MODE
+<button onclick="logout()">Logout</button>
 </div>
 
+<!-- SIDEBAR -->
 <div class="sidebar">
+
 <img class="logo" src="kazpost.png">
-<h2>QAZPOST</h2>
+
+<div class="brand">QAZPOST</div>
+<div class="subtitle">FINTECH SYSTEM</div>
+
+<img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140">
+
+<div class="side-footer">LIVE</div>
+
 </div>
 
+<!-- MAIN -->
 <div class="main">
 
-<h1>Exchange</h1>
+<div class="banner">
+QAZPOST EXCHANGE
+</div>
 
 <div class="card">
+
 <div class="row">
-<b>USD</b>
-<span class="buy" id="usdBuy">464</span>
-<span class="sell" id="usdSell">471</span>
+<div class="name">USD</div>
+<div class="buy" id="usdBuy">464</div>
+<div class="sell" id="usdSell">471</div>
 </div>
 
 <div class="row">
-<b>EUR</b>
-<span class="buy" id="eurBuy">546</span>
-<span class="sell" id="eurSell">556</span>
+<div class="name">EUR</div>
+<div class="buy" id="eurBuy">546</div>
+<div class="sell" id="eurSell">556</div>
 </div>
 
 <div class="row">
-<b>RUB</b>
-<span class="buy" id="rubBuy">6.0</span>
-<span class="sell" id="rubSell">6.3</span>
+<div class="name">RUB</div>
+<div class="buy" id="rubBuy">6.0</div>
+<div class="sell" id="rubSell">6.3</div>
 </div>
+
 </div>
 
 </div>
 
 <script>
 
+/* admin show */
+if(localStorage.getItem("auth")==="admin"){
+  document.getElementById("admin").style.display="block";
+}
+
+/* rates */
 function load(){
-usdBuy.innerText = localStorage.getItem("usdBuy")||"464";
-usdSell.innerText = localStorage.getItem("usdSell")||"471";
+usdBuy.innerText = localStorage.getItem("usdBuy") || "464";
+usdSell.innerText = localStorage.getItem("usdSell") || "471";
 
-eurBuy.innerText = localStorage.getItem("eurBuy")||"546";
-eurSell.innerText = localStorage.getItem("eurSell")||"556";
+eurBuy.innerText = localStorage.getItem("eurBuy") || "546";
+eurSell.innerText = localStorage.getItem("eurSell") || "556";
 
-rubBuy.innerText = localStorage.getItem("rubBuy")||"6.0";
-rubSell.innerText = localStorage.getItem("rubSell")||"6.3";
+rubBuy.innerText = localStorage.getItem("rubBuy") || "6.0";
+rubSell.innerText = localStorage.getItem("rubSell") || "6.3";
 }
 
 load();
 setInterval(load,2000);
 
+/* logout */
 function logout(){
 localStorage.removeItem("auth");
 window.location.href="login.html";
