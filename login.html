@@ -6,12 +6,12 @@
 <style>
 body{
   margin:0;
-  background:#0b1633;
-  font-family:Arial;
+  height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  height:100vh;
+  background:#0b1633;
+  font-family:Arial;
   color:white;
 }
 
@@ -19,13 +19,13 @@ body{
   background:#1e2a55;
   padding:40px;
   border-radius:15px;
-  text-align:center;
   width:300px;
+  text-align:center;
 }
 
 input{
   width:100%;
-  padding:12px;
+  padding:10px;
   margin-top:10px;
   border-radius:8px;
   border:none;
@@ -34,13 +34,11 @@ input{
 button{
   margin-top:15px;
   width:100%;
-  padding:12px;
+  padding:10px;
   background:#1e4ed8;
   border:none;
   color:white;
   border-radius:8px;
-  cursor:pointer;
-  font-weight:bold;
 }
 </style>
 </head>
@@ -55,13 +53,11 @@ button{
 
 <script>
 function login(){
-  let p = document.getElementById("pass").value;
-
-  if(p === "qazpost"){
+  if(pass.value === "qazpost"){
     localStorage.setItem("auth","admin");
     window.location.href="index.html";
   } else {
-    alert("❌ Қате пароль!");
+    alert("❌ Қате пароль");
   }
 }
 </script>
