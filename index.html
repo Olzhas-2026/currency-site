@@ -5,48 +5,78 @@
 <title>QAZPOST</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#0b1633;display:flex}
+
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0b1633,#0a2a6b);
+  display:flex;
+  color:white;
+}
 
 /* SIDEBAR */
 .sidebar{
   width:280px;
-  background:#071a3a;
-  color:white;
-  text-align:center;
-  padding:20px;
+  background:rgba(0,0,0,0.25);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:25px;
 }
 
 .logo{
   width:180px;
   background:white;
   padding:10px;
-  border-radius:12px;
+  border-radius:16px;
 }
 
-.brand{color:#00d4ff;font-weight:bold;margin-top:10px}
+.brand{
+  margin-top:10px;
+  font-size:22px;
+  font-weight:900;
+  color:#00e5ff;
+}
 
 /* MAIN */
 .main{
   flex:1;
-  background:#f4f6fb;
-  padding:20px;
+  padding:30px;
 }
 
+.banner{
+  background:linear-gradient(90deg,#1e4ed8,#00c6ff);
+  padding:25px;
+  border-radius:20px;
+  text-align:center;
+  font-size:26px;
+  font-weight:900;
+}
+
+/* CARD */
 .card{
-  background:white;
-  padding:20px;
-  border-radius:12px;
+  margin-top:20px;
+  background:rgba(255,255,255,0.08);
+  border-radius:20px;
+  overflow:hidden;
 }
 
+/* ROW */
 .row{
   display:flex;
   justify-content:space-between;
-  padding:15px;
-  border-bottom:1px solid #eee;
+  padding:20px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
 }
 
-.buy{color:green;font-weight:bold}
-.sell{color:red;font-weight:bold}
+.name{
+  font-size:26px;
+  font-weight:900;
+}
+
+.buy{color:#00ff99;font-size:26px;font-weight:900}
+
+.sell{color:#ff4d4d;font-size:26px;font-weight:900}
 
 /* ADMIN */
 #admin{
@@ -55,9 +85,8 @@ body{margin:0;font-family:Arial;background:#0b1633;display:flex}
   top:10px;
   right:10px;
   background:#1e4ed8;
-  color:white;
   padding:10px;
-  border-radius:8px;
+  border-radius:10px;
 }
 </style>
 </head>
@@ -75,31 +104,35 @@ if(localStorage.getItem("auth")!=="admin"){
   <button onclick="logout()">Logout</button>
 </div>
 
+<!-- SIDEBAR -->
 <div class="sidebar">
   <img class="logo" src="kazpost.png">
   <div class="brand">QAZPOST</div>
 </div>
 
+<!-- MAIN -->
 <div class="main">
 
-<h2>Exchange Rates</h2>
+<div class="banner">
+  QAZPOST – Exchange System
+</div>
 
 <div class="card">
 
   <div class="row">
-    <div>USD</div>
+    <div class="name">USD</div>
     <div class="buy" id="usdBuy">464</div>
     <div class="sell" id="usdSell">471</div>
   </div>
 
   <div class="row">
-    <div>EUR</div>
+    <div class="name">EUR</div>
     <div class="buy" id="eurBuy">546</div>
     <div class="sell" id="eurSell">556</div>
   </div>
 
   <div class="row">
-    <div>RUB</div>
+    <div class="name">RUB</div>
     <div class="buy" id="rubBuy">6.0</div>
     <div class="sell" id="rubSell">6.3</div>
   </div>
@@ -110,6 +143,7 @@ if(localStorage.getItem("auth")!=="admin"){
 
 <script>
 
+/* show admin */
 if(localStorage.getItem("auth")==="admin"){
   admin.style.display="block";
 }
@@ -124,10 +158,9 @@ eurSell.innerText = localStorage.getItem("eurSell")||"556";
 rubBuy.innerText = localStorage.getItem("rubBuy")||"6.0";
 rubSell.innerText = localStorage.getItem("rubSell")||"6.3";
 
-/* logout */
 function logout(){
   localStorage.removeItem("auth");
-  location.href="login.html";
+  window.location.href="login.html";
 }
 
 </script>
