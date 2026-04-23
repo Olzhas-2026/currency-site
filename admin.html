@@ -1,91 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="kk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Admin Panel</title>
-
+<title>Admin</title>
 <style>
-body {
-  font-family: Arial;
-  text-align: center;
-  padding: 30px;
-}
+body{background:#0b1633;color:white;font-family:Arial;text-align:center;padding:20px}
 
-.box {
-  width: 300px;
-  margin: auto;
-  padding: 20px;
-  border-radius: 10px;
-  background: #111;
-  color: white;
-}
+input{padding:8px;margin:5px;border-radius:6px;border:none}
 
-input {
-  width: 90%;
-  padding: 10px;
-  margin: 5px;
-}
-
-button {
-  padding: 10px;
-  margin-top: 10px;
-  width: 95%;
-}
-
-.logout {
-  background: red;
-  color: white;
-}
+button{padding:10px;background:#1e4ed8;color:white;border:none;border-radius:6px}
 </style>
 </head>
 
 <body>
 
-<div class="box">
-  <h2>💱 Admin Panel</h2>
+<h1>ADMIN PANEL 💰</h1>
 
-  <input id="usd" placeholder="USD">
-  <input id="eur" placeholder="EUR">
-  <input id="rub" placeholder="RUB">
+<h3>USD</h3>
+<input id="usdBuy" placeholder="Buy">
+<input id="usdSell" placeholder="Sell">
 
-  <button onclick="save()">Сақтау</button>
-  <button class="logout" onclick="logout()">Шығу</button>
-</div>
+<h3>EUR</h3>
+<input id="eurBuy" placeholder="Buy">
+<input id="eurSell" placeholder="Sell">
 
-<script type="module">
+<h3>RUB</h3>
+<input id="rubBuy" placeholder="Buy">
+<input id="rubSell" placeholder="Sell">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+<br><br>
+<button onclick="save()">SAVE</button>
 
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "currency-live-d633e.firebaseapp.com",
-  projectId: "currency-live-d633e"
-};
+<script>
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+function save(){
 
-// login check
-if (localStorage.getItem("admin") !== "true") {
-  window.location.href = "login.html";
-}
+  localStorage.setItem("usdBuy",usdBuy.value);
+  localStorage.setItem("usdSell",usdSell.value);
 
-window.save = async function () {
-  await setDoc(doc(db,"rates","Vt6Ibuny1gDsyRJfCKLx"), {
-    usd: document.getElementById("usd").value,
-    eur: document.getElementById("eur").value,
-    rub: document.getElementById("rub").value
-  });
+  localStorage.setItem("eurBuy",eurBuy.value);
+  localStorage.setItem("eurSell",eurSell.value);
 
-  alert("Сақталды!");
-}
+  localStorage.setItem("rubBuy",rubBuy.value);
+  localStorage.setItem("rubSell",rubSell.value);
 
-window.logout = function () {
-  localStorage.removeItem("admin");
-  window.location.href = "login.html";
+  alert("Saved!");
 }
 
 </script>
