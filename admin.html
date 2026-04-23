@@ -4,11 +4,28 @@
 <meta charset="UTF-8">
 <title>Admin</title>
 <style>
-body{background:#0b1633;color:white;font-family:Arial;text-align:center;padding:20px}
+body{
+  background:#0b1633;
+  color:white;
+  font-family:Arial;
+  text-align:center;
+  padding:20px;
+}
 
-input{padding:8px;margin:5px;border-radius:6px;border:none}
+input{
+  padding:8px;
+  margin:5px;
+  border-radius:6px;
+  border:none;
+}
 
-button{padding:10px;background:#1e4ed8;color:white;border:none;border-radius:6px}
+button{
+  padding:10px;
+  background:#1e4ed8;
+  border:none;
+  color:white;
+  border-radius:6px;
+}
 </style>
 </head>
 
@@ -21,18 +38,17 @@ button{padding:10px;background:#1e4ed8;color:white;border:none;border-radius:6px
 <input id="usdSell" placeholder="Sell">
 
 <h3>EUR</h3>
-<input id="eurBuy" placeholder="Buy">
-<input id="eurSell" placeholder="Sell">
+<input id="eurBuy">
+<input id="eurSell">
 
 <h3>RUB</h3>
-<input id="rubBuy" placeholder="Buy">
-<input id="rubSell" placeholder="Sell">
+<input id="rubBuy">
+<input id="rubSell">
 
 <br><br>
 <button onclick="save()">SAVE</button>
 
 <script>
-
 function save(){
 
   localStorage.setItem("usdBuy",usdBuy.value);
@@ -44,9 +60,8 @@ function save(){
   localStorage.setItem("rubBuy",rubBuy.value);
   localStorage.setItem("rubSell",rubSell.value);
 
-  alert("Saved!");
+  alert("💾 Saved!");
 }
-
 </script>
 
 </body>
