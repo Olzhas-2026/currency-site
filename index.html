@@ -11,10 +11,12 @@ html, body{
   height:100%;
   margin:0;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-feature-settings: "tnum" 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
   background:#0b1633;
 }
 
-/* LAYOUT */
 body{
   display:flex;
 }
@@ -30,13 +32,17 @@ body{
   padding:30px 20px;
 }
 
+/* ?? LOGO ?ДЕМІРЕК */
 .logo{
-  width:200px;
-  background:white;
-  padding:12px;
-  border-radius:16px;
-  box-shadow:0 15px 35px rgba(0,0,0,0.35);
-  margin-top:10px;
+  width:190px;
+  margin-top:20px;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+  transition:0.3s ease;
+}
+
+.logo:hover{
+  transform:scale(1.05);
 }
 
 .brand{
@@ -44,6 +50,7 @@ body{
   font-size:24px;
   font-weight:900;
   color:#00d4ff;
+  letter-spacing:2px;
 }
 
 .subtitle{
@@ -53,7 +60,7 @@ body{
 }
 
 .qr{
-  margin-top:40px;
+  margin-top:50px;
   width:140px;
   background:white;
   padding:10px;
@@ -70,141 +77,183 @@ body{
 .main{
   flex:1;
   background:#f4f6fb;
-  padding:25px;
+  padding:25px 35px;
+  display:flex;
+  flex-direction:column;
 }
 
-/* ADMIN PANEL */
-#admin{
-  display:none;
-  position:fixed;
-  top:10px;
-  right:10px;
-  background:#1e4ed8;
-  color:white;
-  padding:10px;
-  border-radius:8px;
+.topbar{
+  display:flex;
+  justify-content:flex-end;
+  margin-bottom:10px;
 }
 
-/* TOP */
+.time{
+  font-size:14px;
+  color:#555;
+  font-weight:600;
+}
+
 .banner{
   background:linear-gradient(90deg,#0f2a66,#1e4ed8);
   color:white;
-  padding:25px;
+  padding:28px 20px;
   border-radius:14px;
   text-align:center;
-  font-size:28px;
+  font-size:34px;
   font-weight:900;
+  margin-bottom:12px;
 }
 
+.info{
+  text-align:center;
+  font-size:20px;
+  font-weight:800;
+  color:#1e4ed8;
+  margin-bottom:25px;
+}
+
+/* TABLE */
 .card{
   background:white;
-  margin-top:20px;
   border-radius:14px;
-  padding:10px;
+  overflow:hidden;
   box-shadow:0 20px 45px rgba(0,0,0,0.12);
+  width:100%;
+  max-width:900px;
+  margin:auto;
+}
+
+.row.header{
+  background:#0f2a66;
+  color:white;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  padding:18px 25px;
+  font-size:14px;
+  font-weight:800;
 }
 
 .row{
-  display:flex;
-  justify-content:space-between;
-  padding:20px;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  padding:34px 25px;
   border-bottom:1px solid #eee;
+  align-items:center;
 }
 
-.buy{color:green;font-weight:900;font-size:40px}
-.sell{color:red;font-weight:900;font-size:40px}
+.name{
+  font-size:44px;
+  font-weight:900;
+  color:#111;
+}
 
-.name{font-size:30px;font-weight:900}
+.buy, .sell{
+  font-family: system-ui, "Segoe UI", monospace;
+  font-variant-numeric: tabular-nums;
+  font-size:60px;
+  font-weight:900;
+}
+
+.buy{
+  text-align:center;
+  color:#16a34a;
+}
+
+.sell{
+  text-align:right;
+  color:#dc2626;
+}
+
+/* SLOGAN */
+.slogan-box{
+  margin-top:25px;
+  text-align:center;
+  padding:20px;
+}
+
+.slogan{
+  font-size:26px;
+  font-weight:900;
+  color:#0f2a66;
+  white-space:nowrap;
+  letter-spacing:0.2px;
+}
 
 </style>
 </head>
 
 <body>
 
-<script>
-if(localStorage.getItem("auth")!=="admin"){
-  window.location.href="login.html";
-}
-</script>
-
-<div id="admin">
-ADMIN MODE
-<button onclick="logout()">Logout</button>
-</div>
-
-<!-- SIDEBAR -->
 <div class="sidebar">
 
-<img class="logo" src="kazpost.png">
+  <!-- ?? ЛОГОТИП ОСЫ ЖЕРДЕ АУЫСТЫРЫЛДЫ -->
+  <img class="logo" src="logo.png">
 
-<div class="brand">QAZPOST</div>
-<div class="subtitle">FINTECH SYSTEM</div>
+  <div class="brand">QAZPOST</div>
+  <div class="subtitle">FINTECH EXCHANGE SYSTEM</div>
 
-<img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140">
+  <img class="qr"
+       src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
 
-<div class="side-footer">LIVE</div>
+  <div class="side-footer">LIVE SYSTEM</div>
 
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
+<div class="topbar">
+  <div class="time" id="time">--:--</div>
+</div>
+
 <div class="banner">
-QAZPOST EXCHANGE
+  QAZPOST – сенімді ?аржы серіктесі / надёжный финансовый партнёр
+</div>
+
+<div class="info">
+  ?? Ба?а тиімді • Сенімді айырбас / Выгодный курс • Надёжный обмен
 </div>
 
 <div class="card">
 
-<div class="row">
-<div class="name">USD</div>
-<div class="buy" id="usdBuy">464</div>
-<div class="sell" id="usdSell">471</div>
+  <div class="row header">
+    <div>ВАЛЮТА</div>
+    <div style="text-align:center">САТЫП АЛУ</div>
+    <div style="text-align:right">САТУ</div>
+  </div>
+
+  <div class="row">
+    <div class="name">USD</div>
+    <div class="buy">464</div>
+    <div class="sell">471</div>
+  </div>
+
+  <div class="row">
+    <div class="name">EUR</div>
+    <div class="buy">546</div>
+    <div class="sell">556</div>
+  </div>
+
+  <div class="row">
+    <div class="name">RUB</div>
+    <div class="buy">6.0</div>
+    <div class="sell">6.3</div>
+  </div>
+
 </div>
 
-<div class="row">
-<div class="name">EUR</div>
-<div class="buy" id="eurBuy">546</div>
-<div class="sell" id="eurSell">556</div>
-</div>
-
-<div class="row">
-<div class="name">RUB</div>
-<div class="buy" id="rubBuy">6.0</div>
-<div class="sell" id="rubSell">6.3</div>
-</div>
-
+<div class="slogan-box">
+  <div class="slogan">
+    Болаша?ы?ды б?гіннен бас?ар / Управляй будущим уже сегодня
+  </div>
 </div>
 
 </div>
 
 <script>
-
-/* admin show */
-if(localStorage.getItem("auth")==="admin"){
-  document.getElementById("admin").style.display="block";
-}
-
-/* rates */
-function load(){
-usdBuy.innerText = localStorage.getItem("usdBuy") || "464";
-usdSell.innerText = localStorage.getItem("usdSell") || "471";
-
-eurBuy.innerText = localStorage.getItem("eurBuy") || "546";
-eurSell.innerText = localStorage.getItem("eurSell") || "556";
-
-rubBuy.innerText = localStorage.getItem("rubBuy") || "6.0";
-rubSell.innerText = localStorage.getItem("rubSell") || "6.3";
-}
-
-load();
-setInterval(load,2000);
-
-/* logout */
-function logout(){
-localStorage.removeItem("auth");
-window.location.href="login.html";
-}
-
+setInterval(()=>{
+  document.getElementById("time").innerText = new Date().toLocaleTimeString();
+},1000);
 </script>
 
 </body>
