@@ -6,20 +6,15 @@
 <title>QAZPOST Exchange System</title>
 
 <style>
-
 html, body{
   height:100%;
   margin:0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: system-ui, Arial;
   background:#0b1633;
 }
 
-/* LAYOUT */
-body{
-  display:flex;
-}
+body{ display:flex; }
 
-/* SIDEBAR */
 .sidebar{
   width:280px;
   background:linear-gradient(180deg,#06122a,#071a3a);
@@ -30,19 +25,12 @@ body{
   padding:30px 20px;
 }
 
-/* 🔥 LOGO STYLE */
 .logo{
   width:200px;
   background:white;
   padding:12px;
   border-radius:16px;
   box-shadow:0 15px 35px rgba(0,0,0,0.35);
-  transition:0.3s ease;
-  margin-top:10px;
-}
-
-.logo:hover{
-  transform:scale(1.07);
 }
 
 .brand{
@@ -50,15 +38,9 @@ body{
   font-size:24px;
   font-weight:900;
   color:#00d4ff;
-  letter-spacing:2px;
 }
 
-.subtitle{
-  font-size:11px;
-  opacity:0.6;
-  text-align:center;
-  margin-top:5px;
-}
+.subtitle{ font-size:11px; opacity:0.6; text-align:center; }
 
 .qr{
   margin-top:40px;
@@ -68,193 +50,70 @@ body{
   border-radius:10px;
 }
 
-.side-footer{
-  margin-top:auto;
-  font-size:10px;
-  opacity:0.5;
-}
-
-/* MAIN */
 .main{
   flex:1;
   background:#f4f6fb;
   padding:25px;
-  display:flex;
-  flex-direction:column;
 }
 
-.topbar{
-  display:flex;
-  justify-content:flex-end;
-  margin-bottom:10px;
-}
-
-.time{
-  font-size:14px;
-  color:#555;
-  font-weight:600;
-}
-
-/* BANNER */
 .banner{
-  background:linear-gradient(90deg,#0f2a66,#1e4ed8);
+  background:#1e4ed8;
   color:white;
-  padding:28px;
+  padding:25px;
   border-radius:14px;
   text-align:center;
-  font-size:32px;
+  font-size:28px;
   font-weight:900;
-  margin-bottom:12px;
 }
 
-.info{
-  text-align:center;
-  font-size:18px;
-  font-weight:700;
-  color:#1e4ed8;
-  margin-bottom:25px;
-}
-
-/* TABLE */
-.card{
-  background:white;
-  border-radius:14px;
-  overflow:hidden;
-  box-shadow:0 20px 45px rgba(0,0,0,0.12);
-  width:100%;
-  max-width:900px;
-  margin:auto;
-}
-
-.row.header{
-  background:#0f2a66;
+/* ADMIN PANEL */
+#adminPanel{
+  display:none;
+  position:fixed;
+  top:10px;
+  right:10px;
+  background:#1e4ed8;
   color:white;
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  padding:18px;
-  font-size:14px;
-  font-weight:800;
+  padding:10px;
+  border-radius:10px;
 }
-
-.row{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  padding:30px;
-  border-bottom:1px solid #eee;
-  align-items:center;
-}
-
-.name{
-  font-size:40px;
-  font-weight:900;
-  color:#111;
-}
-
-.buy{
-  text-align:center;
-  color:#16a34a;
-  font-size:55px;
-  font-weight:900;
-}
-
-.sell{
-  text-align:right;
-  color:#dc2626;
-  font-size:55px;
-  font-weight:900;
-}
-
-/* SLOGAN */
-.slogan-box{
-  margin-top:25px;
-  text-align:center;
-  padding:20px;
-}
-
-.slogan{
-  font-size:24px;
-  font-weight:900;
-  color:#0f2a66;
-  white-space:nowrap;
-}
-
 </style>
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
+<script>
+if(localStorage.getItem("auth") !== "admin"){
+  window.location.href="login.html";
+}
+</script>
+
+<div id="adminPanel">
+  🔐 ADMIN
+  <button onclick="logout()">Logout</button>
+</div>
+
 <div class="sidebar">
-
-  <!-- 🔥 LOGO -->
   <img class="logo" src="kazpost.png">
-
   <div class="brand">QAZPOST</div>
-  <div class="subtitle">FINTECH EXCHANGE SYSTEM</div>
-
-  <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
-
-  <div class="side-footer">LIVE SYSTEM</div>
-
+  <div class="subtitle">FINTECH SYSTEM</div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
-
-<div class="topbar">
-  <div class="time" id="time">--:--</div>
-</div>
-
-<div class="banner">
-  QAZPOST – сенімді қаржы серіктесі / надёжный финансовый партнёр
-</div>
-
-<div class="info">
-  💡 Баға тиімді • Сенімді айырбас / Выгодный курс • Надёжный обмен
-</div>
-
-<!-- TABLE -->
-<div class="card">
-
-  <div class="row header">
-    <div>ВАЛЮТА</div>
-    <div style="text-align:center">САТЫП АЛУ</div>
-    <div style="text-align:right">САТУ</div>
+  <div class="banner">
+    QAZPOST – Exchange System
   </div>
-
-  <div class="row">
-    <div class="name">USD</div>
-    <div class="buy">464</div>
-    <div class="sell">471</div>
-  </div>
-
-  <div class="row">
-    <div class="name">EUR</div>
-    <div class="buy">546</div>
-    <div class="sell">556</div>
-  </div>
-
-  <div class="row">
-    <div class="name">RUB</div>
-    <div class="buy">6.0</div>
-    <div class="sell">6.3</div>
-  </div>
-
-</div>
-
-<!-- SLOGAN -->
-<div class="slogan-box">
-  <div class="slogan">
-    Болашағыңды бүгіннен басқар / Управляй будущим уже сегодня
-  </div>
-</div>
-
 </div>
 
 <script>
-setInterval(()=>{
-  document.getElementById("time").innerText = new Date().toLocaleTimeString();
-},1000);
+if(localStorage.getItem("auth") === "admin"){
+  document.getElementById("adminPanel").style.display = "block";
+}
+
+function logout(){
+  localStorage.removeItem("auth");
+  window.location.href="login.html";
+}
 </script>
 
 </body>
