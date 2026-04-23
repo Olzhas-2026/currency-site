@@ -1,35 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="kk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Admin Login</title>
-
+<title>Login</title>
 <style>
-body {
-  font-family: Arial;
-  text-align: center;
-  padding: 50px;
+body{
+  margin:0;
+  background:#0b1633;
+  font-family:Arial;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  color:white;
 }
 
-.box {
-  width: 300px;
-  margin: auto;
-  padding: 20px;
-  box-shadow: 0 0 10px #ccc;
-  border-radius: 10px;
+.box{
+  background:#1e2a55;
+  padding:40px;
+  border-radius:15px;
+  text-align:center;
+  width:300px;
 }
 
-input {
-  width: 90%;
-  padding: 10px;
-  margin-top: 10px;
+input{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:8px;
+  border:none;
 }
 
-button {
-  margin-top: 10px;
-  padding: 10px;
+button{
+  margin-top:15px;
+  width:100%;
+  padding:12px;
+  background:#1e4ed8;
+  border:none;
+  color:white;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
 }
 </style>
 </head>
@@ -37,19 +48,20 @@ button {
 <body>
 
 <div class="box">
-  <h2>🔐 Login</h2>
-
-  <input type="password" id="pass" placeholder="Пароль">
+  <h2>ADMIN LOGIN</h2>
+  <input type="password" id="pass" placeholder="Password">
   <button onclick="login()">Кіру</button>
 </div>
 
 <script>
-function login() {
-  if (document.getElementById("pass").value === "1234") {
-    localStorage.setItem("admin","true");
-    window.location.href = "admin.html";
+function login(){
+  let p = document.getElementById("pass").value;
+
+  if(p === "qazpost"){
+    localStorage.setItem("auth","admin");
+    window.location.href="index.html";
   } else {
-    alert("Қате пароль");
+    alert("❌ Қате пароль!");
   }
 }
 </script>
