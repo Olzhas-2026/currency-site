@@ -2,103 +2,133 @@
 <html lang="kk">
 <head>
 <meta charset="UTF-8">
-<title>QAZPOST</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QAZPOST Exchange System</title>
 
 <style>
 
-body{
+html, body{
+  height:100%;
   margin:0;
-  font-family:Arial;
-  background:linear-gradient(135deg,#0b1633,#0a2a6b);
+  font-family: system-ui, Arial;
+  background:#0b1633;
+}
+
+/* LAYOUT */
+body{
   display:flex;
-  color:white;
 }
 
 /* SIDEBAR */
 .sidebar{
   width:280px;
-  background:rgba(0,0,0,0.25);
+  background:linear-gradient(180deg,#06122a,#071a3a);
+  color:white;
   display:flex;
   flex-direction:column;
   align-items:center;
-  padding:25px;
+  padding:30px 20px;
 }
 
+/* LOGO */
 .logo{
-  width:180px;
+  width:200px;
   background:white;
-  padding:10px;
+  padding:12px;
   border-radius:16px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.35);
 }
 
+/* BRAND */
 .brand{
-  margin-top:10px;
-  font-size:22px;
+  margin-top:15px;
+  font-size:24px;
   font-weight:900;
-  color:#00e5ff;
+  color:#00d4ff;
+}
+
+.subtitle{
+  font-size:11px;
+  opacity:0.6;
+  text-align:center;
 }
 
 /* MAIN */
 .main{
   flex:1;
-  padding:30px;
+  background:#f4f6fb;
+  padding:25px;
 }
 
 .banner{
-  background:linear-gradient(90deg,#1e4ed8,#00c6ff);
-  padding:25px;
-  border-radius:20px;
+  background:linear-gradient(90deg,#0f2a66,#1e4ed8);
+  color:white;
+  padding:28px;
+  border-radius:14px;
   text-align:center;
-  font-size:26px;
+  font-size:30px;
   font-weight:900;
 }
 
 /* CARD */
 .card{
   margin-top:20px;
-  background:rgba(255,255,255,0.08);
-  border-radius:20px;
+  background:white;
+  border-radius:14px;
   overflow:hidden;
+  box-shadow:0 20px 45px rgba(0,0,0,0.12);
 }
 
 /* ROW */
 .row{
   display:flex;
   justify-content:space-between;
-  padding:20px;
-  border-bottom:1px solid rgba(255,255,255,0.1);
+  padding:25px;
+  border-bottom:1px solid #eee;
 }
 
 .name{
-  font-size:26px;
+  font-size:28px;
   font-weight:900;
 }
 
-.buy{color:#00ff99;font-size:26px;font-weight:900}
+.buy{
+  color:green;
+  font-size:28px;
+  font-weight:900;
+}
 
-.sell{color:#ff4d4d;font-size:26px;font-weight:900}
+.sell{
+  color:red;
+  font-size:28px;
+  font-weight:900;
+}
 
-/* ADMIN */
+/* ADMIN PANEL BUTTON */
 #admin{
   display:none;
   position:fixed;
   top:10px;
   right:10px;
   background:#1e4ed8;
+  color:white;
   padding:10px;
   border-radius:10px;
 }
+
 </style>
 </head>
 
 <body>
 
+<!-- 🔐 LOGIN CHECK -->
 <script>
-if(localStorage.getItem("auth")!=="admin"){
+if(localStorage.getItem("auth") !== "admin"){
   window.location.href="login.html";
 }
 </script>
 
+<!-- ADMIN -->
 <div id="admin">
   ADMIN MODE
   <button onclick="logout()">Logout</button>
@@ -108,6 +138,7 @@ if(localStorage.getItem("auth")!=="admin"){
 <div class="sidebar">
   <img class="logo" src="kazpost.png">
   <div class="brand">QAZPOST</div>
+  <div class="subtitle">FINTECH SYSTEM</div>
 </div>
 
 <!-- MAIN -->
@@ -145,19 +176,28 @@ if(localStorage.getItem("auth")!=="admin"){
 
 /* show admin */
 if(localStorage.getItem("auth")==="admin"){
-  admin.style.display="block";
+  document.getElementById("admin").style.display="block";
 }
 
-/* LOAD DATA */
-usdBuy.innerText = localStorage.getItem("usdBuy")||"464";
-usdSell.innerText = localStorage.getItem("usdSell")||"471";
+/* 🔥 LOAD RATES (IMPORTANT) */
+function loadRates(){
 
-eurBuy.innerText = localStorage.getItem("eurBuy")||"546";
-eurSell.innerText = localStorage.getItem("eurSell")||"556";
+  usdBuy.innerText = localStorage.getItem("usdBuy") || "464";
+  usdSell.innerText = localStorage.getItem("usdSell") || "471";
 
-rubBuy.innerText = localStorage.getItem("rubBuy")||"6.0";
-rubSell.innerText = localStorage.getItem("rubSell")||"6.3";
+  eurBuy.innerText = localStorage.getItem("eurBuy") || "546";
+  eurSell.innerText = localStorage.getItem("eurSell") || "556";
 
+  rubBuy.innerText = localStorage.getItem("rubBuy") || "6.0";
+  rubSell.innerText = localStorage.getItem("rubSell") || "6.3";
+}
+
+loadRates();
+
+/* LIVE UPDATE */
+setInterval(loadRates, 2000);
+
+/* logout */
 function logout(){
   localStorage.removeItem("auth");
   window.location.href="login.html";
