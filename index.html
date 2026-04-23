@@ -6,6 +6,7 @@
 <title>QAZPOST Exchange System</title>
 
 <style>
+
 html, body{
   height:100%;
   margin:0;
@@ -15,6 +16,7 @@ html, body{
 
 body{ display:flex; }
 
+/* SIDEBAR */
 .sidebar{
   width:280px;
   background:linear-gradient(180deg,#06122a,#071a3a);
@@ -50,6 +52,7 @@ body{ display:flex; }
   border-radius:10px;
 }
 
+/* MAIN */
 .main{
   flex:1;
   background:#f4f6fb;
@@ -64,9 +67,31 @@ body{ display:flex; }
   text-align:center;
   font-size:28px;
   font-weight:900;
+  margin-bottom:20px;
 }
 
-/* ADMIN PANEL */
+/* TABLE */
+.card{
+  background:white;
+  border-radius:14px;
+  padding:20px;
+  box-shadow:0 20px 45px rgba(0,0,0,0.12);
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  padding:20px;
+  border-bottom:1px solid #eee;
+}
+
+.name{ font-size:30px; font-weight:900; }
+
+.buy{ color:green; font-size:30px; font-weight:900; }
+
+.sell{ color:red; font-size:30px; font-weight:900; }
+
+/* ADMIN */
 #adminPanel{
   display:none;
   position:fixed;
@@ -82,27 +107,57 @@ body{ display:flex; }
 
 <body>
 
+<!-- LOGIN CHECK -->
 <script>
 if(localStorage.getItem("auth") !== "admin"){
   window.location.href="login.html";
 }
 </script>
 
+<!-- ADMIN PANEL -->
 <div id="adminPanel">
   🔐 ADMIN
   <button onclick="logout()">Logout</button>
 </div>
 
+<!-- SIDEBAR -->
 <div class="sidebar">
   <img class="logo" src="kazpost.png">
   <div class="brand">QAZPOST</div>
   <div class="subtitle">FINTECH SYSTEM</div>
+
+  <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140">
 </div>
 
+<!-- MAIN -->
 <div class="main">
-  <div class="banner">
-    QAZPOST – Exchange System
+
+<div class="banner">
+  QAZPOST – Exchange System
+</div>
+
+<div class="card">
+
+  <div class="row">
+    <div class="name">USD</div>
+    <div class="buy">464</div>
+    <div class="sell">471</div>
   </div>
+
+  <div class="row">
+    <div class="name">EUR</div>
+    <div class="buy">546</div>
+    <div class="sell">556</div>
+  </div>
+
+  <div class="row">
+    <div class="name">RUB</div>
+    <div class="buy">6.0</div>
+    <div class="sell">6.3</div>
+  </div>
+
+</div>
+
 </div>
 
 <script>
