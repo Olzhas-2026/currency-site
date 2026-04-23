@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
+
 <style>
 body{
   margin:0;
@@ -27,8 +28,8 @@ input{
   width:100%;
   padding:10px;
   margin-top:10px;
-  border:none;
   border-radius:8px;
+  border:none;
 }
 
 button{
@@ -39,6 +40,7 @@ button{
   border:none;
   color:white;
   border-radius:8px;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -47,19 +49,27 @@ button{
 
 <div class="box">
   <h2>ADMIN LOGIN</h2>
+
   <input type="password" id="pass" placeholder="Password">
+
   <button onclick="login()">Кіру</button>
 </div>
 
 <script>
+
 function login(){
-  if(pass.value === "qazpost"){
+
+  let password = document.getElementById("pass").value;
+
+  if(password === "qazpost"){
     localStorage.setItem("auth","admin");
-    window.location.href="index.html";
+    window.location.href = "index.html";
   } else {
     alert("❌ Қате пароль");
   }
+
 }
+
 </script>
 
 </body>
