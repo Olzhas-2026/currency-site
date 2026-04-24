@@ -6,7 +6,6 @@
 <title>QAZPOST Exchange System</title>
 
 <style>
-
 html, body{
   height:100%;
   margin:0;
@@ -14,9 +13,7 @@ html, body{
   background:#0b1633;
 }
 
-body{
-  display:flex;
-}
+body{ display:flex; }
 
 .sidebar{
   width:280px;
@@ -38,9 +35,7 @@ body{
   margin-top:10px;
 }
 
-.logo:hover{
-  transform:scale(1.07);
-}
+.logo:hover{ transform:scale(1.07); }
 
 .brand{
   margin-top:15px;
@@ -138,25 +133,9 @@ body{
   align-items:center;
 }
 
-.name{
-  font-size:40px;
-  font-weight:900;
-  color:#111;
-}
-
-.buy{
-  text-align:center;
-  color:#16a34a;
-  font-size:55px;
-  font-weight:900;
-}
-
-.sell{
-  text-align:right;
-  color:#dc2626;
-  font-size:55px;
-  font-weight:900;
-}
+.name{ font-size:40px; font-weight:900; color:#111; }
+.buy{ text-align:center; color:#16a34a; font-size:55px; font-weight:900; }
+.sell{ text-align:right; color:#dc2626; font-size:55px; font-weight:900; }
 
 .slogan-box{
   margin-top:25px;
@@ -170,23 +149,19 @@ body{
   color:#0f2a66;
   white-space:nowrap;
 }
-
 </style>
 </head>
 
 <body>
 
 <div class="sidebar">
-
   <img class="logo" src="kazpost.png">
-
   <div class="brand">QAZPOST</div>
   <div class="subtitle">FINTECH EXCHANGE SYSTEM</div>
 
   <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
 
   <div class="side-footer">LIVE SYSTEM</div>
-
 </div>
 
 <div class="main">
@@ -251,8 +226,8 @@ setInterval(()=>{
 
 <script>
 const firebaseConfig = {
-  apiKey: "YOUR_KEY",
-  authDomain: "YOUR_DOMAIN",
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
   projectId: "YOUR_PROJECT_ID"
 };
 
