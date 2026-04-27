@@ -74,6 +74,37 @@ body{ display:flex; }
   flex-direction:column;
 }
 
+.topbar{
+  display:flex;
+  justify-content:flex-end;
+  margin-bottom:10px;
+}
+
+.time{
+  font-size:14px;
+  color:#555;
+  font-weight:600;
+}
+
+.banner{
+  background:linear-gradient(90deg,#0f2a66,#1e4ed8);
+  color:white;
+  padding:28px;
+  border-radius:14px;
+  text-align:center;
+  font-size:32px;
+  font-weight:900;
+  margin-bottom:12px;
+}
+
+.info{
+  text-align:center;
+  font-size:18px;
+  font-weight:700;
+  color:#1e4ed8;
+  margin-bottom:25px;
+}
+
 .card{
   background:white;
   border-radius:14px;
@@ -84,57 +115,45 @@ body{ display:flex; }
   margin:auto;
 }
 
+.row.header{
+  background:#0f2a66;
+  color:white;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  padding:18px;
+  font-size:14px;
+  font-weight:800;
+}
+
 .row{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
   padding:30px;
   border-bottom:1px solid #eee;
+  align-items:center;
 }
 
 .name{ font-size:40px; font-weight:900; color:#111; }
 .buy{ text-align:center; color:#16a34a; font-size:55px; font-weight:900; }
 .sell{ text-align:right; color:#dc2626; font-size:55px; font-weight:900; }
 
-/* ADMIN BUTTON */
-.admin-btn{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:#1e4ed8;
-  color:white;
-  padding:10px 15px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
+.slogan-box{
+  margin-top:25px;
+  text-align:center;
+  padding:20px;
 }
 
-/* PANEL */
-#adminPanel{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.6);
-}
-
-.panel-box{
-  background:white;
-  width:320px;
-  margin:120px auto;
-  padding:15px;
-  border-radius:12px;
-}
-
-.panel-box input{
-  width:100%;
-  padding:8px;
-  margin:5px 0;
+.slogan{
+  font-size:24px;
+  font-weight:900;
+  color:#0f2a66;
+  white-space:nowrap;
 }
 </style>
 </head>
 
 <body>
 
-<!-- SIDEBAR (ДИЗАЙН САҚТАЛҒАН) -->
 <div class="sidebar">
   <img class="logo" src="kazpost.png">
   <div class="brand">QAZPOST</div>
@@ -145,10 +164,27 @@ body{ display:flex; }
   <div class="side-footer">LIVE SYSTEM</div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
+<div class="topbar">
+  <div class="time" id="time">--:--</div>
+</div>
+
+<div class="banner">
+  QAZPOST – сенімді ?аржы серіктесі / надёжный финансовый партнёр
+</div>
+
+<div class="info">
+  ?? Ба?а тиімді • Сенімді айырбас / Выгодный курс • Надёжный обмен
+</div>
+
 <div class="card">
+
+  <div class="row header">
+    <div>ВАЛЮТА</div>
+    <div style="text-align:center">САТЫП АЛУ</div>
+    <div style="text-align:right">САТУ</div>
+  </div>
 
   <div class="row">
     <div class="name">USD</div>
@@ -169,29 +205,20 @@ body{ display:flex; }
   </div>
 
 </div>
-</div>
 
-<!-- ADMIN BUTTON -->
-<button class="admin-btn" onclick="openPanel()">ADMIN</button>
-
-<!-- ADMIN PANEL -->
-<div id="adminPanel">
-  <div class="panel-box">
-
-    <input id="usdBuyIn" placeholder="USD BUY">
-    <input id="usdSellIn" placeholder="USD SELL">
-
-    <input id="eurBuyIn" placeholder="EUR BUY">
-    <input id="eurSellIn" placeholder="EUR SELL">
-
-    <input id="rubBuyIn" placeholder="RUB BUY">
-    <input id="rubSellIn" placeholder="RUB SELL">
-
-    <button onclick="saveRates()">SAVE</button>
-    <button onclick="closePanel()">CLOSE</button>
-
+<div class="slogan-box">
+  <div class="slogan">
+    Болаша?ы?ды б?гіннен бас?ар / Управляй будущим уже сегодня
   </div>
 </div>
+
+</div>
+
+<script>
+setInterval(()=>{
+  document.getElementById("time").innerText = new Date().toLocaleTimeString();
+},1000);
+</script>
 
 <!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -201,52 +228,30 @@ body{ display:flex; }
 const firebaseConfig = {
   apiKey: "AIzaSyCxY06NTpnfifUOzPNUsQWMx2pG_PKSagI",
   authDomain: "currency-live-d633e.firebaseapp.com",
-  projectId: "currency-live-d633e"
+  projectId: "currency-live-d633e",
+  storageBucket: "currency-live-d633e.firebasestorage.app",
+  messagingSenderId: "1086647236449",
+  appId: "1:1086647236449:web:df6eee1cdec5280ee1b720"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-const docRef = db.collection("rates").doc("Vt6Ibuny1gDsyRJfCKLx");
 
-/* LIVE */
-docRef.onSnapshot((doc)=>{
+db.collection("rates").doc("Vt6Ibuny1gDsyRJfCKLx")
+.onSnapshot((doc)=>{
   if(!doc.exists) return;
-  const d = doc.data();
 
-  usdBuy.innerText = d.usdBuy;
-  usdSell.innerText = d.usdSell;
+  const data = doc.data();
 
-  eurBuy.innerText = d.eurBuy;
-  eurSell.innerText = d.eurSell;
+  document.getElementById("usdBuy").innerText = data.usdBuy;
+  document.getElementById("usdSell").innerText = data.usdSell;
 
-  rubBuy.innerText = d.rubBuy;
-  rubSell.innerText = d.rubSell;
+  document.getElementById("eurBuy").innerText = data.eurBuy;
+  document.getElementById("eurSell").innerText = data.eurSell;
+
+  document.getElementById("rubBuy").innerText = data.rubBuy;
+  document.getElementById("rubSell").innerText = data.rubSell;
 });
-
-/* SAVE FIXED */
-function saveRates(){
-  docRef.set({
-    usdBuy: Number(usdBuyIn.value),
-    usdSell: Number(usdSellIn.value),
-
-    eurBuy: Number(eurBuyIn.value),
-    eurSell: Number(eurSellIn.value),
-
-    rubBuy: Number(rubBuyIn.value),
-    rubSell: Number(rubSellIn.value)
-  }, { merge:true });
-
-  alert("Saved");
-  closePanel();
-}
-
-/* PANEL */
-function openPanel(){
-  adminPanel.style.display = "block";
-}
-function closePanel(){
-  adminPanel.style.display = "none";
-}
 </script>
 
 </body>
