@@ -31,14 +31,25 @@ body{ display:flex; }
   padding:12px;
   border-radius:16px;
   box-shadow:0 15px 35px rgba(0,0,0,0.35);
+  transition:0.3s ease;
   margin-top:10px;
 }
+
+.logo:hover{ transform:scale(1.07); }
 
 .brand{
   margin-top:15px;
   font-size:24px;
   font-weight:900;
   color:#00d4ff;
+  letter-spacing:2px;
+}
+
+.subtitle{
+  font-size:11px;
+  opacity:0.6;
+  text-align:center;
+  margin-top:5px;
 }
 
 .qr{
@@ -53,12 +64,16 @@ body{ display:flex; }
   flex:1;
   background:#f4f6fb;
   padding:25px;
+  display:flex;
+  flex-direction:column;
 }
 
 .card{
   background:white;
   border-radius:14px;
+  overflow:hidden;
   box-shadow:0 20px 45px rgba(0,0,0,0.12);
+  width:100%;
   max-width:900px;
   margin:auto;
 }
@@ -66,13 +81,21 @@ body{ display:flex; }
 .row{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
-  padding:25px;
+  padding:30px;
   border-bottom:1px solid #eee;
+  align-items:center;
 }
 
-.name{ font-size:40px; font-weight:900; }
-.buy{ text-align:center; color:#16a34a; font-size:50px; font-weight:900; }
-.sell{ text-align:right; color:#dc2626; font-size:50px; font-weight:900; }
+.name{ font-size:40px; font-weight:900; color:#111; }
+.buy{ text-align:center; color:#16a34a; font-size:55px; font-weight:900; }
+.sell{ text-align:right; color:#dc2626; font-size:55px; font-weight:900; }
+
+button{
+  padding:10px 15px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
 </style>
 </head>
 
@@ -81,6 +104,7 @@ body{ display:flex; }
 <div class="sidebar">
   <img class="logo" src="kazpost.png">
   <div class="brand">QAZPOST</div>
+  <div class="subtitle">FINTECH EXCHANGE SYSTEM</div>
 
   <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
 </div>
@@ -130,10 +154,9 @@ const db = firebase.firestore();
 
 const docRef = db.collection("rates").doc("Vt6Ibuny1gDsyRJfCKLx");
 
-/* 🔥 LIVE LISTENER (ONLY READ) */
+/* 🔥 LIVE UPDATE */
 docRef.onSnapshot((doc)=>{
   if(!doc.exists) return;
-
   const d = doc.data();
 
   usdBuy.innerText = d.usdBuy;
@@ -146,25 +169,19 @@ docRef.onSnapshot((doc)=>{
   rubSell.innerText = d.rubSell;
 });
 
-/* 🔐 SAFE SAVE (NO OVERWRITE BUG) */
+/* 🔐 FIXED SAVE */
 function saveRates(){
 
-  const data = {
+  docRef.update({
     usdBuy: Number(usdBuyIn.value),
     usdSell: Number(usdSellIn.value),
-
     eurBuy: Number(eurBuyIn.value),
     eurSell: Number(eurSellIn.value),
-
     rubBuy: Number(rubBuyIn.value),
     rubSell: Number(rubSellIn.value)
-  };
-
-  docRef.update(data)   // 👈 IMPORTANT FIX (NOT set)
-  .then(()=>{
-    alert("Saved!");
-    adminPanel.style.display="none";
   });
+
+  alert("Saved!");
 }
 </script>
 
@@ -192,5 +209,4 @@ function saveRates(){
 </div>
 
 </body>
-</html>
 </html>
