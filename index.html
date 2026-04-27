@@ -73,19 +73,11 @@ body{ display:flex; }
 .name{ font-size:40px; font-weight:900; }
 .buy{ text-align:center; color:#16a34a; font-size:50px; font-weight:900; }
 .sell{ text-align:right; color:#dc2626; font-size:50px; font-weight:900; }
-
-button{
-  padding:10px 15px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-}
 </style>
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
 <div class="sidebar">
   <img class="logo" src="kazpost.png">
   <div class="brand">QAZPOST</div>
@@ -93,7 +85,6 @@ button{
   <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
 <div class="card">
@@ -139,26 +130,26 @@ const db = firebase.firestore();
 
 const docRef = db.collection("rates").doc("Vt6Ibuny1gDsyRJfCKLx");
 
-/* 🔥 LIVE UPDATE (NO BUG) */
+/* 🔥 LIVE LISTENER (ONLY READ) */
 docRef.onSnapshot((doc)=>{
   if(!doc.exists) return;
 
   const d = doc.data();
 
-  document.getElementById("usdBuy").innerText = d.usdBuy;
-  document.getElementById("usdSell").innerText = d.usdSell;
+  usdBuy.innerText = d.usdBuy;
+  usdSell.innerText = d.usdSell;
 
-  document.getElementById("eurBuy").innerText = d.eurBuy;
-  document.getElementById("eurSell").innerText = d.eurSell;
+  eurBuy.innerText = d.eurBuy;
+  eurSell.innerText = d.eurSell;
 
-  document.getElementById("rubBuy").innerText = d.rubBuy;
-  document.getElementById("rubSell").innerText = d.rubSell;
+  rubBuy.innerText = d.rubBuy;
+  rubSell.innerText = d.rubSell;
 });
 
-/* 🔐 SAVE FUNCTION (FIXED - NO RESET) */
+/* 🔐 SAFE SAVE (NO OVERWRITE BUG) */
 function saveRates(){
 
-  docRef.set({
+  const data = {
     usdBuy: Number(usdBuyIn.value),
     usdSell: Number(usdSellIn.value),
 
@@ -167,13 +158,17 @@ function saveRates(){
 
     rubBuy: Number(rubBuyIn.value),
     rubSell: Number(rubSellIn.value)
-  }, { merge: true });
+  };
 
-  alert("Saved!");
+  docRef.update(data)   // 👈 IMPORTANT FIX (NOT set)
+  .then(()=>{
+    alert("Saved!");
+    adminPanel.style.display="none";
+  });
 }
 </script>
 
-<!-- ADMIN PANEL -->
+<!-- ADMIN -->
 <div style="position:fixed;bottom:20px;right:20px;">
 <button onclick="adminPanel.style.display='block'" style="background:#1e4ed8;color:white;">Admin</button>
 </div>
@@ -197,4 +192,5 @@ function saveRates(){
 </div>
 
 </body>
+</html>
 </html>
