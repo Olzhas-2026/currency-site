@@ -284,7 +284,7 @@ z-index:9999;
 <div style="
 background:white;
 width:320px;
-margin:100px auto;
+margin:80px auto;
 padding:20px;
 border-radius:12px;
 ">
@@ -299,9 +299,14 @@ Login
 
 <hr>
 
-<input id="usd" placeholder="USD" style="width:100%;padding:8px;margin-bottom:5px;">
-<input id="eur" placeholder="EUR" style="width:100%;padding:8px;margin-bottom:5px;">
-<input id="rub" placeholder="RUB" style="width:100%;padding:8px;margin-bottom:5px;">
+<input id="usdBuyIn" placeholder="USD BUY" style="width:100%;padding:8px;margin-bottom:5px;">
+<input id="usdSellIn" placeholder="USD SELL" style="width:100%;padding:8px;margin-bottom:5px;">
+
+<input id="eurBuyIn" placeholder="EUR BUY" style="width:100%;padding:8px;margin-bottom:5px;">
+<input id="eurSellIn" placeholder="EUR SELL" style="width:100%;padding:8px;margin-bottom:5px;">
+
+<input id="rubBuyIn" placeholder="RUB BUY" style="width:100%;padding:8px;margin-bottom:5px;">
+<input id="rubSellIn" placeholder="RUB SELL" style="width:100%;padding:8px;margin-bottom:5px;">
 
 <button onclick="saveRates()" style="width:100%;padding:8px;background:#1e4ed8;color:white;border:none;">
 Save
@@ -326,17 +331,15 @@ function login(){
 
 function saveRates(){
 
-  const usd = Number(document.getElementById("usd").value);
-  const eur = Number(document.getElementById("eur").value);
-  const rub = Number(document.getElementById("rub").value);
-
   db.collection("rates").doc("Vt6Ibuny1gDsyRJfCKLx").update({
-    usdBuy: usd,
-    usdSell: usd + 7,
-    eurBuy: eur,
-    eurSell: eur + 10,
-    rubBuy: rub,
-    rubSell: rub + 0.3
+    usdBuy: Number(document.getElementById("usdBuyIn").value),
+    usdSell: Number(document.getElementById("usdSellIn").value),
+
+    eurBuy: Number(document.getElementById("eurBuyIn").value),
+    eurSell: Number(document.getElementById("eurSellIn").value),
+
+    rubBuy: Number(document.getElementById("rubBuyIn").value),
+    rubSell: Number(document.getElementById("rubSellIn").value)
   });
 
   alert("Saved!");
