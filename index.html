@@ -68,6 +68,37 @@ body{ display:flex; }
   flex-direction:column;
 }
 
+.topbar{
+  display:flex;
+  justify-content:flex-end;
+  margin-bottom:10px;
+}
+
+.time{
+  font-size:14px;
+  color:#555;
+  font-weight:600;
+}
+
+.banner{
+  background:linear-gradient(90deg,#0f2a66,#1e4ed8);
+  color:white;
+  padding:28px;
+  border-radius:14px;
+  text-align:center;
+  font-size:32px;
+  font-weight:900;
+  margin-bottom:12px;
+}
+
+.info{
+  text-align:center;
+  font-size:18px;
+  font-weight:700;
+  color:#1e4ed8;
+  margin-bottom:25px;
+}
+
 .card{
   background:white;
   border-radius:14px;
@@ -90,11 +121,17 @@ body{ display:flex; }
 .buy{ text-align:center; color:#16a34a; font-size:55px; font-weight:900; }
 .sell{ text-align:right; color:#dc2626; font-size:55px; font-weight:900; }
 
-button{
-  padding:10px 15px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
+.slogan-box{
+  margin-top:25px;
+  text-align:center;
+  padding:20px;
+}
+
+.slogan{
+  font-size:24px;
+  font-weight:900;
+  color:#0f2a66;
+  white-space:nowrap;
 }
 </style>
 </head>
@@ -107,33 +144,53 @@ button{
   <div class="subtitle">FINTECH EXCHANGE SYSTEM</div>
 
   <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
+
+  <div class="side-footer">LIVE SYSTEM</div>
 </div>
 
 <div class="main">
+
+<div class="topbar">
+  <div class="time" id="time">--:--</div>
+</div>
+
+<div class="banner">
+  QAZPOST – сенімді қаржы серіктесі / надёжный финансовый партнёр
+</div>
+
+<div class="info">
+  💡 Баға тиімді • Сенімді айырбас / Выгодный курс • Надёжный обмен
+</div>
 
 <div class="card">
 
   <div class="row">
     <div class="name">USD</div>
-    <div class="buy" id="usdBuy">---</div>
-    <div class="sell" id="usdSell">---</div>
+    <div class="buy" id="usdBuy">464</div>
+    <div class="sell" id="usdSell">471</div>
   </div>
 
   <div class="row">
     <div class="name">EUR</div>
-    <div class="buy" id="eurBuy">---</div>
-    <div class="sell" id="eurSell">---</div>
+    <div class="buy" id="eurBuy">546</div>
+    <div class="sell" id="eurSell">556</div>
   </div>
 
   <div class="row">
     <div class="name">RUB</div>
-    <div class="buy" id="rubBuy">---</div>
-    <div class="sell" id="rubSell">---</div>
+    <div class="buy" id="rubBuy">6.0</div>
+    <div class="sell" id="rubSell">6.3</div>
   </div>
 
 </div>
 
 </div>
+
+<script>
+setInterval(()=>{
+  document.getElementById("time").innerText = new Date().toLocaleTimeString();
+},1000);
+</script>
 
 <!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -154,9 +211,10 @@ const db = firebase.firestore();
 
 const docRef = db.collection("rates").doc("Vt6Ibuny1gDsyRJfCKLx");
 
-/* 🔥 LIVE UPDATE */
+/* 🔥 LIVE UPDATE (STABLE) */
 docRef.onSnapshot((doc)=>{
   if(!doc.exists) return;
+
   const d = doc.data();
 
   usdBuy.innerText = d.usdBuy;
@@ -168,45 +226,7 @@ docRef.onSnapshot((doc)=>{
   rubBuy.innerText = d.rubBuy;
   rubSell.innerText = d.rubSell;
 });
-
-/* 🔐 FIXED SAVE */
-function saveRates(){
-
-  docRef.update({
-    usdBuy: Number(usdBuyIn.value),
-    usdSell: Number(usdSellIn.value),
-    eurBuy: Number(eurBuyIn.value),
-    eurSell: Number(eurSellIn.value),
-    rubBuy: Number(rubBuyIn.value),
-    rubSell: Number(rubSellIn.value)
-  });
-
-  alert("Saved!");
-}
 </script>
-
-<!-- ADMIN -->
-<div style="position:fixed;bottom:20px;right:20px;">
-<button onclick="adminPanel.style.display='block'" style="background:#1e4ed8;color:white;">Admin</button>
-</div>
-
-<div id="adminPanel" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);">
-
-<div style="background:white;width:300px;margin:100px auto;padding:15px;border-radius:10px;">
-
-<input id="usdBuyIn" placeholder="USD BUY"><br><br>
-<input id="usdSellIn" placeholder="USD SELL"><br><br>
-
-<input id="eurBuyIn"><br><br>
-<input id="eurSellIn"><br><br>
-
-<input id="rubBuyIn"><br><br>
-<input id="rubSellIn"><br><br>
-
-<button onclick="saveRates()">SAVE</button>
-
-</div>
-</div>
 
 </body>
 </html>
