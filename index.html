@@ -206,12 +206,6 @@ body{ display:flex; }
 
 </div>
 
-<div class="slogan-box">
-  <div class="slogan">
-    Болашағыңды бүгіннен басқар / Управляй будущим уже сегодня
-  </div>
-</div>
-
 </div>
 
 <script>
@@ -237,20 +231,21 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+// 🔥 LIVE LISTENER (1 рет қана!)
 db.collection("rates").doc("Vt6Ibuny1gDsyRJfCKLx")
 .onSnapshot((doc)=>{
   if(!doc.exists) return;
 
-  const data = doc.data();
+  const d = doc.data();
 
-  document.getElementById("usdBuy").innerText = data.usdBuy;
-  document.getElementById("usdSell").innerText = data.usdSell;
+  document.getElementById("usdBuy").innerText = d.usdBuy;
+  document.getElementById("usdSell").innerText = d.usdSell;
 
-  document.getElementById("eurBuy").innerText = data.eurBuy;
-  document.getElementById("eurSell").innerText = data.eurSell;
+  document.getElementById("eurBuy").innerText = d.eurBuy;
+  document.getElementById("eurSell").innerText = d.eurSell;
 
-  document.getElementById("rubBuy").innerText = data.rubBuy;
-  document.getElementById("rubSell").innerText = data.rubSell;
+  document.getElementById("rubBuy").innerText = d.rubBuy;
+  document.getElementById("rubSell").innerText = d.rubSell;
 });
 </script>
 
@@ -321,17 +316,17 @@ function openAdmin(){
 }
 
 function login(){
-  const pass = document.getElementById("pass").value;
-  if(pass === "1234"){
+  if(document.getElementById("pass").value === "1234"){
     alert("OK");
   } else {
     alert("Wrong password");
   }
 }
 
+// 🔥 FIX: set() + merge (reset болмайды!)
 function saveRates(){
 
-  db.collection("rates").doc("Vt6Ibuny1gDsyRJfCKLx").update({
+  db.collection("rates").doc("Vt6Ibuny1gDsyRJfCKLx").set({
     usdBuy: Number(document.getElementById("usdBuyIn").value),
     usdSell: Number(document.getElementById("usdSellIn").value),
 
@@ -340,7 +335,7 @@ function saveRates(){
 
     rubBuy: Number(document.getElementById("rubBuyIn").value),
     rubSell: Number(document.getElementById("rubSellIn").value)
-  });
+  }, { merge: true });
 
   alert("Saved!");
   document.getElementById("adminPanel").style.display = "none";
