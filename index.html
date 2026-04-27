@@ -60,49 +60,12 @@ body{ display:flex; }
   border-radius:10px;
 }
 
-.side-footer{
-  margin-top:auto;
-  font-size:10px;
-  opacity:0.5;
-}
-
 .main{
   flex:1;
   background:#f4f6fb;
   padding:25px;
   display:flex;
   flex-direction:column;
-}
-
-.topbar{
-  display:flex;
-  justify-content:flex-end;
-  margin-bottom:10px;
-}
-
-.time{
-  font-size:14px;
-  color:#555;
-  font-weight:600;
-}
-
-.banner{
-  background:linear-gradient(90deg,#0f2a66,#1e4ed8);
-  color:white;
-  padding:28px;
-  border-radius:14px;
-  text-align:center;
-  font-size:32px;
-  font-weight:900;
-  margin-bottom:12px;
-}
-
-.info{
-  text-align:center;
-  font-size:18px;
-  font-weight:700;
-  color:#1e4ed8;
-  margin-bottom:25px;
 }
 
 .card{
@@ -120,24 +83,45 @@ body{ display:flex; }
   grid-template-columns:1fr 1fr 1fr;
   padding:30px;
   border-bottom:1px solid #eee;
-  align-items:center;
 }
 
-.name{ font-size:40px; font-weight:900; color:#111; }
+.name{ font-size:40px; font-weight:900; }
 .buy{ text-align:center; color:#16a34a; font-size:55px; font-weight:900; }
 .sell{ text-align:right; color:#dc2626; font-size:55px; font-weight:900; }
 
-.slogan-box{
-  margin-top:25px;
-  text-align:center;
-  padding:20px;
+/* ADMIN BUTTON */
+.admin-btn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#1e4ed8;
+  color:white;
+  padding:10px 15px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
 }
 
-.slogan{
-  font-size:24px;
-  font-weight:900;
-  color:#0f2a66;
-  white-space:nowrap;
+/* PANEL */
+#adminPanel{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+}
+
+.panel-box{
+  background:white;
+  width:320px;
+  margin:120px auto;
+  padding:15px;
+  border-radius:12px;
+}
+
+.panel-box input{
+  width:100%;
+  padding:8px;
+  margin:5px 0;
 }
 </style>
 </head>
@@ -148,99 +132,57 @@ body{ display:flex; }
 <div class="sidebar">
   <img class="logo" src="kazpost.png">
   <div class="brand">QAZPOST</div>
-  <div class="subtitle">FINTECH EXCHANGE SYSTEM</div>
 
   <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://your-site.com">
-
-  <div class="side-footer">LIVE SYSTEM</div>
 </div>
 
 <!-- MAIN -->
 <div class="main">
 
-<div class="topbar">
-  <div class="time" id="time">--:--</div>
-</div>
-
-<div class="banner">
-  QAZPOST – сенімді қаржы серіктесі / надёжный финансовый партнёр
-</div>
-
-<div class="info">
-  💡 Баға тиімді • Сенімді айырбас / Выгодный курс • Надёжный обмен
-</div>
-
 <div class="card">
 
   <div class="row">
     <div class="name">USD</div>
-    <div class="buy" id="usdBuy">464</div>
-    <div class="sell" id="usdSell">471</div>
+    <div class="buy" id="usdBuy">---</div>
+    <div class="sell" id="usdSell">---</div>
   </div>
 
   <div class="row">
     <div class="name">EUR</div>
-    <div class="buy" id="eurBuy">546</div>
-    <div class="sell" id="eurSell">556</div>
+    <div class="buy" id="eurBuy">---</div>
+    <div class="sell" id="eurSell">---</div>
   </div>
 
   <div class="row">
     <div class="name">RUB</div>
-    <div class="buy" id="rubBuy">6.0</div>
-    <div class="sell" id="rubSell">6.3</div>
+    <div class="buy" id="rubBuy">---</div>
+    <div class="sell" id="rubSell">---</div>
   </div>
 
 </div>
-
-<div class="slogan-box">
-  <div class="slogan">
-    Болашағыңды бүгіннен басқар / Управляй будущим уже сегодня
-  </div>
-</div>
-
 </div>
 
 <!-- ADMIN BUTTON -->
-<div style="position:fixed;bottom:20px;right:20px;z-index:9999;">
-  <button onclick="adminPanel.style.display='block'"
-    style="background:#1e4ed8;color:white;padding:10px 15px;border:none;border-radius:10px;cursor:pointer;">
-    Admin
-  </button>
-</div>
+<button class="admin-btn" onclick="openPanel()">ADMIN</button>
 
 <!-- ADMIN PANEL -->
-<div id="adminPanel" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;">
-  <div style="background:white;width:320px;margin:100px auto;padding:20px;border-radius:12px;">
+<div id="adminPanel">
+  <div class="panel-box">
 
-    <h3>Admin Panel</h3>
+    <input id="usdBuyIn" placeholder="USD BUY">
+    <input id="usdSellIn" placeholder="USD SELL">
 
-    <input id="usdBuyIn" placeholder="USD BUY"><br><br>
-    <input id="usdSellIn" placeholder="USD SELL"><br><br>
+    <input id="eurBuyIn" placeholder="EUR BUY">
+    <input id="eurSellIn" placeholder="EUR SELL">
 
-    <input id="eurBuyIn" placeholder="EUR BUY"><br><br>
-    <input id="eurSellIn" placeholder="EUR SELL"><br><br>
+    <input id="rubBuyIn" placeholder="RUB BUY">
+    <input id="rubSellIn" placeholder="RUB SELL">
 
-    <input id="rubBuyIn" placeholder="RUB BUY"><br><br>
-    <input id="rubSellIn" placeholder="RUB SELL"><br><br>
-
-    <button onclick="saveRates()" style="background:green;color:white;padding:10px;border:none;border-radius:8px;">
-      SAVE
-    </button>
-
-    <button onclick="adminPanel.style.display='none'"
-      style="margin-left:10px;background:red;color:white;padding:10px;border:none;border-radius:8px;">
-      CLOSE
-    </button>
+    <button onclick="saveRates()">SAVE</button>
+    <button onclick="closePanel()">CLOSE</button>
 
   </div>
 </div>
-
-<!-- TIME -->
-<script>
-setInterval(()=>{
-  document.getElementById("time").innerText = new Date().toLocaleTimeString();
-},1000);
-</script>
 
 <!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -255,15 +197,11 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-
 const docRef = db.collection("rates").doc("Vt6Ibuny1gDsyRJfCKLx");
 
 /* LIVE UPDATE */
-let freeze = false;
-
 docRef.onSnapshot((doc)=>{
-  if(!doc.exists || freeze) return;
-
+  if(!doc.exists) return;
   const d = doc.data();
 
   usdBuy.innerText = d.usdBuy;
@@ -276,35 +214,30 @@ docRef.onSnapshot((doc)=>{
   rubSell.innerText = d.rubSell;
 });
 
-/* SAVE FIXED */
+/* SAVE (FIXED) */
 function saveRates(){
+  docRef.set({
+    usdBuy: Number(usdBuyIn.value),
+    usdSell: Number(usdSellIn.value),
 
-  const data = {
-    usdBuy:Number(usdBuyIn.value || 0),
-    usdSell:Number(usdSellIn.value || 0),
+    eurBuy: Number(eurBuyIn.value),
+    eurSell: Number(eurSellIn.value),
 
-    eurBuy:Number(eurBuyIn.value || 0),
-    eurSell:Number(eurSellIn.value || 0),
-
-    rubBuy:Number(rubBuyIn.value || 0),
-    rubSell:Number(rubSellIn.value || 0)
-  };
-
-  freeze = true;
-
-  docRef.set(data, { merge:true })
+    rubBuy: Number(rubBuyIn.value),
+    rubSell: Number(rubSellIn.value)
+  }, { merge:true })
   .then(()=>{
+    alert("SAVED");
+    closePanel();
+  })
+}
 
-    alert("Saved!");
-
-    adminPanel.style.display='none';
-
-    setTimeout(()=>{
-      freeze = false;
-    }, 2000);
-
-  });
-
+/* PANEL */
+function openPanel(){
+  adminPanel.style.display = "block";
+}
+function closePanel(){
+  adminPanel.style.display = "none";
 }
 </script>
 
