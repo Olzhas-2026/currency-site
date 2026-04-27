@@ -60,6 +60,12 @@ body{ display:flex; }
   border-radius:10px;
 }
 
+.side-footer{
+  margin-top:auto;
+  font-size:10px;
+  opacity:0.5;
+}
+
 .main{
   flex:1;
   background:#f4f6fb;
@@ -109,6 +115,16 @@ body{ display:flex; }
   margin:auto;
 }
 
+.row.header{
+  background:#0f2a66;
+  color:white;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  padding:18px;
+  font-size:14px;
+  font-weight:800;
+}
+
 .row{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
@@ -132,6 +148,22 @@ body{ display:flex; }
   font-weight:900;
   color:#0f2a66;
   white-space:nowrap;
+}
+
+/* ADMIN */
+#adminPanel{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+}
+
+.admin-box{
+  background:white;
+  width:300px;
+  margin:120px auto;
+  padding:15px;
+  border-radius:10px;
 }
 </style>
 </head>
@@ -164,6 +196,12 @@ body{ display:flex; }
 
 <div class="card">
 
+  <div class="row header">
+    <div>ВАЛЮТА</div>
+    <div style="text-align:center">САТЫП АЛУ</div>
+    <div style="text-align:right">САТУ</div>
+  </div>
+
   <div class="row">
     <div class="name">USD</div>
     <div class="buy" id="usdBuy">464</div>
@@ -184,13 +222,35 @@ body{ display:flex; }
 
 </div>
 
+<div class="slogan-box">
+  <div class="slogan">
+    Болашағыңды бүгіннен басқар / Управляй будущим уже сегодня
+  </div>
 </div>
 
-<script>
-setInterval(()=>{
-  document.getElementById("time").innerText = new Date().toLocaleTimeString();
-},1000);
-</script>
+</div>
+
+<!-- ADMIN BUTTON -->
+<div style="position:fixed;bottom:20px;right:20px;">
+<button onclick="adminPanel.style.display='block'" style="background:#1e4ed8;color:white;padding:10px;border:none;border-radius:8px;">Admin</button>
+</div>
+
+<div id="adminPanel">
+  <div class="admin-box">
+
+    <input id="usdBuyIn" placeholder="USD BUY"><br><br>
+    <input id="usdSellIn" placeholder="USD SELL"><br><br>
+
+    <input id="eurBuyIn" placeholder="EUR BUY"><br><br>
+    <input id="eurSellIn" placeholder="EUR SELL"><br><br>
+
+    <input id="rubBuyIn" placeholder="RUB BUY"><br><br>
+    <input id="rubSellIn" placeholder="RUB SELL"><br><br>
+
+    <button onclick="saveRates()">SAVE</button>
+
+  </div>
+</div>
 
 <!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -211,21 +271,39 @@ const db = firebase.firestore();
 
 const docRef = db.collection("rates").doc("Vt6Ibuny1gDsyRJfCKLx");
 
-/* 🔥 LIVE UPDATE (STABLE) */
+/* LIVE SAFE */
 docRef.onSnapshot((doc)=>{
   if(!doc.exists) return;
-
   const d = doc.data();
 
-  usdBuy.innerText = d.usdBuy;
-  usdSell.innerText = d.usdSell;
+  if(d.usdBuy!=null) usdBuy.innerText=d.usdBuy;
+  if(d.usdSell!=null) usdSell.innerText=d.usdSell;
 
-  eurBuy.innerText = d.eurBuy;
-  eurSell.innerText = d.eurSell;
+  if(d.eurBuy!=null) eurBuy.innerText=d.eurBuy;
+  if(d.eurSell!=null) eurSell.innerText=d.eurSell;
 
-  rubBuy.innerText = d.rubBuy;
-  rubSell.innerText = d.rubSell;
+  if(d.rubBuy!=null) rubBuy.innerText=d.rubBuy;
+  if(d.rubSell!=null) rubSell.innerText=d.rubSell;
 });
+
+/* SAVE FIXED */
+function saveRates(){
+  docRef.update({
+    usdBuy:Number(usdBuyIn.value),
+    usdSell:Number(usdSellIn.value),
+    eurBuy:Number(eurBuyIn.value),
+    eurSell:Number(eurSellIn.value),
+    rubBuy:Number(rubBuyIn.value),
+    rubSell:Number(rubSellIn.value)
+  });
+  alert("Saved!");
+}
+</script>
+
+<script>
+setInterval(()=>{
+  document.getElementById("time").innerText = new Date().toLocaleTimeString();
+},1000);
 </script>
 
 </body>
