@@ -226,29 +226,31 @@ setInterval(()=>{
 
 <script>
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "currency-live"
+  apiKey: "AIzaSyCxY06NTpnfifUOzPNUsQWMx2pG_PKSagI",
+  authDomain: "currency-live-d633e.firebaseapp.com",
+  projectId: "currency-live-d633e",
+  storageBucket: "currency-live-d633e.firebasestorage.app",
+  messagingSenderId: "1086647236449",
+  appId: "1:1086647236449:web:df6eee1cdec5280ee1b720"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// ✅ ДҰРЫС ЖҰМЫС ІСТЕЙТІН LIVE DATA
 db.collection("rates").doc("Vt6Ibuny1gDsyRJfCKLx")
 .onSnapshot((doc)=>{
   if(!doc.exists) return;
 
   const data = doc.data();
 
-  if(data.usdBuy !== undefined) document.getElementById("usdBuy").innerText = data.usdBuy;
-  if(data.usdSell !== undefined) document.getElementById("usdSell").innerText = data.usdSell;
+  document.getElementById("usdBuy").innerText = data.usdBuy;
+  document.getElementById("usdSell").innerText = data.usdSell;
 
-  if(data.eurBuy !== undefined) document.getElementById("eurBuy").innerText = data.eurBuy;
-  if(data.eurSell !== undefined) document.getElementById("eurSell").innerText = data.eurSell;
+  document.getElementById("eurBuy").innerText = data.eurBuy;
+  document.getElementById("eurSell").innerText = data.eurSell;
 
-  if(data.rubBuy !== undefined) document.getElementById("rubBuy").innerText = data.rubBuy;
-  if(data.rubSell !== undefined) document.getElementById("rubSell").innerText = data.rubSell;
+  document.getElementById("rubBuy").innerText = data.rubBuy;
+  document.getElementById("rubSell").innerText = data.rubSell;
 });
 </script>
 
